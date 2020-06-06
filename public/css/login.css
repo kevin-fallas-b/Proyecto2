@@ -1,0 +1,87 @@
+html, body 
+{
+	margin: 0px; /* Comentario en CSS*/
+	padding: 0px; /* Los margenes son reducidos a 0*/
+	overflow: hidden; /*Ocultamos el Scroll de la pagina*/
+	font-family: Segoe UI, Century Gothic,Verdana, Arial;
+	background-color: #fff;
+	color: black;
+}
+
+#form_container{
+	text-align: center;
+}
+
+#login{
+	position: relative;
+	width: 450px;
+	height: 200px;
+	margin: 100px auto;
+	border: 3px solid #636b6f;
+	border-radius: 8px;
+	overflow: hidden;
+	padding: 20px 10px 10px 10px;
+
+}
+
+.cajatexto{
+	padding: 5px;
+	margin: 10px;
+	border-radius: 5px;
+	border: 1px solid #1DA1F2;
+	width: 300px;
+	color: black;
+	
+}
+
+#btn_login{
+	border-radius: 80px;
+	background: #1DA1F2;
+	color: #FFF;
+	position: relative;
+	border: 0px;
+	padding: 5px;
+	margin: 10px 0 0 0;
+	height: 50px;
+	width: 50px;
+}
+
+#btn_login:hover{
+	background: #1A91DA;
+	cursor: pointer;
+}
+
+#btn_login:active{
+	background: #184D71;
+}
+
+#sirhena{
+	position: absolute;
+	top: 30px;
+	left: 43%;
+	font-size: 50px;
+	color: purple;
+	font-family:  Lucida Console;
+}
+
+a:link, a:visited {
+	color: black;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	transition: font-size 0.2s ease-out;
+
+  }
+  
+  a:hover, a:active {
+	color: #1DA1F2;
+	font-size: 16px;
+	transition: font-size 0.2s ease-out;
+  }
+
+  #registrarme{
+	  position: absolute;
+	  left: 180px;
+	  bottom: 10px;
+  }
