@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 02, 2020 at 10:33 PM
+-- Generation Time: Jun 06, 2020 at 05:49 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.4
 
@@ -20,6 +20,30 @@ SET time_zone = "+00:00";
 --
 -- Database: `bd_proyecto2`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_aplicacion`
+--
+
+CREATE TABLE `tbl_aplicacion` (
+  `id` int(11) NOT NULL,
+  `idOferta` int(11) NOT NULL,
+  `cedula` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -104,18 +128,39 @@ CREATE TABLE `tbl_titulo` (
 
 CREATE TABLE `tbl_usuario` (
   `cedula` int(11) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `apellido` varchar(50) NOT NULL,
   `user` varchar(50) NOT NULL,
   `password` varchar(128) NOT NULL,
   `direccion` varchar(200) NOT NULL,
-  `foto` varchar(50) NOT NULL,
+  `foto` varchar(50) NOT NULL DEFAULT 'unknown.png',
   `tipo` varchar(1) NOT NULL,
   `telefono` int(11) NOT NULL,
   `correo` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `tbl_usuario`
+--
+
+INSERT INTO `tbl_usuario` (`cedula`, `nombre`, `apellido`, `user`, `password`, `direccion`, `foto`, `tipo`, `telefono`, `correo`) VALUES
+(604370412, 'Kevin', 'Fallas', 'Kevin', 'kevin', 'Villa ligia', 'unknown.png', '1', 85844178, 'kevin.fallas.b@gmail.com');
+
+--
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_aplicacion`
+--
+ALTER TABLE `tbl_aplicacion`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_categoria`
@@ -151,11 +196,25 @@ ALTER TABLE `tbl_titulo`
 -- Indexes for table `tbl_usuario`
 --
 ALTER TABLE `tbl_usuario`
-  ADD PRIMARY KEY (`cedula`);
+  ADD PRIMARY KEY (`cedula`),
+  ADD UNIQUE KEY `user` (`user`),
+  ADD UNIQUE KEY `correo` (`correo`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_aplicacion`
+--
+ALTER TABLE `tbl_aplicacion`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_categoria`

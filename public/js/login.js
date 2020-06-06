@@ -17,7 +17,7 @@ function inicial(){
 
 function intentarlogin(){
     //verificar que los campos esten llenos
-    if(document.getElementById('txt_username').value.length > 0 && document.getElementById('txt_password').value.length > 0){
+    if(document.getElementById('txt_username').value.length > 0 && document.getElementById('txt_username').value.length <= 50 && document.getElementById('txt_password').value.length > 0){
         btnsubmit.click();
     }else{
         alertify.error("Por favor revise los campos.");

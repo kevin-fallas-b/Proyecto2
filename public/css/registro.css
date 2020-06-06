@@ -1,0 +1,46 @@
+html, body 
+{
+	margin: 0px; /* Comentario en CSS*/
+	padding: 0px; /* Los margenes son reducidos a 0*/
+	overflow: hidden; /*Ocultamos el Scroll de la pagina*/
+	font-family: Segoe UI, Century Gothic,Verdana, Arial;
+	background-color: #F6F4F1 ;
+	color: black;
+}
+
+
+#form_container{
+	text-align: center;
+}
+
+#contenedorgeneral{
+	position: relative;
+	width: 900px;
+	height: 550px;
+	margin: 100px auto;
+	border: 3px solid #636b6f;
+	border-radius: 8px;
+	overflow: hidden;
+	padding: 20px 10px 10px 10px;
+
+}
+
+.cajatexto{
+	padding: 5px;
+	margin: 10px;
+	border-radius: 5px;
+	border: 1px solid #1DA1F2;
+	width: 300px;
+	color: black;
+	
+}
+
+
+#sirhena{
+	position: absolute;
+	top: 10px;
+	left: 38%;
+	font-size: 40px;
+	color: purple;
+	font-family:  Lucida Console;
+}

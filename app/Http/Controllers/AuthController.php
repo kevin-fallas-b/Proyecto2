@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Auth;
+use Illuminate\Support\Facades\Session;
+
 
 class AuthController extends Controller
 {
@@ -14,7 +16,9 @@ class AuthController extends Controller
 
     public function ingresar(){
         if(Auth::autenticar($_POST['txt_username'],$_POST['txt_password'])){
-            echo 'nombre real';
+            echo 'logeado correctamente';
+            //para obtener cualquier informacion del usuario logeado se usa Session('user') y eso le devuelve un array con toda la info del usuario  
+            //entonces obtener nombre seria  Session::get('user')->nombre;
         }else{
             $_POST['mensaje'] ='Nombre de usuario o contraseña incorrecta por favor intente de nuevo.';
             return view("Auth/login");
@@ -23,5 +27,9 @@ class AuthController extends Controller
 
     public function registro(){
         return view('Auth/registro');
+    }
+
+    public function registrar(){
+        Auth::registrar($_POST['cedula'],$_POST['nombre'],$_POST['apellidos'],$_POST['usuario'],$_POST['contra'],$_POST['direccion'],$_POST['tipo'],$_POST['telefono'],$_POST['correo']);
     }
 }
