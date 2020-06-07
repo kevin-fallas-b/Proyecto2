@@ -26,14 +26,6 @@ html, body
 
 }
 
-.cajatexto{
-	padding: 5px;
-	margin: 10px;
-	border-radius: 5px;
-	border: 1px solid #1DA1F2;
-	width: 300px;
-	color: black;
-}
 
 #btn_login{
 	border-radius: 80px;
@@ -87,11 +79,4 @@ html, body
 	  position: absolute;
 	  left: 180px;
 	  bottom: 10px;
-  }
-
-  a{
-	  text-decoration: none;
-  }
-  #reducirboton{
-	  height: 45px;
   }

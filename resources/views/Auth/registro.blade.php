@@ -8,10 +8,9 @@
     <link rel="stylesheet" type="text/css" href="{{ url('/css/style.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url('/css/registro.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url('/css/alertify.min.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ url('/css/materialize.min.css') }}" />
     <script src="{{ url('/js/registro.js')}}"></script>
     <script src="{{ url('/js/alertify.min.js')}}"></script>
-    <script src="{{ url('/js/materialize.min.js')}}"></script>
+    <script src="{{ url('/js/general.js')}}"></script>
     <link rel="icon" href="{{ url('/img/favicon.png') }}" type="image/x-icon">
 
 </head>
@@ -31,57 +30,39 @@
         <div id="contenedorgeneral">
             <div id="contenedortipo">
                 <label for="">Quiero registrarme como una:</label>
-                <br>
-                <input type="radio" id="rbpersona" name="tipo" value="1" selected>Persona</label>
+                <input type="radio" id="rbpersona" name="tipo" value="1" checked>Persona</label>
                 <input type="radio" id="rbempresa" name="tipo" value="2">Empresa</label>
+                
             </div>
 
-            <div class="row">
-                <form class="col s12">
-                    <div class="row">
+            <div id="contenedorcampos">
+                <input type="text" name="txt_cedula" id="txt_cedula" placeholder="Cedula" title="Cedula" class="cajatexto">
+                <div>
+                    <input type="text" name="txt_nombre" id="txt_nombre" placeholder="Nombre" title="Nombre" class="cajatexto">
+                    <input type="text" name="txt_apellidos" id="txt_apellidos" placeholder="Apellidos" title="Apellidos" class="cajatexto">
+                </div>
 
-                        <div class="input-field col s6">
-                            <input id="txtnombre" type="text" class="validate">
-                            <label for="txtnombre">Nombre</label>
-                        </div>
+                <div>
+                    <input type="text" name="txt_user" id="txt_user" placeholder="Nombre de usuario" title="Nombre de usuario" class="cajatexto">
+                    <input type="text" name="txt_correo" id="txt_correo" placeholder="Correo" title="Correo" class="cajatexto">
+                </div>
 
-                        <div class="input-field col s6">
-                            <input id="last_name" type="text" class="validate">
-                            <label for="last_name">Apellidos</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <input id="contra" type="password" class="validate">
-                            <label for="contra">Contraseña</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <input id="confirmarcontra" type="password" class="validate">
-                            <label for="confirmarcontra">Confirmar Contraseña</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input id="direccion" type="text" class="validate">
-                            <label for="direccion">Direccion</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <input id="telefono" type="text" class="validate">
-                            <label for="telefono">Telefono</label>
-                        </div>
-                        <div class="input-field col s6">
-                            <input id="correo" type="text" class="validate">
-                            <label for="correo">Correo</label>
-                        </div>
-                    </div>
-                </form>
+                <div>
+                    <input type="password" name="txt_contra" id="txt_contra" placeholder="Contraseña" title="Contraseña" class="cajatexto">
+                    <input type="password" name="txt_confirmarcontra" id="txt_confirmarcontra" placeholder="Confirmar Contraseña" title="Confirmar Contraseña" class="cajatexto">
+                </div>
+
+                <div>
+                    <input type="text" name="txt_direccion" id="txt_direccion" placeholder="Direccion" title="Direccion" class="cajatexto">
+                    <input type="text" name="txt_telefono" id="txt_telefono" placeholder="Telefono" title="Telefono" class="cajatexto">
+                </div>
+
             </div>
 
-
-
-
+            <div id="contenedorbotones">
+                <input type="button" name="" id="btnlimpiar" class='boton' value="Limpiar Campos">
+                <input type="button" name="" id="btnguardar" class='boton' value="Guardar">
+            </div>
         </div>
     </div>
     </div>

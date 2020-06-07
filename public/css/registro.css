@@ -16,13 +16,27 @@ html, body
 #contenedorgeneral{
 	position: relative;
 	width: 900px;
-	height: 550px;
+	height: 400px;
 	margin: 100px auto;
 	border: 3px solid #636b6f;
 	border-radius: 8px;
 	overflow: hidden;
 	padding: 20px 10px 10px 10px;
+	justify-items: center;
+}
 
+#contenedorcampos{
+	position: relative;
+	margin-left: 10%;
+	margin-top: 3%;
+}
+
+#contenedorbotones{
+	position: relative;
+	width: 100%;
+	display: flex;
+	justify-content: space-evenly;
+	margin-top: 3%;
 }
 
 .cajatexto{
@@ -43,4 +57,30 @@ html, body
 	font-size: 40px;
 	color: purple;
 	font-family:  Lucida Console;
+}
+
+.boton{
+	position: relative;
+	width: 200px;
+	height: 30px;
+	right: 30px;
+	border-radius: 6px;
+	color: white;
+}
+
+#btnguardar{
+	background-color: #00ba22;
+	
+}
+
+#btnguardar:hover{
+    background-color: #007315;
+}
+
+#btnlimpiar{
+	background-color: #d62047;
+}
+
+#btnlimpiar:hover{
+	background-color: #9c2841;
 }
