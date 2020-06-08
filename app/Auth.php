@@ -32,5 +32,6 @@ class Auth extends Model
             return 'Correo ya se encuentra registrado.';
         }
         DB::table('tbl_usuario')->insert(['cedula' => $cedula, 'nombre' => $nombre, 'apellido' => $apellidos, 'user' => $usuario, 'password' => Hash::make($contra), 'direccion' => $direccion, 'tipo' => $tipo, 'telefono' => $telefono, 'correo' => $correo]);
+        return 'exito';
     }
 }

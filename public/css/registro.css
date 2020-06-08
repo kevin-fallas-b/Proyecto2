@@ -84,3 +84,35 @@ html, body
 #btnlimpiar:hover{
 	background-color: #9c2841;
 }
+
+#seguridadcontra{
+	margin-left: 10px;
+	/* Reset the default appearance */
+	-webkit-appearance: none;
+	   -moz-appearance: none;
+			appearance: none;
+  
+	/* Get rid of default border in Firefox. */
+	border: none;
+	border-radius: 7px;
+}
+
+progress.red::-moz-progress-bar {background-color: #b80f38 !important;
+border-radius: 7px;}
+progress.blue::-moz-progress-bar {background-color: #0064b4 !important;
+	border-radius: 7px;}
+progress.green::-moz-progress-bar {background-color: #059d21 !important;
+	border-radius: 7px;}
+
+#tipopass{
+	position: absolute;
+	margin-top: 3px;
+	left: 43px;
+	font-size: 14px;
+}
+
+#contraconciden{
+	position: absolute;
+	right: 280px;
+	font-size: 14px;
+}
