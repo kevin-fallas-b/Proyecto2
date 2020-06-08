@@ -14,12 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('principal');
 });
 
 Route::get('/login', 'AuthController@index');
 
 Route::post('/login', 'AuthController@ingresar');
+
+Route::get('/logout', 'AuthController@cerrarsession');
+
 
 Route::get('/registro', 'AuthController@registro');
 

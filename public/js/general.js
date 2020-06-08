@@ -43,3 +43,12 @@ function isNumber(evt) {
     }
     return true;
 }
+
+
+function mensaje(mensaje, tipomensaje){
+    if(tipomensaje == 1){
+        alertify.success(mensaje);
+    }else{
+        alertify.error(mensaje);
+    }
+}
