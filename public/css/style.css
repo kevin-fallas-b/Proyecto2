@@ -111,3 +111,9 @@ a{
     bottom: 40px;
     left: 43%;
 }
+
+#nologeado{
+    position: absolute;
+    left: 30%;
+    top: 39%;
+}

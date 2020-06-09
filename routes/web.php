@@ -23,6 +23,9 @@ Route::post('/login', 'AuthController@ingresar');
 
 Route::get('/logout', 'AuthController@cerrarsession');
 
+Route::get('/nologeado', function () {
+    return view('nologeado');
+});
 
 Route::get('/registro', 'AuthController@registro');
 

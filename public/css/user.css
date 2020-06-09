@@ -8,3 +8,84 @@
     border-radius: 6px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
+#fotousuario{
+    position: relative;
+    height: 128px;
+    width: 128px;
+    left: 5px;
+    top: 2px;
+    border-radius: 8px;
+}
+
+#contenedorfoto{
+    background-color: tomato;
+}
+
+#informacionpersonal{
+    position: relative;
+    margin-top: 40px;
+    border-bottom: 3px solid black;
+    margin-left: 10px;
+    margin-right: 10px;
+    height: 140px;
+}
+
+#columna1{
+    position: absolute;
+    left: 120px;
+    top: 10px;
+}
+
+#columna2{
+    position: absolute;
+    right: 500px;
+    top: 10px;
+}
+
+#lblinfopersonal{
+    position: relative;
+    bottom: 25px;
+    left: 5px;
+}
+
+#lblnombreusuario{
+    position: absolute;
+    color: white;
+    top: 10px;
+    left: 150px;
+}
+
+#lbltipodecuenta{
+    position: absolute;
+    right: 10px;
+    top: 110px;
+    color: white;
+    font-size: 12px;
+}
+
+#btneditar{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    color: #fff !important;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: #3072ed;
+    border-radius: 5px;
+
+    border: none;
+    transition: all 0.4s ease 0s;
+    height: 20px;
+    width: 100px;
+    text-align: center;
+}
+
+#btneditar:hover {
+    background: #434343;
+    letter-spacing: 2px;
+    -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+    -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+    box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+    transition: all 0.4s ease 0s;
+    }
