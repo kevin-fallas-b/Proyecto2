@@ -27,3 +27,7 @@ Route::get('/logout', 'AuthController@cerrarsession');
 Route::get('/registro', 'AuthController@registro');
 
 Route::post('/registro', 'AuthController@registrar');
+
+
+Route::get('/miperfil', 'UserController@index');
+

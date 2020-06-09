@@ -11,6 +11,7 @@
 
     <script src="{{ url('/js/login.js')}}"></script>
     <script src="{{ url('/js/alertify.min.js')}}"></script>
+    <script src="{{ url('/js/general.js')}}"></script>
     <link rel="icon" href="{{ url('/img/favicon.png') }}" type="image/x-icon">
 
 </head>
@@ -23,7 +24,7 @@
     ?>
 
     <div id="barranavegacion" class="barranavegacion">
-        <img src="{{url('/img/sirhena.png')}}" alt="" class="imagensirhena">
+        <img src="{{url('/img/sirhena.png')}}" alt="" class="imagensirhena" id="logosirhena">
         <div id="botonesbarra" class="botonesbarra">
             <a href="{{url('')}}" class="textobotonbarra" id="reducirboton">Pagina Principal</a>
         </div>

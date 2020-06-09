@@ -133,7 +133,7 @@ function validarcampos() {
     }
     if (nivelSeguridad < 3) {
         alertify.error('La contraseña es muy debil.');
-        return false;
+        //return false;
     }
     return true;
 }

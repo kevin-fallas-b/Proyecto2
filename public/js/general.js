@@ -1,4 +1,14 @@
 //archivo JS que incluye cosas que puedo necesitar en cualquier lugar entonces para no repetir codigo
+window.addEventListener('load',inicial,false);
+
+
+
+function inicial(){
+    document.getElementById('logosirhena').addEventListener('click',function(){
+        //redireccionar a pagina principal
+        window.location.href = getbaseurl();
+    });
+}
 
 //metodo validar la integridad y longitud de un string
 function stringvalido(revisar, tamanomax) {

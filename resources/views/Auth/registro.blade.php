@@ -19,7 +19,7 @@
 <body>
 
     <div id="barranavegacion" class="barranavegacion">
-        <img src="{{url('/img/sirhena.png')}}" alt="" class="imagensirhena">
+        <img src="{{url('/img/sirhena.png')}}" alt="" class="imagensirhena"  id="logosirhena">
         <div id="botonesbarra" class="botonesbarra">
             <a href="login" class="textobotonbarra">Log in</a>
             <a href="{{url('')}}" class="textobotonbarra">Pagina Principal</a>

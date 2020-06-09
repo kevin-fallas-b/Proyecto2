@@ -21,7 +21,8 @@ html, body
 
 .imagensirhena{
 	height: 64px;
-	width: 128px;
+    width: 128px;
+    cursor: pointer;
 }
 
 .botonesbarra{
@@ -77,3 +78,36 @@ a{
       visibility: visible;
     }
   }
+
+  #sirhena{
+	position: absolute;
+	top: 10px;
+	left: 45%;
+	font-size: 40px;
+	color: purple;
+	font-family:  Lucida Console;
+}
+
+
+#mensajebienvenida{
+    position: relative;
+    right: 3px;
+    top: 40px;
+}
+
+#cerrosession{
+    position: absolute;
+    left: 35%;
+    top: 40%;
+}
+#cerrosession2{
+    position: absolute;
+    left: 37%;
+    top: 45%;
+}
+
+#sinadasucede{
+    position: absolute;
+    bottom: 40px;
+    left: 43%;
+}

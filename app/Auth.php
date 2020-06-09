@@ -13,7 +13,8 @@ class Auth extends Model
     {
         $user = DB::table('tbl_usuario')->where('user', $usuario)->first();
         if ($user != null && Hash::check($contra, $user->password)) {
-            Session::put('user',$user);
+            session_start();
+            $_SESSION['user'] = $user;
             return true;
         } else {
             return false;

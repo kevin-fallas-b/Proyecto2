@@ -19,7 +19,7 @@ class AuthController extends Controller
     public function ingresar()
     {
         if (Auth::autenticar($_POST['txt_username'], $_POST['txt_password'])) {
-            header('Location: ' . URL::to('/'), true, 301);
+            header('Location: ' . URL::to('/'), true, 302);
             die();
             //para obtener cualquier informacion del usuario logeado se usa Session('user') y eso le devuelve un array con toda la info del usuario  
             //entonces obtener nombre seria  Session::get('user')->nombre;
@@ -41,10 +41,20 @@ class AuthController extends Controller
 
     public function cerrarsession()
     {
-        Session::flush();
-        $_POST['mensaje'] = 'Session cerrada correctamente.';
-        $_POST['tipomensaje'] = 1;
-        header('Location: ' . URL::to('/'), true, 301);
-        die();
+        ini_set('display_errors',1); error_reporting(E_ALL);
+        session_start();
+        if (isset($_SERVER['HTTP_COOKIE'])) {
+            $cookies = explode(';', $_SERVER['HTTP_COOKIE']);
+            foreach($cookies as $cookie) {
+                $parts = explode('=', $cookie);
+                $name = trim($parts[0]);
+                setcookie($name, '', 1);
+                setcookie($name, '', 1, '/');
+            }
+        }
+        session_unset();
+        session_destroy();
+        $_SESSION = array();
+        return view('cerrosession');
     }
 }
