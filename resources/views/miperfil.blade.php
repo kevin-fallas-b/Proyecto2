@@ -49,39 +49,132 @@
             <div id="contenedorfoto">
                 <img src="{{ url('/img/users/')}}<?php echo '/' . $_SESSION['user']->foto ?>" alt="Foto de usuario" id="fotousuario">
                 <label for="" id="lblnombreusuario">Nombre de usuario: <?php echo  $_SESSION['user']->user ?> </label>
-                <?php 
-                    if($_SESSION['user']->tipo == 1){
-                        echo ' <label for="" id="lbltipodecuenta">Tipo de cuenta: Personal</label>';
-                    }else{
-                        echo ' <label for="" id="lbltipodecuenta">Tipo de cuenta: Empresarial</label>';
-                    }
+                <?php
+                if ($_SESSION['user']->tipo == 1) {
+                    echo ' <label for="" id="lbltipodecuenta">Tipo de cuenta: Personal</label>';
+                } else {
+                    echo ' <label for="" id="lbltipodecuenta">Tipo de cuenta: Empresarial</label>';
+                }
                 ?>
             </div>
+            <!--este contenedor pasa oculto, solo se muestra cuando el usuario le da click a editar informacion personal -->
+            <div id="contenedoreditar" class="ocultar" hidden>
+                <label for="" id="lblinfopersonal">Informacion Personal:</label>
+                <div id="columna1" class="columna">
+                    <?php
+                    if ($_SESSION['user']->tipo == 1) {
+                        echo "<label id='cedula'>Cedula: " . $_SESSION['user']->cedula . "</label> <br>";
+                    } else {
+                        echo "<label id='cedula'>Cedula Juridica: " . $_SESSION['user']->cedula . "</label> <br>";
+                    }
+
+                    echo '<label> Nombre: </label><input type="text" placeholder="Nombre" class="cajatexto" id="campoeditarnombre"><br>';
+                    if ($_SESSION['user']->tipo == 1) {
+                        echo ' <label> Apellidos: </label> <input type="text" placeholder="Apellidos" class="cajatexto" value="" id="campoeditarapellidos">';
+                    }
+
+                    echo '<br><label> Contraseña: </label><input type="password" placeholder="Contraseña" class="cajatexto" id="campoeditarcontra"><br>';
+
+                    ?>
+                    
+                </div>
+                <div id="columna2editando" class="columna">
+                    <label>Telefono: </label><input type="text" placeholder="Telefono" class="cajatexto" id="campoeditartelefono" onkeypress="return isNumber(event)"><br>
+                    <label>Correo:</label><input type="text" placeholder="Correo" class="cajatexto" value="" id="campoeditarcorreo"><br>
+                    <label>Direccion: </label><input type="text" placeholder="Direccion" class="cajatexto" value="" id="campoeditardireccion"><br>
+                    <label> Confirmar Contraseña: </label><input type="password" placeholder="Confirmar Contraseña" class="cajatexto" id="campoeditarconfircontra"><br>
+                </div>
+                <input type="button" value="cancelar" id="btncancelar" class="btnconestilo">
+                <input type="button" value="Guardar" id="btnguardar" class="btnconestilo">
+
+            </div>
+
+            <!-- este div solo tiene labels con la informacion del usuario -->
             <div id="informacionpersonal">
                 <label for="" id="lblinfopersonal">Informacion Personal:</label>
                 <div id="columna1" class="columna">
                     <?php
                     if ($_SESSION['user']->tipo == 1) {
-                        echo "<label id='cedula'>Cedula: " . $_SESSION['user']->cedula . "</label> <br><br>";
-                    }else{
-                    echo "<label id='cedula'>Cedula Juridica: " . $_SESSION['user']->cedula . "</label> <br><br>";
+                        echo ' <label id="tipouser" hidden>1</label>'; 
+                        echo "<label id='cedula'>Cedula: <label id='cedulauser'>" . $_SESSION['user']->cedula . "</label> <br><br>";
+                    } else {
+                        echo ' <label id="tipouser" hidden>2</label>';
+                        echo "<label id='cedula'>Cedula Juridica:  <label id='cedulauser'>" . $_SESSION['user']->cedula . "</label> <br><br>";
                     }
-                    echo "<label id='cedula'>Nombre: " . $_SESSION['user']->nombre . "</label> <br><br>";
+                    echo "<label id='cedula'>Nombre:  <label id='nombreuser'>" . $_SESSION['user']->nombre . "</label> <br><br>";
                     if ($_SESSION['user']->tipo == 1) {
-                        echo "<label id='cedula'>Apellidos: " . $_SESSION['user']->apellido . "</label><br><br>";
+                        echo "<label id='cedula'>Apellidos:  <label id='apellidosuser'>" . $_SESSION['user']->apellido . "</label><br><br>";
                     }
                     ?>
                 </div>
                 <div id="columna2" class="columna">
                     <?php
-                    echo "<label id='cedula'>Telefono: " . $_SESSION['user']->telefono . "</label><br><br>";
-                    echo "<label id='cedula'>Correo: " . $_SESSION['user']->correo . "</label><br><br>";
-                    echo "<label id='cedula'>Direccion: " . $_SESSION['user']->direccion . "</label><br><br>";
+                    echo "<label>Telefono: </label> <label id='telefonouser'>" . $_SESSION['user']->telefono . "</label><br><br>";
+                    echo "<label>Correo: <label id='correouser'>" . $_SESSION['user']->correo . "</label><br><br>";
+                    echo "<label>Direccion: <label id='direccionuser'>" . $_SESSION['user']->direccion . "</label><br><br>";
                     ?>
                 </div>
-                <input type="button" value="Editar" id="btneditar">
+                <input type="button" value="Editar" id="btneditar" class="btnconestilo" >
             </div>
+
+            <!-- DIV que esta debajo de informacion personal, si es persona muestra los titulos registrados, si es empresa muestra ofertas publicadas -->
+            <div id="tituloofertas">
+                <?php
+                if ($_SESSION['user']->tipo == 1) {
+                    echo '<label for="" id="lbltituloofertas">Mi Curriculum:</label>';
+                } else {
+                    echo '<label for="" id="lbltituloofertas">Mis Ofertas:</label>';
+                }
+                echo '<div id="contenedorbloques">';
+
+                if ($_SESSION['user']->tipo == 1) {
+                    //llenar con informacion de titulo o experiencia
+                    if (sizeof($_SESSION['titulosuser']) > 2) {
+                        //3 bloques con titulos
+                        for ($i = 0; $i < 3; $i++) {
+                            echo ' <div class="bloque" id="bloque' . ($i + 1) . '"> ';
+                            echo '<br><label for="">Titulo: ' . $_SESSION['titulosuser'][$i]->titulo . '</label><br><br>';
+                            echo '<label for="" >Especialidad: ' . $_SESSION['titulosuser'][$i]->especialidad . '</label><br><br>';
+                            echo '<label for="" >Institucion: ' . $_SESSION['titulosuser'][$i]->institucion . '</label><br><br>';
+                            echo '<label for="">Obetenido: ' . $_SESSION['titulosuser'][$i]->mes . '/' . $_SESSION['titulosuser'][$i]->ano . '</label><br>';
+                            echo '</div> ';
+                        }
+                    } else {
+                        //no tenemos 3 titulos, mostrar los que hayan y si es posible, meter una experiencia
+                        for ($i = 0; $i < sizeof($_SESSION['titulosuser']); $i++) {
+                            echo ' <div class="bloque" id="bloque' . ($i + 1) . '"> ';
+                            echo '<br><label for="" class="titulotitulo">Titulo: ' . $_SESSION['titulosuser'][$i]->titulo . '</label><br><br>';
+                            echo '<label for="">Especialidad: ' . $_SESSION['titulosuser'][$i]->especialidad . '</label><br><br>';
+                            echo '<label for="">Institucion: ' . $_SESSION['titulosuser'][$i]->institucion . '</label><br><br>';
+                            echo '<label for="">Obetenido: ' . $_SESSION['titulosuser'][$i]->mes . '/' . $_SESSION['titulosuser'][$i]->ano . '</label><br>';
+                            echo '</div> ';
+                        }
+                        for ($i = 0; $i < (3 - sizeof($_SESSION['titulosuser'])); $i++) {
+                            if ($_SESSION['experienciasuser'][$i] != null) {
+                                echo '<div class="bloque" id="bloque3">';
+                                echo  '<br><label for="" >Empresa: ' . $_SESSION['experienciasuser'][$i]->empresa . '</label><br><br>';
+                                echo '<label for="" >Puesto: ' . $_SESSION['experienciasuser'][$i]->puesto . '</label><br><br>';
+                                echo '<label for="" >Fecha de ingreso: ' . $_SESSION['experienciasuser'][$i]->fecha_ini . '</label><br>';
+                                echo '<label for="" >Fecha de salida: ' . $_SESSION['experienciasuser'][$i]->fecha_fin . '</label><br><br>';
+                                echo  '<label for="" >Responsabilidades: ' . $_SESSION['experienciasuser'][$i]->desc_responsa . '</label><br>';
+                                echo '</div>';
+                            }
+                        }
+                    }
+                } else {
+                    for ($i = 0; $i < sizeof($_SESSION['ofertasuser']); $i++) {
+                        //mostrar ofertas, pero maximo 3
+                        if ($i == 2) {
+                            break;
+                        }
+                    }
+                }
+
+                ?>
+            </div>
+
         </div>
     </div>
+</body>
 
 </html>

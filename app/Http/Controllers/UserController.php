@@ -16,5 +16,7 @@ class UserController extends Controller
         return view('miperfil');
     }
 
-    
+    public function actualizar(){
+        return Auth::registrar($_POST['cedula'], $_POST['nombre'], $_POST['apellidos'], $_POST['usuario'], $_POST['contra'], $_POST['direccion'], $_POST['tipo'], $_POST['telefono'], $_POST['correo']);
+    }
 }

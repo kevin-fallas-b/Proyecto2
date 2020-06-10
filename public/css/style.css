@@ -6,7 +6,8 @@ html, body
 	padding: 0px; /* Los margenes son reducidos a 0*/
 	font-family: Segoe UI, Century Gothic,Verdana, Arial;
 	background-color: #F6F4F1;
-	color: black;
+    color: black;
+    overflow: hidden;
 }
 
 

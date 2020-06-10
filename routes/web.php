@@ -33,4 +33,5 @@ Route::post('/registro', 'AuthController@registrar');
 
 
 Route::get('/miperfil', 'UserController@index');
+Route::post('/miperfil', 'UserController@actualizar');
 

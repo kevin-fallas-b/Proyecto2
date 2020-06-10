@@ -77,7 +77,6 @@ function limpiarcampos() {
 function intentarguardar() {
     if (validarcampos()) {
         //campos correctos. intentar guardar
-        console.log('llego a ajax');
         var form = new FormData();
         if (btnpersona.checked) {
             form.append('tipo', 1);
@@ -95,7 +94,6 @@ function intentarguardar() {
         form.append('telefono', campotelefono.value);
         axios.post('registro', form)
             .then(function (response) {
-                console.log('tuveo respuesta: \n' + response.data);
                 if (response.data === 'exito') {
                     alertify.success('Usuario registrado correctamente. Pronto sera redireccionado a la pagina de log in.');
                     window.setTimeout(function () {

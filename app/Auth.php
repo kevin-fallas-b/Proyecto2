@@ -13,8 +13,22 @@ class Auth extends Model
     {
         $user = DB::table('tbl_usuario')->where('user', $usuario)->first();
         if ($user != null && Hash::check($contra, $user->password)) {
+            //usuario autenticado
             session_start();
             $_SESSION['user'] = $user;
+            //si es cuenta personal, buscar titulos y experiencias, si es empresa, buscar categorias y ofertas
+            if ($user->tipo == 1) {
+                $titulos = DB::table('tbl_titulo')->where('cedula', $user->cedula)->get();
+                $experiencias = DB::table('tbl_experiencia')->where('cedula', $user->cedula)->get();
+                $_SESSION['titulosuser'] = $titulos;
+                $_SESSION['experienciasuser'] = $experiencias;
+            }else{
+                $categorias = DB::table('tbl_categoria')->where('cedula', $user->cedula)->get();
+                $ofertas = DB::table('tbl_oferta')->where('cedula', $user->cedula)->get();
+                $_SESSION['categoriasuser'] = $categorias;
+                $_SESSION['ofertasuser'] = $ofertas;
+            }
+
             return true;
         } else {
             return false;
