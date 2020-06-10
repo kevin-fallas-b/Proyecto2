@@ -12,6 +12,8 @@
     <script src="{{ url('/js/alertify.min.js')}}"></script>
     <script src="{{ url('/js/user.js')}}"></script>
     <script src="{{ url('/js/general.js')}}"></script>
+    <script src="{{ url('/js/axios.min.js')}}"></script>
+
     <link rel="icon" href="{{ url('/img/favicon.png') }}" type="image/x-icon">
 
 </head>
@@ -49,6 +51,8 @@
             <div id="contenedorfoto">
                 <img src="{{ url('/img/users/')}}<?php echo '/' . $_SESSION['user']->foto ?>" alt="Foto de usuario" id="fotousuario">
                 <label for="" id="lblnombreusuario">Nombre de usuario: <?php echo  $_SESSION['user']->user ?> </label>
+                <input type="button" name="" id="btnbuscarimagen" class="btnconestilo" value="Buscar imagen" hidden>
+                <input type="file" name="txt_file" size="20" class="btn btn-info" id="escogerimagen" hidden accept="image/jpeg,image/gif,image/png" >
                 <?php
                 if ($_SESSION['user']->tipo == 1) {
                     echo ' <label for="" id="lbltipodecuenta">Tipo de cuenta: Personal</label>';

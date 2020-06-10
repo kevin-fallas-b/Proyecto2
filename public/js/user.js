@@ -29,6 +29,10 @@ var btncancelar;
 var btnguardar;
 var editando; //sencilla bandera
 var cambiocontra; //sencilla bandera
+var btnbuscarimagen;
+var filepickerimagen;
+var fotooriginal;//nombre de la foto original por si el usuario cancela la edicion
+var cambiofoto;//bandera
 
 function inciar() {
     contenedoreditar = document.getElementById('contenedoreditar');
@@ -54,13 +58,18 @@ function inciar() {
 
     btnguardar = document.getElementById('btnguardar');
     btncancelar = document.getElementById('btncancelar');
+    btnbuscarimagen = document.getElementById('btnbuscarimagen')
+    filepickerimagen = document.getElementById('escogerimagen');
 
     btneditar.addEventListener('click', editar, false);
     btncancelar.addEventListener('click', cancelaredicion, false);
     btnguardar.addEventListener('click', guardaredicion, false);
+    btnbuscarimagen.addEventListener('click', buscarimagen, false);
+    filepickerimagen.addEventListener('change', escogiofoto, false);
     alertify.set('notifier', 'position', 'top-right');
     editando = false;
     cambiocontra = false;
+    fotooriginal = document.getElementById('fotousuario').src;
 }
 
 
@@ -71,8 +80,14 @@ function editar() {
         contenedorinformacionpersonal.hidden = true;
         contenedoreditar.hidden = false;
         contenedoreditar.classList.remove('ocultar');
+        btnbuscarimagen.hidden = false;
+        btnbuscarimagen.classList.remove('ocultar');
+
     }, 500);
-    campoeditandoapellidos.value = apellidouser.innerHTML;
+    if (tipouser == 1) {
+        campoeditandoapellidos.value = apellidouser.innerHTML;
+
+    }
     campoeditandonombre.value = nombreuser.innerHTML;
     campoeditandocorreo.value = correouser.innerHTML;
     campoeditandotelefono.value = telefonouser.innerHTML;
@@ -82,8 +97,14 @@ function editar() {
 function cancelaredicion() {
     editando = false;
     contenedoreditar.classList.add('ocultar');
+    btnbuscarimagen.classList.add('ocultar');
+    if (cambiofoto) {
+        document.getElementById('fotousuario').src = fotooriginal;
+
+    }
     setTimeout(function () {
         contenedoreditar.hidden = true;
+        btnbuscarimagen.hidden = true;
         contenedorinformacionpersonal.hidden = false;
         contenedorinformacionpersonal.classList.remove('ocultar');
     }, 500);
@@ -107,11 +128,18 @@ function guardaredicion() {
         if (cambiocontra) {
             form.append('contra', campoediandocontra.value);
         }
+        if(cambiofoto){
+            //sacar el nombre de la foto y meterla a bd y ademas subir foto al servidor
+            form.append('foto',filepickerimagen.files[0]);
+        }
         axios.post('miperfil', form)
             .then(function (response) {
-                console.log('tuveo respuesta: \n' + response.data);
                 if (response.data === 'exito') {
-                    alertify.success('Usuario actualizado correctamente. Pronto sera redireccionado a la pagina de log in.');
+                    alertify.success('Usuario actualizado correctamente.');
+                    setTimeout(function () {
+                        editando = false;
+                        location.reload();
+                    }, 1000);
                 } else {
                     alertify.error(response.data);
                 }
@@ -125,7 +153,7 @@ function guardaredicion() {
 //para cuando el usuario intenta editar la informacion personal
 function validarcampos() {
     //se basa en el metodo stringvalido de general.js
-    if (!stringvalido(campoeditandonombre.value, 50) || !stringvalido(campoeditandodireccion.value, 200) || !stringvalido(campoeditandotelefono.value, 11) || !stringvalido(campoeditandocorreo.value, 50)) {
+    if (!stringvalido(campoeditandonombre.value, 50) || !stringvalido(campoeditandodireccion.value, 200) || !stringvalido(campoeditandotelefono.value, 10) || !stringvalido(campoeditandocorreo.value, 50)) {
         alertify.error('Existen errores en los campos.');
         return false;
     }
@@ -146,7 +174,7 @@ function validarcampos() {
         } else {
             cambiocontra = true;
         }
-    }else{
+    } else {
         cambiocontra = false;
 
     }
@@ -157,4 +185,14 @@ function senosva(e) {
     if (editando) {
         e.preventDefault();
     }
+}
+
+function buscarimagen() {
+    //guardar nombre de imagen original por si el usuario cancela
+    filepickerimagen.click();
+}
+
+function escogiofoto() {
+    cambiofoto = true;
+    document.getElementById('fotousuario').src = URL.createObjectURL(filepickerimagen.files[0])
 }

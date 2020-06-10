@@ -41,20 +41,7 @@ class AuthController extends Controller
 
     public function cerrarsession()
     {
-        ini_set('display_errors',1); error_reporting(E_ALL);
-        session_start();
-        if (isset($_SERVER['HTTP_COOKIE'])) {
-            $cookies = explode(';', $_SERVER['HTTP_COOKIE']);
-            foreach($cookies as $cookie) {
-                $parts = explode('=', $cookie);
-                $name = trim($parts[0]);
-                setcookie($name, '', 1);
-                setcookie($name, '', 1, '/');
-            }
-        }
-        session_unset();
-        session_destroy();
-        $_SESSION = array();
+        Auth::logout();
         return view('cerrosession');
     }
 }
