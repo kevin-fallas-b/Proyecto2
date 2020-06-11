@@ -47,9 +47,30 @@ class User extends Model
         return 'exito';
     }
 
+    public static function actualizartitulo($id,$cedula, $titulo, $institucion, $especialidad, $mes, $ano)
+    {
+        DB::table('tbl_titulo')->where('id',$id)->update([ 'titulo' => $titulo, 'especialidad' => $especialidad, 'institucion' => $institucion, 'mes' => $mes, 'ano' => $ano]);
+        session_start();
+        $_SESSION['titulosuser'] = DB::table('tbl_titulo')->where('cedula',$cedula)->get();
+        return 'exito';
+    }
+
     public static function crearexperiencia($cedula, $empresa, $puesto, $responsabilidades, $fechaingreso, $fechasalida)
     {
+        if($fechasalida==''){
+            $fechasalida=null;
+        }
         DB::table('tbl_experiencia')->insert(['cedula' => $cedula, 'empresa' => $empresa, 'puesto' => $puesto, 'desc_responsa' => $responsabilidades, 'fecha_ini' => $fechaingreso, 'fecha_fin' => $fechasalida]);
+        session_start();
+        $_SESSION['experienciasuser'] = DB::table('tbl_experiencia')->where('cedula',$cedula)->get();
+        return 'exito';
+    }
+    public static function actualizarexperiencia($id,$cedula, $empresa, $puesto, $responsabilidades, $fechaingreso, $fechasalida)
+    {
+        if($fechasalida==''){
+            $fechasalida=null;
+        }
+        DB::table('tbl_experiencia')->where('id',$id)->update(['empresa' => $empresa, 'puesto' => $puesto, 'desc_responsa' => $responsabilidades, 'fecha_ini' => $fechaingreso, 'fecha_fin' => $fechasalida]);
         session_start();
         $_SESSION['experienciasuser'] = DB::table('tbl_experiencia')->where('cedula',$cedula)->get();
         return 'exito';
@@ -62,6 +83,14 @@ class User extends Model
         return 'exito';
     }
     
+    public static function editarobservacion($id,$cedula,$merito){
+        DB::table('tbl_meritos')->where('id', $id)->update(['descripcion' => $merito]);
+        session_start();
+        $_SESSION['meritosuser'] = DB::table('tbl_meritos')->where('cedula',$cedula)->get();
+        return 'exito';
+    }
+
+
     public static function eliminartitulo($cedula,$id){
         DB::table('tbl_titulo')->where('id',$id)->delete();
         session_start();
@@ -72,7 +101,7 @@ class User extends Model
     public static function eliminarobservacion($cedula,$id){
         DB::table('tbl_meritos')->where('id',$id)->delete();
         session_start();
-        $_SESSION['meritossuser'] = DB::table('tbl_meritos')->where('cedula',$cedula)->get();
+        $_SESSION['meritosuser'] = DB::table('tbl_meritos')->where('cedula',$cedula)->get();
         return 'exito';
     }
 

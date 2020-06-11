@@ -39,6 +39,8 @@ var ideliminar;
 var tipoeliminar;
 var btneliminar;
 
+var ideditando;
+
 function iniciar() {
     cedulauser = document.getElementById('cedulauser').innerHTML;
 
@@ -105,6 +107,9 @@ function abrirobservacionnuevo() {
 
 function cerrar(ventana) {
     document.getElementById(ventana).style.display = "none";
+    editandoobservacion = false
+    editandotitulo = false;
+    editandoexperiencia = false;
 }
 
 function limpiarcampostitulo() {
@@ -129,7 +134,7 @@ function guardartitulo() {
     if (validartitulo()) {
         var form = new FormData();
         if (editandotitulo) {
-            //meter id y en php if isset(id) entonces actualizar
+            form.append('id', ideditando);
         }
         form.append('cedula', cedulauser);
         form.append('titulo', txttitulo.value);
@@ -140,7 +145,12 @@ function guardartitulo() {
         axios.post('curriculum/titulo', form)
             .then(function (response) {
                 if (response.data === 'exito') {
-                    alertify.success('Titulo registrado correctamente.');
+                    if (editandotitulo) {
+                        alertify.success('Titulo actualizado correctamente.');
+                        editandotitulo = false;
+                    } else {
+                        alertify.success('Titulo registrado correctamente.');
+                    }
                     window.setTimeout(function () {
                         // Move to a new location or you can do something else
                         window.location.href = getbaseurl() + '/miperfil/curriculum';
@@ -161,8 +171,8 @@ function guardartitulo() {
 function guardarexperiencia() {
     if (validarexperiencia()) {
         var form = new FormData();
-        if (editandotitulo) {
-            //meter id y en php if isset(id) entonces actualizar
+        if (editandoexperiencia) {
+            form.append('id', ideditando);
         }
         form.append('cedula', cedulauser);
         form.append('empresa', txtempresa.value);
@@ -173,7 +183,12 @@ function guardarexperiencia() {
         axios.post('curriculum/experiencia', form)
             .then(function (response) {
                 if (response.data === 'exito') {
-                    alertify.success('Experiencia profesional registrado correctamente.');
+                    if (editandoexperiencia) {
+                        alertify.success('Experiencia profesional actualizada correctamente.');
+                        editandoexperiencia = false;
+                    } else {
+                        alertify.success('Experiencia profesional registrado correctamente.');
+                    }
                     window.setTimeout(function () {
                         // Move to a new location or you can do something else
                         window.location.href = getbaseurl() + '/miperfil/curriculum';
@@ -195,6 +210,7 @@ function guardarobservacion() {
         var form = new FormData();
         if (editandoobservacion) {
             //meter id y en php if isset(id) entonces actualizar
+            form.append('id', ideditando);
         }
         form.append('cedula', cedulauser);
         form.append('merito', txtmeritos.value);
@@ -202,7 +218,12 @@ function guardarobservacion() {
         axios.post('curriculum/observacion', form)
             .then(function (response) {
                 if (response.data === 'exito') {
-                    alertify.success('Observacion o merito registrado correctamente.');
+                    if (editandoobservacion) {
+                        alertify.success('Observacion o merito actualizado correctamente.');
+                        editandoobservacion = false;
+                    } else {
+                        alertify.success('Observacion o merito registrado correctamente.');
+                    }
                     window.setTimeout(function () {
 
                         window.location.href = getbaseurl() + '/miperfil/curriculum';
@@ -276,4 +297,106 @@ function eliminar() {
         .catch(function (error) {
             alertify.error('Ocurrio un error interno al intentar guardar. Por favor intente mas tarde.');
         })
+}
+
+function editarobservacion(id) {
+    ideditando = id;
+    var todoslosmeritos = document.getElementsByClassName('merito');
+    var merito;
+    var detalle;
+    for (var i = 0; i < todoslosmeritos.length; i++) {
+        if (todoslosmeritos[i].id == id) {
+            merito = todoslosmeritos[i];
+            break;
+        }
+    }
+    for (var i = 0; i < merito.childNodes.length; i++) {
+        if (merito.childNodes[i].className == 'descmerito') {
+            detalle = merito.childNodes[i].innerHTML;
+            break;
+        }
+    }
+    editandoobservacion = true;
+    txtmeritos.value = detalle;
+    abrirobservacionnuevo();
+}
+
+function editartitulo(id) {
+    ideditando = id;
+    var todoslostitulos = document.getElementsByClassName('titulo');
+    var titulo;
+    var nombretitulo;
+    var especialidad;
+    var institucion;
+    var obtencion;
+    for (var i = 0; i < todoslostitulos.length; i++) {
+        if (todoslostitulos[i].id == id) {
+            titulo = todoslostitulos[i];
+            break;
+        }
+    }
+    for (var i = 0; i < titulo.childNodes.length; i++) {
+        if (titulo.childNodes[i].className == 'lbltitulo') {
+            nombretitulo = titulo.childNodes[i].innerHTML;
+        }
+        if (titulo.childNodes[i].className == 'lblespecialidad') {
+            especialidad = titulo.childNodes[i].innerHTML;
+        }
+        if (titulo.childNodes[i].className == 'lblinstitucion') {
+            institucion = titulo.childNodes[i].innerHTML;
+        }
+        if (titulo.childNodes[i].className == 'lblobtencion') {
+            obtencion = titulo.childNodes[i].innerHTML;
+        }
+    }
+    editandotitulo = true;
+
+    txttitulo.value = nombretitulo;
+    txtespecialidad.value = especialidad;
+    txtinstitucion.value = institucion;
+    var explotado = obtencion.split('/');
+    mesobtencion.value = 0 + explotado[0];
+    anoobtencion.value = explotado[1];
+    abrirtitulonuevo();
+}
+
+function editarexperiencia(id) {
+    ideditando = id;
+    var todoslasexperiencias = document.getElementsByClassName('experiencia');
+    var experiencia;
+    var empresa;
+    var puesto;
+    var responsabilidades;
+    var lblfechaingreso;
+    var lblfechasalida;
+    for (var i = 0; i < todoslasexperiencias.length; i++) {
+        if (todoslasexperiencias[i].id == id) {
+            experiencia = todoslasexperiencias[i];
+            break;
+        }
+    }
+    for (var i = 0; i < experiencia.childNodes.length; i++) {
+        if (experiencia.childNodes[i].className == 'lblempresa') {
+            empresa = experiencia.childNodes[i].innerHTML;
+        }
+        if (experiencia.childNodes[i].className == 'lblpuesto') {
+            puesto = experiencia.childNodes[i].innerHTML;
+        }
+        if (experiencia.childNodes[i].className == 'lblfechainicio') {
+            lblfechaingreso = experiencia.childNodes[i].innerHTML;
+        }
+        if (experiencia.childNodes[i].className == 'lblfechafin') {
+            lblfechasalida = experiencia.childNodes[i].innerHTML;
+        }
+        if (experiencia.childNodes[i].className == 'lblresponsabilidades') {
+            responsabilidades = experiencia.childNodes[i].innerHTML;
+        }
+    }
+    editandoexperiencia = true;
+    txtempresa.value = empresa;
+    txtpuesto.value = puesto;
+    txtresponsabilidades.value = responsabilidades;
+    fechaingreso.value = lblfechaingreso;
+    fechasalida.value = lblfechasalida;
+    abrirexperiencianueva();
 }

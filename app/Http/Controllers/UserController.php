@@ -57,7 +57,7 @@ class UserController extends Controller
     {
         if (isset($_POST['id'])) {
             //estamos editando perro
-            return User::actualizarexperiencia($_POST['id'], $_POST['empresa'], $_POST['puesto'], $_POST['responsabilidades'], $_POST['fechaingreso'], $_POST['fechasalida']);
+            return User::actualizarexperiencia($_POST['id'], $_POST['cedula'], $_POST['empresa'], $_POST['puesto'], $_POST['responsabilidades'], $_POST['fechaingreso'], $_POST['fechasalida']);
         } else {
             //estamos creando un titulo bien mamalon
             return User::crearexperiencia($_POST['cedula'], $_POST['empresa'], $_POST['puesto'], $_POST['responsabilidades'], $_POST['fechaingreso'], $_POST['fechasalida']);
@@ -68,6 +68,7 @@ class UserController extends Controller
     {
         if (isset($_POST['id'])) {
             //editar 
+            return User::editarobservacion($_POST['id'],$_POST['cedula'],$_POST['merito']);
         } else {
             return User::crearobservacion($_POST['cedula'],$_POST['merito']);
         }

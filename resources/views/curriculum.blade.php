@@ -59,12 +59,12 @@
 
             <?php
             for ($i = 0; $i < sizeof($_SESSION['titulosuser']); $i++) {
-                echo '<div class="detallecontenedor titulo">';
-                echo '<label style="font-weight:bold">Titulo: </label><label>' . $_SESSION['titulosuser'][$i]->titulo . '</label><br>';
-                echo '<label style="font-weight:bold">Especialidad: </label><label>' . $_SESSION['titulosuser'][$i]->especialidad . '</label><br>';
-                echo '<label style="font-weight:bold">Institucion: </label><label>' . $_SESSION['titulosuser'][$i]->institucion . '</label><br>';
-                echo '<label style="font-weight:bold">Obtencion: </label><label>' . $_SESSION['titulosuser'][$i]->mes . '/' . $_SESSION['titulosuser'][$i]->ano . '</label>';
-                echo '<br><input type="button" name=""  class="btnconestilo" value="Editar">';
+                echo '<div class="detallecontenedor titulo" id="'.$_SESSION['titulosuser'][$i]->id.'">';
+                echo '<label style="font-weight:bold">Titulo: </label><label class="lbltitulo">' . $_SESSION['titulosuser'][$i]->titulo . '</label><br>';
+                echo '<label style="font-weight:bold">Especialidad: </label><label class="lblespecialidad">' . $_SESSION['titulosuser'][$i]->especialidad . '</label><br>';
+                echo '<label style="font-weight:bold">Institucion: </label><label class="lblinstitucion">' . $_SESSION['titulosuser'][$i]->institucion . '</label><br>';
+                echo '<label style="font-weight:bold">Obtencion: </label><label class="lblobtencion">' . $_SESSION['titulosuser'][$i]->mes . '/' . $_SESSION['titulosuser'][$i]->ano . '</label>';
+                echo '<br><input type="button" name=""  class="btnconestilo" value="Editar" onclick="editartitulo('.$_SESSION['titulosuser'][$i]->id.')">';
                 echo '<input type="button" name=""  class="btnconestilo eliminar" value="Eliminar" onclick="eliminartitulo('.$_SESSION['titulosuser'][$i]->id.')">';
                 echo '</div>';
             }
@@ -81,13 +81,13 @@
             <input type="button" name="" class="btnconestilo agregar" value="Agregar" id="btnagregarexperiencia">
             <?php
             for ($i = 0; $i < sizeof($_SESSION['experienciasuser']); $i++) {
-                echo '<div class="detallecontenedor experiencia">';
-                echo '<label style="font-weight:bold">Empresa: </label><label>' . $_SESSION['experienciasuser'][$i]->empresa . '</label><br>';
-                echo '<label style="font-weight:bold">Puesto: </label><label>' . $_SESSION['experienciasuser'][$i]->puesto . '</label><br>';
-                echo '<label style="font-weight:bold">Fecha de inicio: </label><label>' . $_SESSION['experienciasuser'][$i]->fecha_ini . '</label><br>';
-                echo '<label style="font-weight:bold">Fecha de salida: </label><label>' . $_SESSION['experienciasuser'][$i]->fecha_fin . '</label><br>';
-                echo '<label style="font-weight:bold">Responsabilidades: </label><label>' . $_SESSION['experienciasuser'][$i]->desc_responsa . '</label>';
-                echo '<br><input type="button" name=""  class="btnconestilo" value="Editar">';
+                echo '<div class="detallecontenedor experiencia" id="'.$_SESSION['experienciasuser'][$i]->id.'">';
+                echo '<label style="font-weight:bold">Empresa: </label><label class="lblempresa">' . $_SESSION['experienciasuser'][$i]->empresa . '</label><br>';
+                echo '<label style="font-weight:bold">Puesto: </label><label class="lblpuesto">' . $_SESSION['experienciasuser'][$i]->puesto . '</label><br>';
+                echo '<label style="font-weight:bold">Fecha de inicio: </label><label class="lblfechainicio">' . $_SESSION['experienciasuser'][$i]->fecha_ini . '</label><br>';
+                echo '<label style="font-weight:bold">Fecha de salida: </label><label class="lblfechafin">' . $_SESSION['experienciasuser'][$i]->fecha_fin . '</label><br>';
+                echo '<label style="font-weight:bold">Responsabilidades: </label><label class="lblresponsabilidades">' . $_SESSION['experienciasuser'][$i]->desc_responsa . '</label>';
+                echo '<br><input type="button" name=""  class="btnconestilo" value="Editar" onclick="editarexperiencia('.$_SESSION['experienciasuser'][$i]->id.')">';
                 echo '<input type="button" name=""  class="btnconestilo eliminar" value="Eliminar" onclick="eliminarexperiencia('.$_SESSION['experienciasuser'][$i]->id.')">';
                 echo '</div>';
             }
@@ -101,9 +101,9 @@
             <input type="button" name="" class="btnconestilo agregar" value="Agregar" id="btnagregarobservacion">
             <?php
             for ($i = 0; $i < sizeof($_SESSION['meritosuser']); $i++) {
-                echo '<div class="detallecontenedor merito">';
-                echo '<label>' . $_SESSION['meritosuser'][$i]->descripcion . '</label><br>';
-                echo '<br><input type="button" name=""  class="btnconestilo" value="Editar">';
+                echo '<div class="detallecontenedor merito" id="'.$_SESSION['meritosuser'][$i]->id.'">';
+                echo '<label class="descmerito">' . $_SESSION['meritosuser'][$i]->descripcion . '</label><br>';
+                echo '<br><input type="button" name=""  class="btnconestilo" value="Editar" onclick="editarobservacion('.$_SESSION['meritosuser'][$i]->id.')">';
                 echo '<input type="button" name=""  class="btnconestilo eliminar" value="Eliminar" onclick="eliminarobservacion('.$_SESSION['meritosuser'][$i]->id.')">';
                 echo '</div>';
             }
@@ -140,12 +140,13 @@
                     <option value="07">Julio</option>
                     <option value="08">Agosto</option>
                     <option value="09">Septiembre</option>
-                    <option value="10">Octubre</option>
-                    <option value="11">Noviembre</option>
-                    <option value="12">Diciembre</option>
+                    <option value="010">Octubre</option>
+                    <option value="011">Noviembre</option>
+                    <option value="012">Diciembre</option>
                 </select>
                 </select><select name="anoobtencion" id="anoobtencion">
                     <option value="-Ano-">- Año -</option>
+                    <option value="2021">2021</option>
                     <option value="2020">2020</option>
                     <option value="2019">2019</option>
                     <option value="2018">2018</option>
