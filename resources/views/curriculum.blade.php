@@ -38,6 +38,7 @@
                 echo '<a href="' . URL::to('/miperfil') . '" class="textobotonbarra" >Mi Perfil</a>';
                 echo '<a href="' . URL::to('/') . '" class="textobotonbarra" >Pagina Principal</a>';
                 echo '<a href="' . URL::to('/logout') . '" class="textobotonbarra">Cerrar Session</a>';
+                echo '<label hidden id="cedulauser">'.$_SESSION['user']->cedula.'</label>';
             } else {
                 echo '<a href="' . URL::to('/login') . '" class="textobotonbarra" >Log In</a>';
                 echo '<a href="' . URL::to('/registro') . '" class="textobotonbarra" >Registrarme</a>';
@@ -130,21 +131,21 @@
                 <label for="">Institucion: </label><input type="text" name="" id="txtinsitucion" placeholder="institucion" class="cajatexto"><br>
                 <label for="">Obtencion: </label><select name="mesobtencion" id="mesobtencion">
                     <option value="-mes-">- Mes -</option>
-                    <option value="Enero">Enero</option>
-                    <option value="Febrero">Febrero</option>
-                    <option value="Marzo">Marzo</option>
-                    <option value="Abril">Abril</option>
-                    <option value="Mayo">Mayo</option>
-                    <option value="Junio">Junio</option>
-                    <option value="Julio">Julio</option>
-                    <option value="Agosto">Agosto</option>
-                    <option value="Septiembre">Septiembre</option>
-                    <option value="Octubre">Octubre</option>
-                    <option value="Noviembre">Noviembre</option>
-                    <option value="Diciembre">Diciembre</option>
+                    <option value="01">Enero</option>
+                    <option value="02">Febrero</option>
+                    <option value="03">Marzo</option>
+                    <option value="04">Abril</option>
+                    <option value="05">Mayo</option>
+                    <option value="06">Junio</option>
+                    <option value="07">Julio</option>
+                    <option value="08">Agosto</option>
+                    <option value="09">Septiembre</option>
+                    <option value="10">Octubre</option>
+                    <option value="11">Noviembre</option>
+                    <option value="12">Diciembre</option>
                 </select>
                 </select><select name="anoobtencion" id="anoobtencion">
-                    <option>- Año -</option>
+                    <option value="-Ano-">- Año -</option>
                     <option value="2020">2020</option>
                     <option value="2019">2019</option>
                     <option value="2018">2018</option>
@@ -221,7 +222,7 @@
 
             <div class='contenedorbotonesmodal'>
                 <input type="button" value="Cancelar" class="btnconestilo" id="btncancelarmodal" onclick="cerrar('modaltitulonuevo')">
-                <input type="button" value="Guardar" class="btnconestilo" id="btnguardarmodal">
+                <input type="button" value="Guardar" class="btnconestilo" id="btnguardartitulomodal">
             </div>
         </div>
     </div>
@@ -233,18 +234,18 @@
                 <label id='lblregistrareditarexperiencia'>Registrar Experiencia</label>
             </div>
             <div class='contenedoropcionesmodal'>
-                <label for="">Empresa: </label><input type="text" name="" id="" placeholder="Empresa" class="cajatexto"><br>
-                <label for="">Puesto: </label><input type="text" name="" id="" placeholder="Puesto" class="cajatexto"><br>
-                <label for="">Fecha de ingreso: </label><input type="date" name="" id=""> <br>
-                <label for="">Fecha de salida: </label><input type="date" name="" id=""><br>
+                <label for="">Empresa: </label><input type="text" name="" id="txtempresa" placeholder="Empresa" class="cajatexto"><br>
+                <label for="">Puesto: </label><input type="text" name="" id="txtpuesto" placeholder="Puesto" class="cajatexto"><br>
+                <label for="">Fecha de ingreso: </label><input type="date" name="" id="fechaingreso"> <br>
+                <label for="">Fecha de salida: </label><input type="date" name="" id="fechasalida"><br>
                 <label for="">Responsabilidades: </label><br>
-                <textarea class="cajatexto" name="" id="" cols="150" rows="3" style="width: 487px; height: 40px;"></textarea>
+                <textarea class="cajatexto" name="" id="txtresponsabilidades" cols="150" rows="3" style="width: 487px; height: 40px;"></textarea>
 
             </div>
 
             <div class='contenedorbotonesmodal'>
                 <input type="button" value="Cancelar" class="btnconestilo" id="btncancelarmodal" onclick="cerrar('modalexperiencianuevo')">
-                <input type="button" value="Guardar" class="btnconestilo" id="btnguardarmodal">
+                <input type="button" value="Guardar" class="btnconestilo" id="btnguardarexperienciamodal">
             </div>
         </div>
     </div>
@@ -257,12 +258,12 @@
             </div>
             <div class='contenedoropcionesmodal'>
                 <label for="">Merito U Observacion: </label><br>
-                <textarea class="cajatexto" name="" id="" cols="150" rows="10"></textarea>
+                <textarea class="cajatexto" name="" id="txtmerito" cols="150" rows="10"></textarea>
             </div>
 
             <div class='contenedorbotonesmodal'>
                 <input type="button" value="Cancelar" class="btnconestilo" id="btncancelarmodal" onclick="cerrar('modalobservacionnuevo')">
-                <input type="button" value="Guardar" class="btnconestilo" id="btnguardarmodal">
+                <input type="button" value="Guardar" class="btnconestilo" id="btnguardarobservacionmodal">
             </div>
         </div>
     </div>

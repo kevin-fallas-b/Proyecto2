@@ -41,4 +41,8 @@ Route::post('/miperfil', 'UserController@actualizar');
 
 
 Route::get('/miperfil/curriculum', 'UserController@vercurriculum');
+Route::post('/miperfil/curriculum/titulo', 'UserController@guardartitulo');
+Route::post('/miperfil/curriculum/experiencia', 'UserController@guardarexperiencia');
+Route::post('/miperfil/curriculum/observacion', 'UserController@guardarobservacion');
+
 Route::get('/miperfil/ofertas', 'UserController@verofertas');
