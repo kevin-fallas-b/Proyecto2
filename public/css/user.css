@@ -118,15 +118,12 @@
     top: 5px; 
     left: 15px;
 }
-#bloque1{
+
+.titulo{
     background-color: #60c257;
 }
 
-#bloque2{
-    background-color: #60c257;
-}
-
-#bloque3{
+.experiencia{
     background-color: #2ed9f0fd;
 }
 

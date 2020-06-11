@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\Collection;
 
 class Auth extends Model
 {
@@ -23,9 +24,26 @@ class Auth extends Model
                 $_SESSION['titulosuser'] = $titulos;
                 $_SESSION['experienciasuser'] = $experiencias;
                 $_SESSION['meritosuser'] = $meritos;
-            }else{
+            } else {
                 $categorias = DB::table('tbl_categoria')->where('cedula', $user->cedula)->get();
                 $ofertas = DB::table('tbl_oferta')->where('cedula', $user->cedula)->get();
+                //para cada oferta buscar entre los requisitos
+                //esta parte me saco las canas
+                for ($i = 0; $i < sizeof($ofertas); $i++) {
+                    $id = $ofertas[$i]->id;
+                    $ofertas[$i]->requisitos = DB::table('tbl_requisito')->where('id_oferta', $id)->get();
+                    $ofertas[$i]->ofertascategoria = DB::table('tbl_oftertascategoria')->where('idOferta', $id)->get();
+                    $ids = '';
+                    for ($k = 0; $k < sizeof($ofertas[$i]->ofertascategoria); $k++) {
+                        $ids = $ids .'id='. $ofertas[$i]->ofertascategoria[$k]->id;
+                        if ($k == (sizeof($ofertas[$i]->ofertascategoria) - 1)) {
+                            break;
+                        }else{
+                            $ids= $ids.' || ';
+                        }
+                    }
+                    $ofertas[$i]->categorias = DB::select(DB::raw('SELECT * FROM `tbl_categoria` WHERE '.$ids ));
+                }
                 $_SESSION['categoriasuser'] = $categorias;
                 $_SESSION['ofertasuser'] = $ofertas;
             }
@@ -51,11 +69,12 @@ class Auth extends Model
         return 'exito';
     }
 
-    public static function logout(){
+    public static function logout()
+    {
         session_start();
         if (isset($_SERVER['HTTP_COOKIE'])) {
             $cookies = explode(';', $_SERVER['HTTP_COOKIE']);
-            foreach($cookies as $cookie) {
+            foreach ($cookies as $cookie) {
                 $parts = explode('=', $cookie);
                 $name = trim($parts[0]);
                 setcookie($name, '', 1);

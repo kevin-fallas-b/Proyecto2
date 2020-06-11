@@ -31,7 +31,11 @@
             session_start();
             if (isset($_SESSION['user'])) {
                 echo '<label id="mensajebienvenida"> Bienvenido ' . $_SESSION['user']->nombre . '</label>';
-                echo '<a href="' . URL::to('/miperfil/curriculum') . '" class="textobotonbarra" >Mi Curriculum</a>';
+                if ($_SESSION['user']->tipo == 1) {
+                    echo '<a href="' . URL::to('/miperfil/curriculum') . '" class="textobotonbarra" >Mi Curriculum</a>';
+                } else {
+                    echo '<a href="' . URL::to('/miperfil/ofertas') . '" class="textobotonbarra" >Mis Ofertas</a>';
+                }
                 echo '<a href="' . URL::to('/') . '" class="textobotonbarra" >Pagina Principal</a>';
                 echo '<a href="' . URL::to('/logout') . '" class="textobotonbarra">Cerrar Session</a>';
             } else {
@@ -53,7 +57,7 @@
                 <img src="{{ url('/img/users/')}}<?php echo '/' . $_SESSION['user']->foto ?>" alt="Foto de usuario" id="fotousuario">
                 <label for="" id="lblnombreusuario">Nombre de usuario: <?php echo  $_SESSION['user']->user ?> </label>
                 <input type="button" name="" id="btnbuscarimagen" class="btnconestilo" value="Buscar imagen" hidden>
-                <input type="file" name="txt_file" size="20" class="btn btn-info" id="escogerimagen" hidden accept="image/jpeg,image/gif,image/png" >
+                <input type="file" name="txt_file" size="20" class="btn btn-info" id="escogerimagen" hidden accept="image/jpeg,image/gif,image/png">
                 <?php
                 if ($_SESSION['user']->tipo == 1) {
                     echo ' <label for="" id="lbltipodecuenta">Tipo de cuenta: Personal</label>';
@@ -81,7 +85,7 @@
                     echo '<br><label> Contraseña: </label><input type="password" placeholder="Contraseña" class="cajatexto" id="campoeditarcontra"><br>';
 
                     ?>
-                    
+
                 </div>
                 <div id="columna2editando" class="columna">
                     <label>Telefono: </label><input type="text" placeholder="Telefono" class="cajatexto" id="campoeditartelefono" onkeypress="return isNumber(event)"><br>
@@ -100,7 +104,7 @@
                 <div id="columna1" class="columna">
                     <?php
                     if ($_SESSION['user']->tipo == 1) {
-                        echo ' <label id="tipouser" hidden>1</label>'; 
+                        echo ' <label id="tipouser" hidden>1</label>';
                         echo "<label id='cedula'>Cedula: <label id='cedulauser'>" . $_SESSION['user']->cedula . "</label> <br><br>";
                     } else {
                         echo ' <label id="tipouser" hidden>2</label>';
@@ -119,7 +123,7 @@
                     echo "<label>Direccion: <label id='direccionuser'>" . $_SESSION['user']->direccion . "</label><br><br>";
                     ?>
                 </div>
-                <input type="button" value="Editar" id="btneditar" class="btnconestilo" >
+                <input type="button" value="Editar" id="btneditar" class="btnconestilo">
             </div>
 
             <!-- DIV que esta debajo de informacion personal, si es persona muestra los titulos registrados, si es empresa muestra ofertas publicadas -->
@@ -138,7 +142,7 @@
                     if (sizeof($_SESSION['titulosuser']) > 2) {
                         //3 bloques con titulos
                         for ($i = 0; $i < 3; $i++) {
-                            echo ' <div class="bloque" id="bloque' . ($i + 1) . '"> ';
+                            echo ' <div class="bloque titulo" id="bloque' . ($i + 1) . '"> ';
                             echo '<br><label for="">Titulo: ' . $_SESSION['titulosuser'][$i]->titulo . '</label><br><br>';
                             echo '<label for="" >Especialidad: ' . $_SESSION['titulosuser'][$i]->especialidad . '</label><br><br>';
                             echo '<label for="" >Institucion: ' . $_SESSION['titulosuser'][$i]->institucion . '</label><br><br>';
@@ -148,7 +152,7 @@
                     } else {
                         //no tenemos 3 titulos, mostrar los que hayan y si es posible, meter una experiencia
                         for ($i = 0; $i < sizeof($_SESSION['titulosuser']); $i++) {
-                            echo ' <div class="bloque" id="bloque' . ($i + 1) . '"> ';
+                            echo ' <div class="bloque titulo" id="bloque' . ($i + 1) . '"> ';
                             echo '<br><label for="" class="titulotitulo">Titulo: ' . $_SESSION['titulosuser'][$i]->titulo . '</label><br><br>';
                             echo '<label for="">Especialidad: ' . $_SESSION['titulosuser'][$i]->especialidad . '</label><br><br>';
                             echo '<label for="">Institucion: ' . $_SESSION['titulosuser'][$i]->institucion . '</label><br><br>';
@@ -157,7 +161,7 @@
                         }
                         for ($i = 0; $i < (3 - sizeof($_SESSION['titulosuser'])); $i++) {
                             if ($_SESSION['experienciasuser'][$i] != null) {
-                                echo '<div class="bloque" id="bloque3">';
+                                echo '<div class="bloque experiencia" id="bloque3">';
                                 echo  '<br><label for="" >Empresa: ' . $_SESSION['experienciasuser'][$i]->empresa . '</label><br><br>';
                                 echo '<label for="" >Puesto: ' . $_SESSION['experienciasuser'][$i]->puesto . '</label><br><br>';
                                 echo '<label for="" >Fecha de ingreso: ' . $_SESSION['experienciasuser'][$i]->fecha_ini . '</label><br>';
@@ -168,8 +172,24 @@
                         }
                     }
                 } else {
+                    
                     for ($i = 0; $i < sizeof($_SESSION['ofertasuser']); $i++) {
                         //mostrar ofertas, pero maximo 3
+                        echo $_SESSION['ofertasuser'][$i]->id."<br>";
+                        echo $_SESSION['ofertasuser'][$i]->descripcion."<br>";
+                        echo "requisitos<br>";
+                        for($k=0;$k<sizeof($_SESSION['ofertasuser'][$i]->requisitos);$k++){
+                            echo $_SESSION['ofertasuser'][$i]->requisitos[$k]->Descripcion."<br>";
+                        }
+                        echo 'fin requisitos<br>';
+                        echo 'inicio categorias<br>';
+                        for($k=0;$k<sizeof($_SESSION['ofertasuser'][$i]->categorias);$k++){
+                            echo $_SESSION['ofertasuser'][$i]->categorias[$k]->id."<br>";
+                            echo $_SESSION['ofertasuser'][$i]->categorias[$k]->cedula."<br>";
+                            echo $_SESSION['ofertasuser'][$i]->categorias[$k]->nombre."<br>";
+                        }
+                        echo 'fin categorias<br>';
+                        echo "ids ".$_SESSION['ids'].'<br>';
                         if ($i == 2) {
                             break;
                         }
