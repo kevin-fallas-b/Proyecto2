@@ -27,6 +27,10 @@ Route::get('/nologeado', function () {
     return view('nologeado');
 });
 
+Route::get('/sinpermisos', function () {
+    return view('sinpermisos');
+});
+
 Route::get('/registro', 'AuthController@registro');
 
 Route::post('/registro', 'AuthController@registrar');
@@ -35,3 +39,6 @@ Route::post('/registro', 'AuthController@registrar');
 Route::get('/miperfil', 'UserController@index');
 Route::post('/miperfil', 'UserController@actualizar');
 
+
+Route::get('/miperfil/curriculum', 'UserController@vercurriculum');
+Route::get('/miperfil/ofertas', 'UserController@verofertas');

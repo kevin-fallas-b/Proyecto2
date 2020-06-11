@@ -28,7 +28,7 @@
     use Illuminate\Support\Facades\URL;
 
     echo '<a href="' . URL::to('/') . '" id="sinadasucede">Si nada sucede presione aqui.</a>';
-    header('Refresh: 3; URL=' . URL::to('/'));
+    header('Refresh: 2; URL=' . URL::to('/'));
     ?>
 
 </html>

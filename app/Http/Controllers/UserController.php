@@ -36,4 +36,8 @@ class UserController extends Controller
 
         return User::actualizar($_POST['cedula'], $_POST['nombre'], $apellidos, $contra, $_POST['direccion'], $_POST['telefono'], $_POST['correo'], $foto);
     }
+
+    public function vercurriculum(){
+        return view('curriculum');
+    }
 }

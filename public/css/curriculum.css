@@ -1,0 +1,152 @@
+#sirhena{
+    left: 39%;
+}
+
+.contenedor{
+    position: absolute;
+    top: 90px;
+    height: 83%;
+    width: 30%;
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    overflow: auto;
+}
+
+#contenedortitulos{
+   left: 1%;
+}
+#contenedorexperiencias{
+   left: 35%;
+}
+#contenedormeritos{
+    right: 1%;   
+}
+
+.lblcontenedor{
+    position: relative;
+    border-bottom: 2px solid black;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.detallecontenedor{
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    padding: 10px;
+}
+
+.titulo{
+    background: rgb(147, 231, 227);
+
+}
+
+.experiencia{
+    background-color: rgb(85, 168, 136);
+}
+
+.merito{
+    background-color: rgb(97, 157, 158);
+}
+
+.eliminar{
+    margin-left: 10px;
+    background: #d62047;
+}
+
+.eliminar:hover{
+    background: #9c2841;
+}
+
+.agregar{
+    position: relative;
+    margin-top: 10px;
+    margin-left: 10px;
+    border: 2px solid #60c257;
+    background: transparent;
+    color: black !important;
+}
+
+.agregar:hover{
+    color: white !important;
+}
+
+
+/* MODAL */
+.bg-modal {
+	background-color: rgba(0, 0, 0, 0.8);
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	display: none;
+	justify-content: center;
+	align-items: center;
+}
+
+.modal-contents {
+	height: 300px;
+	width: 500px;
+	background-color: white;
+	text-align: center;
+	padding: 20px;
+	position: relative;
+	border-radius: 4px;
+}
+
+
+.close {
+	position: absolute;
+	top: 0;
+	right: 10px;
+	font-size: 42px;
+	color: #333;
+	transform: rotate(45deg);
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+	z-index: 999;
+}
+
+.close :hover{
+    color: #666;
+}
+
+.contenedoropcionesmodal{
+    position: relative;
+    top: 35px;
+    text-align: left;
+}
+
+.contenedorbotonesmodal{
+    position: absolute;
+    bottom: 20px;
+    left: 33%;
+}
+
+.contenedortitulomodal{
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-bottom: 3px solid black;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+
+}
+
+.contenedortitulomodal label{
+    /*position: absolute;
+    top: 15px;
+    left: 38%;*/
+    font-size: 20px;
+}

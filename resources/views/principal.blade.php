@@ -34,6 +34,11 @@ session_start();
             if (isset($_SESSION['user'])) {
                 echo '<label id="mensajebienvenida"> Bienvenido ' . $_SESSION['user']->nombre . '</label>';
                 echo '<a href="' . URL::to('/miperfil') . '" class="textobotonbarra" >Mi Perfil</a>';
+                if ($_SESSION['user']->tipo == 1) {
+                    echo '<a href="' . URL::to('/miperfil/curriculum') . '" class="textobotonbarra" >Mi Curriculum</a>';
+                } else {
+                    echo '<a href="' . URL::to('/miperfil/ofertas') . '" class="textobotonbarra" >Mis Ofertas</a>';
+                }
                 echo '<a href="' . URL::to('/logout') . '" class="textobotonbarra">Cerrar Session</a>';
             } else {
                 echo '<a href="' . URL::to('/login') . '" class="textobotonbarra" >Log In</a>';

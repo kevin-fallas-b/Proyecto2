@@ -65,6 +65,7 @@
     left: 150px;
 }
 
+
 #lbltipodecuenta{
     position: absolute;
     right: 10px;
@@ -72,28 +73,7 @@
     color: white;
     font-size: 12px;
 }
-.btnconestilo{
-    color: #fff !important;
-    text-transform: uppercase;
-    text-decoration: none;
-    background: #3072ed;
-    border-radius: 5px;
 
-    border: none;
-    transition: all 0.4s ease 0s;
-    height: 20px;
-    width: 100px;
-    text-align: center;
-}
-
-.btnconestilo:hover{
-    background: #434343;
-    letter-spacing: 2px;
-    -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
-    -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
-    box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
-    transition: all 0.4s ease 0s;
-}
 
 #btncancelar{
     position: absolute;
@@ -130,6 +110,7 @@
     display: flex;
     justify-content: space-evenly;
     margin-top: 20px;
+    margin-right: 150px;
 }
 
 #lbltituloofertas{
@@ -167,4 +148,11 @@
     left: 140px;
     width: 150px;
     transition: all 0.5s ease-in-out;
+}
+
+#btnvercompletoeditar{
+    position: absolute;
+    width: 200px;
+    bottom: 10px;
+    right: 10px;
 }

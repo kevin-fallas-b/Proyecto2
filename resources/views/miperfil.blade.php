@@ -31,6 +31,7 @@
             session_start();
             if (isset($_SESSION['user'])) {
                 echo '<label id="mensajebienvenida"> Bienvenido ' . $_SESSION['user']->nombre . '</label>';
+                echo '<a href="' . URL::to('/miperfil/curriculum') . '" class="textobotonbarra" >Mi Curriculum</a>';
                 echo '<a href="' . URL::to('/') . '" class="textobotonbarra" >Pagina Principal</a>';
                 echo '<a href="' . URL::to('/logout') . '" class="textobotonbarra">Cerrar Session</a>';
             } else {
@@ -123,6 +124,7 @@
 
             <!-- DIV que esta debajo de informacion personal, si es persona muestra los titulos registrados, si es empresa muestra ofertas publicadas -->
             <div id="tituloofertas">
+                <input type="button" name="" id="btnvercompletoeditar" value="Ver Completo/Editar" class="btnconestilo">
                 <?php
                 if ($_SESSION['user']->tipo == 1) {
                     echo '<label for="" id="lbltituloofertas">Mi Curriculum:</label>';

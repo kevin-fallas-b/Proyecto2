@@ -21,7 +21,7 @@
     </div>
     <div id="main">
         <h1 id="nologeado"> Usted no se encuentra autenticado en el sitio.</h1>
-        <h2 id="cerrosession2"> Espere y pronto sera redireccionado..</h2>
+        <h2 id="cerrosession2"> Espere y pronto sera redireccionado.</h2>
     </div>
     <?php
 
@@ -30,5 +30,6 @@
     echo '<a href="' . URL::to('/login') . '" id="sinadasucede">Si nada sucede presione aqui.</a>';
     header('Refresh: 3; URL=' . URL::to('/login'));
     ?>
+</body>
 
 </html>

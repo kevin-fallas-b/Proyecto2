@@ -71,6 +71,7 @@ function limpiarcampos() {
     campoconfirmarcontra.value = '';
     campodireccion.value = '';
     campotelefono.value = '';
+    seguridadcontra();
 }
 
 //metodo que se ejecuta al dar click en guardar

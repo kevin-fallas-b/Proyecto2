@@ -34,6 +34,9 @@ var filepickerimagen;
 var fotooriginal;//nombre de la foto original por si el usuario cancela la edicion
 var cambiofoto;//bandera
 
+
+var btnvercompletoeditar;
+
 function inciar() {
     contenedoreditar = document.getElementById('contenedoreditar');
     contenedorinformacionpersonal = document.getElementById('informacionpersonal');
@@ -61,11 +64,14 @@ function inciar() {
     btnbuscarimagen = document.getElementById('btnbuscarimagen')
     filepickerimagen = document.getElementById('escogerimagen');
 
+    btnvercompletoeditar = document.getElementById('btnvercompletoeditar');
+
     btneditar.addEventListener('click', editar, false);
     btncancelar.addEventListener('click', cancelaredicion, false);
     btnguardar.addEventListener('click', guardaredicion, false);
     btnbuscarimagen.addEventListener('click', buscarimagen, false);
     filepickerimagen.addEventListener('change', escogiofoto, false);
+    btnvercompletoeditar.addEventListener('click',vercurriculumofertas,false);
     alertify.set('notifier', 'position', 'top-right');
     editando = false;
     cambiocontra = false;
@@ -195,4 +201,12 @@ function buscarimagen() {
 function escogiofoto() {
     cambiofoto = true;
     document.getElementById('fotousuario').src = URL.createObjectURL(filepickerimagen.files[0])
+}
+
+function vercurriculumofertas(){
+    if(tipouser==1){
+        window.location.href = getbaseurl()+'/miperfil/curriculum';
+    }else{
+        window.location.href = getbaseurl()+'/miperfil/ofertas';
+    }
 }

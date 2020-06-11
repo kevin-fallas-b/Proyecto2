@@ -19,8 +19,10 @@ class Auth extends Model
             if ($user->tipo == 1) {
                 $titulos = DB::table('tbl_titulo')->where('cedula', $user->cedula)->get();
                 $experiencias = DB::table('tbl_experiencia')->where('cedula', $user->cedula)->get();
+                $meritos = DB::table('tbl_meritos')->where('cedula', $user->cedula)->get();
                 $_SESSION['titulosuser'] = $titulos;
                 $_SESSION['experienciasuser'] = $experiencias;
+                $_SESSION['meritosuser'] = $meritos;
             }else{
                 $categorias = DB::table('tbl_categoria')->where('cedula', $user->cedula)->get();
                 $ofertas = DB::table('tbl_oferta')->where('cedula', $user->cedula)->get();
