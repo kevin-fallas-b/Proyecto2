@@ -32,6 +32,13 @@ var fechasalida;
 //capturar datos de meritos u observaciones
 var txtmeritos;
 
+//varas de eliminar
+var modaleliminar;
+var lblestaseguro;
+var ideliminar;
+var tipoeliminar;
+var btneliminar;
+
 function iniciar() {
     cedulauser = document.getElementById('cedulauser').innerHTML;
 
@@ -58,16 +65,22 @@ function iniciar() {
 
     txtmeritos = document.getElementById('txtmerito');
 
+    modaleliminar = document.getElementById('modaleliminar');
+    lblestaseguro = document.getElementById('estaseguro');
+    btneliminar = document.getElementById('btneliminarmodal');
+
     btnagregartitulo.addEventListener('click', abrirtitulonuevo, false);
     btnagregartitulo.addEventListener('click', limpiarcampostitulo, false);
     btnagregarexperiencia.addEventListener('click', limpiarcamposexperiencia, false);
     btnagregarexperiencia.addEventListener('click', abrirexperiencianueva, false);
-    btnagregarobservacion.addEventListener('click',function(){ txtmeritos.value=''},false);
+    btnagregarobservacion.addEventListener('click', function () { txtmeritos.value = '' }, false);
     btnagregarobservacion.addEventListener('click', abrirobservacionnuevo, false);
 
     btnguardartitulo.addEventListener('click', guardartitulo, false);
     btnguardarexperiencia.addEventListener('click', guardarexperiencia, false);
     btnguardarobservacion.addEventListener('click', guardarobservacion, false);
+
+    btneliminar.addEventListener('click', eliminar, false);
 
     editandotitulo = false;
     editandoexperiencia = false;
@@ -178,20 +191,20 @@ function guardarexperiencia() {
 }
 
 function guardarobservacion() {
-    if(stringvalido(txtmeritos.value,250)){
+    if (stringvalido(txtmeritos.value, 250)) {
         var form = new FormData();
         if (editandoobservacion) {
             //meter id y en php if isset(id) entonces actualizar
         }
         form.append('cedula', cedulauser);
         form.append('merito', txtmeritos.value);
-        
+
         axios.post('curriculum/observacion', form)
             .then(function (response) {
                 if (response.data === 'exito') {
                     alertify.success('Observacion o merito registrado correctamente.');
                     window.setTimeout(function () {
-                        
+
                         window.location.href = getbaseurl() + '/miperfil/curriculum';
                     }, 1200);
                 } else {
@@ -201,7 +214,7 @@ function guardarobservacion() {
             .catch(function (error) {
                 alertify.error('Ocurrio un error interno al intentar guardar. Por favor intente mas tarde.');
             })
-    }else{
+    } else {
         alertify.error("Existen errores en el campo de descripcion. Por favor revise e intente de nuevo.");
     }
 }
@@ -220,4 +233,47 @@ function validarexperiencia() {
         return false;
     }
     return true;
+}
+
+function eliminartitulo(id) {
+    ideliminar = id;
+    tipoeliminar = 1;
+    modaleliminar.style.display = "flex";
+    lblestaseguro.innerHTML = '¿Esta seguro de que quiere eliminar este titulo de su curriculum?\nEsta accion no se puede deshacer.'
+}
+
+function eliminarexperiencia(id) {
+    ideliminar = id;
+    tipoeliminar = 2;
+    modaleliminar.style.display = "flex";
+    lblestaseguro.innerHTML = '¿Esta seguro de que quiere eliminar esta experiencia profesional de su curriculum?\nEsta accion no se puede deshacer.'
+}
+
+function eliminarobservacion(id) {
+    ideliminar = id;
+    tipoeliminar = 3;
+    modaleliminar.style.display = "flex";
+    lblestaseguro.innerHTML = '¿Esta seguro de que quiere eliminar este merito u observacion de su curriculum?\nEsta accion no se puede deshacer.'
+}
+
+function eliminar() {
+    var form = new FormData();
+    form.append('cedula', cedulauser);
+    form.append('tipo', tipoeliminar);
+    form.append('id', ideliminar);
+    axios.post('eliminar', form)
+        .then(function (response) {
+            if (response.data === 'exito') {
+                alertify.success('Elemento eliminado correctamente.');
+                window.setTimeout(function () {
+
+                    window.location.href = getbaseurl() + '/miperfil/curriculum';
+                }, 1200);
+            } else {
+                alertify.error(response.data);
+            }
+        })
+        .catch(function (error) {
+            alertify.error('Ocurrio un error interno al intentar guardar. Por favor intente mas tarde.');
+        })
 }

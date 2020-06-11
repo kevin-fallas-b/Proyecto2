@@ -72,4 +72,21 @@ class UserController extends Controller
             return User::crearobservacion($_POST['cedula'],$_POST['merito']);
         }
     }
+
+    public function eliminar(){
+        switch($_POST['tipo']){
+            case 1:
+                return User::eliminartitulo($_POST['cedula'],$_POST['id']);
+            break;
+            case 2:
+                return User::eliminarexperiencia($_POST['cedula'],$_POST['id']);
+            break;
+            case 3:
+                return User::eliminarobservacion($_POST['cedula'],$_POST['id']);
+            break;
+            case 4:
+                return User::eliminaroferta($_POST['cedula'],$_POST['id']);
+            break;
+        }
+    }
 }

@@ -61,4 +61,25 @@ class User extends Model
         $_SESSION['meritosuser'] = DB::table('tbl_meritos')->where('cedula',$cedula)->get();
         return 'exito';
     }
+    
+    public static function eliminartitulo($cedula,$id){
+        DB::table('tbl_titulo')->where('id',$id)->delete();
+        session_start();
+        $_SESSION['titulosuser'] = DB::table('tbl_titulo')->where('cedula',$cedula)->get();
+        return 'exito';
+    }
+
+    public static function eliminarobservacion($cedula,$id){
+        DB::table('tbl_meritos')->where('id',$id)->delete();
+        session_start();
+        $_SESSION['meritossuser'] = DB::table('tbl_meritos')->where('cedula',$cedula)->get();
+        return 'exito';
+    }
+
+    public static function eliminarexperiencia($cedula,$id){
+        DB::table('tbl_experiencia')->where('id',$id)->delete();
+        session_start();
+        $_SESSION['experienciasuser'] = DB::table('tbl_experiencia')->where('cedula',$cedula)->get();
+        return 'exito';
+    }
 }

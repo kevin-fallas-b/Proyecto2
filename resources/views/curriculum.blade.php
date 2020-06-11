@@ -65,7 +65,7 @@
                 echo '<label style="font-weight:bold">Institucion: </label><label>' . $_SESSION['titulosuser'][$i]->institucion . '</label><br>';
                 echo '<label style="font-weight:bold">Obtencion: </label><label>' . $_SESSION['titulosuser'][$i]->mes . '/' . $_SESSION['titulosuser'][$i]->ano . '</label>';
                 echo '<br><input type="button" name=""  class="btnconestilo" value="Editar">';
-                echo '<input type="button" name=""  class="btnconestilo eliminar" value="Eliminar">';
+                echo '<input type="button" name=""  class="btnconestilo eliminar" value="Eliminar" onclick="eliminartitulo('.$_SESSION['titulosuser'][$i]->id.')">';
                 echo '</div>';
             }
 
@@ -88,7 +88,7 @@
                 echo '<label style="font-weight:bold">Fecha de salida: </label><label>' . $_SESSION['experienciasuser'][$i]->fecha_fin . '</label><br>';
                 echo '<label style="font-weight:bold">Responsabilidades: </label><label>' . $_SESSION['experienciasuser'][$i]->desc_responsa . '</label>';
                 echo '<br><input type="button" name=""  class="btnconestilo" value="Editar">';
-                echo '<input type="button" name=""  class="btnconestilo eliminar" value="Eliminar">';
+                echo '<input type="button" name=""  class="btnconestilo eliminar" value="Eliminar" onclick="eliminarexperiencia('.$_SESSION['experienciasuser'][$i]->id.')">';
                 echo '</div>';
             }
 
@@ -104,7 +104,7 @@
                 echo '<div class="detallecontenedor merito">';
                 echo '<label>' . $_SESSION['meritosuser'][$i]->descripcion . '</label><br>';
                 echo '<br><input type="button" name=""  class="btnconestilo" value="Editar">';
-                echo '<input type="button" name=""  class="btnconestilo eliminar" value="Eliminar">';
+                echo '<input type="button" name=""  class="btnconestilo eliminar" value="Eliminar" onclick="eliminarobservacion('.$_SESSION['meritosuser'][$i]->id.')">';
                 echo '</div>';
             }
 
@@ -264,6 +264,27 @@
             <div class='contenedorbotonesmodal'>
                 <input type="button" value="Cancelar" class="btnconestilo" id="btncancelarmodal" onclick="cerrar('modalobservacionnuevo')">
                 <input type="button" value="Guardar" class="btnconestilo" id="btnguardarobservacionmodal">
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Modal General para la eliminacion si o que -->
+    <div class="bg-modal" id="modaleliminar">
+        <div class="modal-contents">
+            <input type="button" name="" id="" class="close" value="+" onclick="cerrar('modaleliminar')">
+            <div class="contenedortitulomodal">
+                <label id='lbleliminar'>Elimar Elemento</label>
+            </div>
+            <div class='contenedoropcionesmodal'>
+                <br><br><br><label id="estaseguro"></label><br>
+                
+            </div>
+
+            <div class='contenedorbotonesmodal'>
+                <input type="button" value="Cancelar" class="btnconestilo" id="btncancelarmodal" onclick="cerrar('modaleliminar')">
+                <input type="button" value="Eliminar" class="btnconestilo" id="btneliminarmodal">
             </div>
         </div>
     </div>

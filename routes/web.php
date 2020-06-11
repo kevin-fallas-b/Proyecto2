@@ -46,3 +46,5 @@ Route::post('/miperfil/curriculum/experiencia', 'UserController@guardarexperienc
 Route::post('/miperfil/curriculum/observacion', 'UserController@guardarobservacion');
 
 Route::get('/miperfil/ofertas', 'UserController@verofertas');
+
+Route::post('/miperfil/eliminar', 'UserController@eliminar');
