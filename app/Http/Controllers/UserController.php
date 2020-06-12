@@ -68,26 +68,41 @@ class UserController extends Controller
     {
         if (isset($_POST['id'])) {
             //editar 
-            return User::editarobservacion($_POST['id'],$_POST['cedula'],$_POST['merito']);
+            return User::editarobservacion($_POST['id'], $_POST['cedula'], $_POST['merito']);
         } else {
-            return User::crearobservacion($_POST['cedula'],$_POST['merito']);
+            return User::crearobservacion($_POST['cedula'], $_POST['merito']);
         }
     }
 
-    public function eliminar(){
-        switch($_POST['tipo']){
+    public function eliminar()
+    {
+        switch ($_POST['tipo']) {
             case 1:
-                return User::eliminartitulo($_POST['cedula'],$_POST['id']);
-            break;
+                return User::eliminartitulo($_POST['cedula'], $_POST['id']);
+                break;
             case 2:
-                return User::eliminarexperiencia($_POST['cedula'],$_POST['id']);
-            break;
+                return User::eliminarexperiencia($_POST['cedula'], $_POST['id']);
+                break;
             case 3:
-                return User::eliminarobservacion($_POST['cedula'],$_POST['id']);
-            break;
+                return User::eliminarobservacion($_POST['cedula'], $_POST['id']);
+                break;
             case 4:
-                return User::eliminaroferta($_POST['cedula'],$_POST['id']);
-            break;
+                return User::eliminaroferta($_POST['cedula'], $_POST['id']);
+                break;
+            case 5:
+                return User::eliminarcategoria($_POST['cedula'], $_POST['id']);
+                break;
         }
     }
+
+    public function verofertas()
+    {
+        return view('ofertas');
+    }
+
+    public function guardarcategoria()
+    {
+        return User::crearcategoria($_POST['cedula'], $_POST['categoria']);
+    }
+
 }

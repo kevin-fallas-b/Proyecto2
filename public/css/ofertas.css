@@ -1,0 +1,203 @@
+#sirhena{
+    left: 39%;
+}
+
+.contenedor{
+    position: absolute;
+    top: 90px;
+    height: 83%;
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    overflow: auto;
+}
+
+#contenedorcategorias{
+   left: 1%;
+   width: 20%;
+}
+#contenedorofertas{
+   left: 23%;
+   width: 75%;
+}
+
+
+.lblcontenedor{
+    position: relative;
+    border-bottom: 2px solid black;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.detallecontenedor{
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    padding: 10px;
+}
+
+.categoria{
+    background: rgb(147, 231, 227);
+
+}
+
+.oferta{
+    background-color: rgb(85, 168, 136);
+}
+
+.editar{
+    position: absolute;
+    right: 110px;
+    bottom: 5px;
+}
+
+.eliminar{
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    background: #d62047;
+}
+
+.eliminar:hover{
+    background: #9c2841;
+}
+
+.agregar{
+    position: relative;
+    margin-top: 10px;
+    margin-left: 10px;
+    border: 2px solid #60c257;
+    background: transparent;
+    color: black !important;
+}
+
+.agregar:hover{
+    color: white !important;
+}
+
+
+/* MODAL */
+.bg-modal {
+	background-color: rgba(0, 0, 0, 0.8);
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	display: none;
+	justify-content: center;
+	align-items: center;
+}
+
+.modal-contents {
+	height: 300px;
+	width: 500px;
+	background-color: white;
+	text-align: center;
+	padding: 20px;
+	position: relative;
+	border-radius: 4px;
+}
+
+
+.close {
+	position: absolute;
+	top: 0;
+	right: 10px;
+	font-size: 42px;
+	color: #333;
+	transform: rotate(45deg);
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+	z-index: 999;
+}
+
+.close :hover{
+    color: #666;
+}
+
+.contenedoropcionesmodal{
+    position: relative;
+    top: 35px;
+    text-align: left;
+}
+
+.contenedorbotonesmodal{
+    position: absolute;
+    bottom: 20px;
+    left: 33%;
+}
+
+.contenedortitulomodal{
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-bottom: 3px solid black;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+
+}
+
+.contenedortitulomodal label{
+    font-size: 20px;
+}
+
+input::date{
+    border-radius: 8px;
+}
+
+#contenedornombrecategoria{
+    position: absolute;
+    top: 140px;
+    left: 60px;
+}
+
+.hijoshorizontal{
+    display: flex;
+    justify-content: left;
+}
+
+.contenedoroferta, .contenedorrequisitos, .contenedorcategorias{
+    position: relative;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    border-right: 2px solid black;
+    width: 280px;
+}
+
+.contenedorcategorias{
+    border: none !important;
+}
+
+.lblcontenedordetalle{
+    position: relative;
+    
+    font-weight: bold;
+    text-align: center;
+}
+
+.aplicantes{
+    position: absolute;
+    bottom: 5px;
+    right: 215px;
+    width: 140px;
+}
+
+#ofertanuevagrande{
+    height: 500px;
+    width: 900px;
+}
+
+#botonesofertanueva{
+    left: 38%;
+}

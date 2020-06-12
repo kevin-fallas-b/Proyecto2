@@ -276,7 +276,7 @@
         <div class="modal-contents">
             <input type="button" name="" id="" class="close" value="+" onclick="cerrar('modaleliminar')">
             <div class="contenedortitulomodal">
-                <label id='lbleliminar'>Elimar Elemento</label>
+                <label id='lbleliminar'>Eliminar Elemento</label>
             </div>
             <div class='contenedoropcionesmodal'>
                 <br><br><br><label id="estaseguro"></label><br>

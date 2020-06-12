@@ -35,14 +35,18 @@ class Auth extends Model
                     $ofertas[$i]->ofertascategoria = DB::table('tbl_oftertascategoria')->where('idOferta', $id)->get();
                     $ids = '';
                     for ($k = 0; $k < sizeof($ofertas[$i]->ofertascategoria); $k++) {
-                        $ids = $ids .'id='. $ofertas[$i]->ofertascategoria[$k]->id;
+                        $ids = $ids . 'id=' . $ofertas[$i]->ofertascategoria[$k]->id;
                         if ($k == (sizeof($ofertas[$i]->ofertascategoria) - 1)) {
                             break;
-                        }else{
-                            $ids= $ids.' || ';
+                        } else {
+                            $ids = $ids . ' || ';
                         }
                     }
-                    $ofertas[$i]->categorias = DB::select(DB::raw('SELECT * FROM `tbl_categoria` WHERE '.$ids ));
+                    if ($ids != '') {
+                        $ofertas[$i]->categorias = DB::select(DB::raw('SELECT * FROM `tbl_categoria` WHERE ' . $ids));
+                    }else{
+                        $ofertas[$i]->categorias=new Collection();
+                    }
                 }
                 $_SESSION['categoriasuser'] = $categorias;
                 $_SESSION['ofertasuser'] = $ofertas;

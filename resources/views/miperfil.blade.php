@@ -161,7 +161,7 @@
                         }
                         for ($i = 0; $i < (3 - sizeof($_SESSION['titulosuser'])); $i++) {
                             if ($_SESSION['experienciasuser'][$i] != null) {
-                                echo '<div class="bloque experiencia" id="bloque3">';
+                                echo '<div class="bloque experiencia" id="">';
                                 echo  '<br><label for="" >Empresa: ' . $_SESSION['experienciasuser'][$i]->empresa . '</label><br><br>';
                                 echo '<label for="" >Puesto: ' . $_SESSION['experienciasuser'][$i]->puesto . '</label><br><br>';
                                 echo '<label for="" >Fecha de ingreso: ' . $_SESSION['experienciasuser'][$i]->fecha_ini . '</label><br>';
@@ -174,26 +174,25 @@
                 } else {
                     
                     for ($i = 0; $i < sizeof($_SESSION['ofertasuser']); $i++) {
+
+                        echo '<div class="bloque titulo" id="">';
                         //mostrar ofertas, pero maximo 3
-                        echo $_SESSION['ofertasuser'][$i]->id."<br>";
-                        echo $_SESSION['ofertasuser'][$i]->descripcion."<br>";
-                        echo "requisitos<br>";
+                        echo '<label>'.$_SESSION['ofertasuser'][$i]->descripcion."</label><br>";
+                        echo "<label style='font-weight:bold'>requisitos</label><br>";
                         for($k=0;$k<sizeof($_SESSION['ofertasuser'][$i]->requisitos);$k++){
                             echo $_SESSION['ofertasuser'][$i]->requisitos[$k]->Descripcion."<br>";
                         }
-                        echo 'fin requisitos<br>';
-                        echo 'inicio categorias<br>';
+                        echo "<label style='font-weight:bold'>Categorias</label><br>";
                         for($k=0;$k<sizeof($_SESSION['ofertasuser'][$i]->categorias);$k++){
-                            echo $_SESSION['ofertasuser'][$i]->categorias[$k]->id."<br>";
-                            echo $_SESSION['ofertasuser'][$i]->categorias[$k]->cedula."<br>";
-                            echo $_SESSION['ofertasuser'][$i]->categorias[$k]->nombre."<br>";
+                            echo '<label>'.$_SESSION['ofertasuser'][$i]->categorias[$k]->nombre."</label><br>";
                         }
-                        echo 'fin categorias<br>';
-                        echo "ids ".$_SESSION['ids'].'<br>';
                         if ($i == 2) {
                             break;
                         }
+                        echo '</div> ';
+
                     }
+                    
                 }
 
                 ?>
