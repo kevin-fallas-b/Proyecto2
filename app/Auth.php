@@ -35,7 +35,7 @@ class Auth extends Model
                     $ofertas[$i]->ofertascategoria = DB::table('tbl_oftertascategoria')->where('idOferta', $id)->get();
                     $ids = '';
                     for ($k = 0; $k < sizeof($ofertas[$i]->ofertascategoria); $k++) {
-                        $ids = $ids . 'id=' . $ofertas[$i]->ofertascategoria[$k]->id;
+                        $ids = $ids . 'id=' . $ofertas[$i]->ofertascategoria[$k]->idCategoria;
                         if ($k == (sizeof($ofertas[$i]->ofertascategoria) - 1)) {
                             break;
                         } else {

@@ -92,7 +92,7 @@
                 echo '<label>Requisitos</label>';
                 echo '</div>';
                 for ($k = 0; $k < sizeof($_SESSION['ofertasuser'][$i]->requisitos); $k++) {
-                    echo '<label>' . $_SESSION['ofertasuser'][$i]->requisitos[$k]->Descripcion . '</label><label> : ' . $_SESSION['ofertasuser'][$i]->requisitos[$k]->tipo . '<br>';
+                    echo '<label>' . $_SESSION['ofertasuser'][$i]->requisitos[$k]->Descripcion . '</label><label><br>';
                 }
                 echo '</div>';
                 echo '<div class="contenedorcategorias">';
@@ -104,9 +104,9 @@
                     echo '<label>' . $_SESSION['ofertasuser'][$i]->categorias[$k]->nombre . '</label><br>';
                 }
                 echo '</div>';
-                echo '<input type="button" name=""  class="btnconestilo aplicantes" value="Ver Aplicantes" onclick="veraplicantes(' . $_SESSION['categoriasuser'][$i]->id . ')">';
-                echo '<input type="button" name=""  class="btnconestilo editar" value="Editar" onclick="editarcategoria(' . $_SESSION['categoriasuser'][$i]->id . ')">';
-                echo '<input type="button" name=""  class="btnconestilo eliminar" value="Eliminar" onclick="eliminarcategoria(' . $_SESSION['categoriasuser'][$i]->id . ')">';
+                echo '<input type="button" name=""  class="btnconestilo aplicantes" value="Ver Aplicantes" onclick="veraplicantes(' . $_SESSION['ofertasuser'][$i]->id . ')">';
+                echo '<input type="button" name=""  class="btnconestilo editar" value="Editar" onclick="eliminaroferta(' . $_SESSION['ofertasuser'][$i]->id . ')">';
+                echo '<input type="button" name=""  class="btnconestilo eliminar" value="Eliminar" onclick="eliminaroferta(' . $_SESSION['ofertasuser'][$i]->id . ')">';
                 echo '</div>';
             }
 
@@ -132,16 +132,25 @@
                 <label for="">Vacantes: </label><input type="text" name="" id="txtvacantesoferta" placeholder="Cantidad de vacantes" class="cajatexto" onkeypress="return isNumber(event)"><br>
                 <label for="">Ubicacion: </label><input type="text" name="" id="txtubicacionoferta" placeholder="Ubicacion" class="cajatexto">
                 <label for="">Horario: </label><input type="text" name="" id="txthorariooferta" placeholder="Horario" class="cajatexto"><br>
-                <label for="">Duracion del contrato: </label><input type="text" name="" id="txtduracionoferta" placeholder="Duracion" class="cajatexto">
+                <label for="">Duracion del contrato: </label><input type="text" name="" id="txtcontratooferta" placeholder="Duracion" class="cajatexto">
                 <label for="">Salario: </label><input type="text" name="" id="txtsalariooferta" placeholder="Salario" class="cajatexto" onkeypress="return isNumber(event)"><br>
+                <label for="">Requisitos: </label><input type="text" name="" id="txtrequisitosoferta" placeholder="Requisitos" class="cajatexto" onkeyup="agregarrequisito(event)"><br>
                 <div id="contenedortagsoferta">
-                    <label for="">Requisitos: </label><input type="text" name="" id="txtrequisitosoferta" placeholder="Requisitos" class="cajatexto"><br>
+                    
+                </div>
+                <div id="contenedorcategoriasmodal">
+                    <label for="">Categorias: </label><br>
+                <?php
+                for($i=0;$i<sizeof($_SESSION['categoriasuser']);$i++){
+                    echo '<input type="checkbox" id="" class="checkboxmodal" name="'.$_SESSION['categoriasuser'][$i]->nombre.'" value="'.$_SESSION['categoriasuser'][$i]->id.'"><label style="padding-right:10px">'.$_SESSION['categoriasuser'][$i]->nombre.'</label>';
+                }
+                ?>
                 </div>
             </div>
 
             <div class='contenedorbotonesmodal' id="botonesofertanueva">
                 <input type="button" value="Cancelar" class="btnconestilo" id="btncancelarmodal" onclick="cerrar('modalofertanueva')">
-                <input type="button" value="Guardar" class="btnconestilo" id="btnguardarcategoriamodal">
+                <input type="button" value="Guardar" class="btnconestilo" id="btnguardarofertamodal">
             </div>
         </div>
     </div>

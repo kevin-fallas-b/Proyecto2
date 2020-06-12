@@ -10,6 +10,7 @@ var txtnombrecategoria;
 var btnagregaroferta;
 
 var editandooferta
+var ideditando;
 
 //varas de eliminar
 var modaleliminar;
@@ -18,6 +19,19 @@ var ideliminar;
 var tipoeliminar;
 var btneliminar;
 
+//elementos de agregar oferta nueva
+var txtdescripcionoferta;
+var txtvacantesoferta;
+var txtubicacionoferta;
+var txthorariooferta;
+var txtcontratooferta;
+var txtsalariooferta;
+var btnguardarofertamodal;
+var txtrequisitosoferta;
+var contenedorequisitos;
+var requisitos;
+var categoriasuser;
+var idscategoriasseleccionadas;
 
 function iniciar() {
     alertify.set('notifier', 'position', 'top-right');
@@ -34,11 +48,27 @@ function iniciar() {
 
     btnagregaroferta = document.getElementById('btnagregaroferta');
 
+
+    txtdescripcionoferta = document.getElementById('txtdescripcionoferta');
+    txtvacantesoferta = document.getElementById('txtvacantesoferta');
+    txtubicacionoferta = document.getElementById('txtubicacionoferta');
+    txthorariooferta = document.getElementById('txthorariooferta');
+    txtcontratooferta = document.getElementById('txtcontratooferta');
+    txtsalariooferta = document.getElementById('txtsalariooferta');
+    btnguardarofertamodal = document.getElementById('btnguardarofertamodal');
+    txtrequisitosoferta = document.getElementById('txtrequisitosoferta');
+    contenedorequisitos = document.getElementById('contenedortagsoferta');
+    requisitos = [];
+    categoriasuser = document.getElementsByClassName('checkboxmodal');
+    idscategoriasseleccionadas = [];
+    
+
     btneliminar.addEventListener('click', eliminar, false);
     btnagregarcategoria.addEventListener('click', abrircategorianueva, false)
     btnguardarcategoriamodal.addEventListener('click', guardarcategoria, false)
-    btnagregaroferta.addEventListener('click',limpiarcamposmodal,false);
-    btnagregaroferta.addEventListener('click',abrirofertanueva,false);
+    btnagregaroferta.addEventListener('click', limpiarcamposmodal, false);
+    btnagregaroferta.addEventListener('click', abrirofertanueva, false);
+    btnguardarofertamodal.addEventListener('click', guardaroferta, false);
 }
 
 
@@ -48,8 +78,16 @@ function abrircategorianueva() {
     document.getElementById('modalcategorianueva').style.display = "flex";
 }
 
-function limpiarcamposmodal(){
-
+function limpiarcamposmodal() {
+    txtdescripcionoferta.value = '';
+    txtvacantesoferta.value = '';
+    txtubicacionoferta.value = '';
+    txthorariooferta.value = '';
+    txtcontratooferta.value = '';
+    txtsalariooferta.value = '';
+    txtrequisitosoferta.value = '';
+    requisitos = [];
+    generartagsrequisitos();
 }
 
 function abrirofertanueva() {
@@ -93,7 +131,7 @@ function eliminarcategoria(id) {
     lblestaseguro.innerHTML = '¿Esta seguro de que quiere eliminar esta categoria?\nEsta accion no se puede deshacer.';
 }
 
-function eliminarcategoria(id) {
+function eliminaroferta(id) {
     ideliminar = id;
     tipoeliminar = 4;
     modaleliminar.style.display = "flex";
@@ -126,3 +164,97 @@ function eliminar() {
 }
 
 
+function guardaroferta() {
+    if (validarcamposoferta()) {
+        var form = new FormData();
+        if (editandooferta) {
+            form.append('id', ideditando);
+        }
+        form.append('cedula', cedulauser);
+        form.append('descripcion', txtdescripcionoferta.value);
+        form.append('vacantes', txtvacantesoferta.value);
+        form.append('ubicacion', txtubicacionoferta.value);
+        form.append('horario', txthorariooferta.value);
+        form.append('contrato', txtcontratooferta.value);
+        form.append('salario', txtsalariooferta.value);
+        form.append('requisitos', JSON.stringify(requisitos));
+        form.append('categorias', JSON.stringify(idscategoriasseleccionadas));
+        axios.post('ofertas', form)
+            .then(function (response) {
+                if (response.data === 'exito') {
+                    if (editandooferta) {
+                        alertify.success('Oferta actualizada correctamente.');
+                        editandooferta = false;
+
+                    } else {
+                        alertify.success('Oferta guardada correctamente.');
+
+                    }
+                    window.setTimeout(function () {
+                        window.location.href = getbaseurl() + '/miperfil/ofertas';
+                    }, 1200);
+                } else {
+                    alertify.error(response.data);
+                    window.setTimeout(function () {
+                        window.location.href = getbaseurl() + '/miperfil/ofertas';
+                    }, 2000);
+                }
+            })
+            .catch(function (error) {
+                alertify.error('Ocurrio un error interno al intentar guardar. Por favor intente mas tarde.');
+            })
+    }
+}
+
+function validarcamposoferta() {
+    if (!stringvalido(txtdescripcionoferta.value, 200) || !stringvalido(txtvacantesoferta.value, 11) || !stringvalido(txtubicacionoferta.value, 50) || !stringvalido(txtsalariooferta.value, 11) || !stringvalido(txthorariooferta.value, 50) || !stringvalido(txtcontratooferta.value, 50)) {
+        alertify.error('Existen errores en los campos, por favor verifiquelos e intente de nuevo.');
+        return false;
+    }
+    if(requisitos.length == 0){
+        alertify.error('No puede guardar una oferta sin ningun requisito.');
+        return false;
+    }
+    idscategoriasseleccionadas = [];
+    for(var i=0; i< categoriasuser.length;i++){
+        if(categoriasuser[i].checked){
+            idscategoriasseleccionadas.push(categoriasuser[i].value);
+        }
+    }
+    if(idscategoriasseleccionadas.length==0){
+        alertify.error('No se puede guardar una oferta sin ninguna categoria.');
+        return false;
+    }
+    return true;
+}
+
+function agregarrequisito(e) {
+    if (e.keyCode === 13) {
+        if (!requisitos.includes(txtrequisitosoferta.value) && stringvalido(txtrequisitosoferta.value, 200)) {
+            requisitos.push(txtrequisitosoferta.value);
+            txtrequisitosoferta.value = '';
+            generartagsrequisitos();
+        } else {
+            if (stringvalido(txtrequisitosoferta.value, 200)) {
+                alertify.warning('Ya existe el requisito.');
+            } else {
+                alertify.error('Requisito no valido.')
+            }
+            txtrequisitosoferta.value = '';
+        }
+
+    }
+}
+
+function eliminarrequisito(indexrequisito) {
+    requisitos.splice(indexrequisito, 1);
+    generartagsrequisitos();
+}
+
+function generartagsrequisitos() {
+    contenedorequisitos.innerHTML = '';
+    for (var i = 0; i < requisitos.length; i++) {
+        contenedorequisitos.innerHTML += '<span class="tag">' + requisitos[i] + '<span class="closetag" onclick="eliminarrequisito(' + i + ')"></span></span>';
+
+    }
+}

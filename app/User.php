@@ -153,27 +153,67 @@ class User extends Model
         //ya que eliminamos actualizar la informacion del usuario que existe en la session
         session_start();
         $ofertas = DB::table('tbl_oferta')->where('cedula', $cedula)->get();
-                //para cada oferta buscar entre los requisitos
-                for ($i = 0; $i < sizeof($ofertas); $i++) {
-                    $id = $ofertas[$i]->id;
-                    $ofertas[$i]->requisitos = DB::table('tbl_requisito')->where('id_oferta', $id)->get();
-                    $ofertas[$i]->ofertascategoria = DB::table('tbl_oftertascategoria')->where('idOferta', $id)->get();
-                    $ids = '';
-                    for ($k = 0; $k < sizeof($ofertas[$i]->ofertascategoria); $k++) {
-                        $ids = $ids . 'id=' . $ofertas[$i]->ofertascategoria[$k]->id;
-                        if ($k == (sizeof($ofertas[$i]->ofertascategoria) - 1)) {
-                            break;
-                        } else {
-                            $ids = $ids . ' || ';
-                        }
-                    }
-                    if ($ids != '') {
-                        $ofertas[$i]->categorias = DB::select(DB::raw('SELECT * FROM `tbl_categoria` WHERE ' . $ids));
-                    }else{
-                        $ofertas[$i]->categorias=new Collection();
-                    }
+        //para cada oferta buscar entre los requisitos
+        for ($i = 0; $i < sizeof($ofertas); $i++) {
+            $id = $ofertas[$i]->id;
+            $ofertas[$i]->requisitos = DB::table('tbl_requisito')->where('id_oferta', $id)->get();
+            $ofertas[$i]->ofertascategoria = DB::table('tbl_oftertascategoria')->where('idOferta', $id)->get();
+            $ids = '';
+            for ($k = 0; $k < sizeof($ofertas[$i]->ofertascategoria); $k++) {
+                $ids = $ids . 'id=' . $ofertas[$i]->ofertascategoria[$k]->idCategoria;
+                if ($k == (sizeof($ofertas[$i]->ofertascategoria) - 1)) {
+                    break;
+                } else {
+                    $ids = $ids . ' || ';
                 }
-                $_SESSION['ofertasuser'] = $ofertas;
+            }
+            if ($ids != '') {
+                $ofertas[$i]->categorias = DB::select(DB::raw('SELECT * FROM `tbl_categoria` WHERE ' . $ids));
+            } else {
+                $ofertas[$i]->categorias = new Collection();
+            }
+        }
+        $_SESSION['ofertasuser'] = $ofertas;
+        return 'exito';
+    }
+
+    public static function crearoferta($cedula, $descripcion, $vacantes, $ubicacion, $horario, $contrato, $salario, $requisitosJSON, $categoriasJSON)
+    {
+        $fecha = date("Y-m-d");
+        $idoferta = DB::table('tbl_oferta')->insertGetId(['cedula' => $cedula, 'descripcion' => $descripcion, 'numero_vacantes' => $vacantes, 'fecha' => $fecha, 'ubicacion' => $ubicacion, 'horario' => $horario, 'salario' => $salario, 'duracion' => $contrato]);
+        $requisitos = json_decode($requisitosJSON);
+        for ($i = 0; $i < sizeof($requisitos); $i++) {
+            DB::table('tbl_requisito')->insert(['id_oferta' => $idoferta,'Descripcion'=>$requisitos[$i]]);
+        }
+        $categorias = json_decode($categoriasJSON);
+        for ($i = 0; $i < sizeof($categorias); $i++) {
+            DB::table('tbl_oftertascategoria')->insert(['idOferta' => $idoferta,'idCategoria'=>$categorias[$i]]);
+        }
+
+
+        session_start();
+        $ofertas = DB::table('tbl_oferta')->where('cedula', $cedula)->get();
+        //para cada oferta buscar entre los requisitos
+        for ($i = 0; $i < sizeof($ofertas); $i++) {
+            $id = $ofertas[$i]->id;
+            $ofertas[$i]->requisitos = DB::table('tbl_requisito')->where('id_oferta', $id)->get();
+            $ofertas[$i]->ofertascategoria = DB::table('tbl_oftertascategoria')->where('idOferta', $id)->get();
+            $ids = '';
+            for ($k = 0; $k < sizeof($ofertas[$i]->ofertascategoria); $k++) {
+                $ids = $ids . 'id=' . $ofertas[$i]->ofertascategoria[$k]->idCategoria;
+                if ($k == (sizeof($ofertas[$i]->ofertascategoria) - 1)) {
+                    break;
+                } else {
+                    $ids = $ids . ' || ';
+                }
+            }
+            if ($ids != '') {
+                $ofertas[$i]->categorias = DB::select(DB::raw('SELECT * FROM `tbl_categoria` WHERE ' . $ids));
+            } else {
+                $ofertas[$i]->categorias = new Collection();
+            }
+        }
+        $_SESSION['ofertasuser'] = $ofertas;
         return 'exito';
     }
 }

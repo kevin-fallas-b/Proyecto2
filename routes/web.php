@@ -51,4 +51,6 @@ Route::post('/miperfil/eliminar', 'UserController@eliminar');
 
 
 Route::post('/miperfil/ofertas/categoria', 'UserController@guardarcategoria');
+Route::post('/miperfil/ofertas', 'UserController@guardaroferta');
+
 
