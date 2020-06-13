@@ -219,7 +219,7 @@ class User extends Model
 
     public static function actualizaroferta($id, $cedula, $descripcion, $vacantes, $ubicacion, $horario, $contrato, $salario, $requisitosJSON, $categoriasJSON)
     {
-        //hora de inicio 6:19, pienso que esto va a ser un dolor de huevos inmenso
+        //hora de inicio 6:19pm, pienso que esto va a ser un dolor de huevos inmenso
         //primero que todo actualizar el objeto oferta, no deberia ser dificil, fecha no la actualizamos porque es fecha en que se posteo el anuncio
         DB::table('tbl_oferta')->where('id', $id)->update(['descripcion' => $descripcion, 'numero_vacantes' => $vacantes, 'ubicacion' => $ubicacion, 'horario' => $horario, 'salario' => $salario, 'duracion' => $contrato]);
 
@@ -320,5 +320,7 @@ class User extends Model
         }
         $_SESSION['ofertasuser'] = $ofertas;
         return 'exito';
+        //listo, no fue facil pero tampoco tan dolor de cabeza. hora de finalizacion 8:12pm
+        //se que hay mucho campo para optimizar el codigo, pero no hay tiempo jaja
     }
 }

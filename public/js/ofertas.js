@@ -181,7 +181,6 @@ function guardaroferta() {
         form.append('horario', txthorariooferta.value);
         form.append('contrato', txtcontratooferta.value);
         form.append('salario', txtsalariooferta.value);
-        console.log(JSON.stringify(idscategoriasseleccionadas));
         form.append('requisitos', JSON.stringify(requisitos));
         form.append('categorias', JSON.stringify(idscategoriasseleccionadas));
         axios.post('ofertas', form)
