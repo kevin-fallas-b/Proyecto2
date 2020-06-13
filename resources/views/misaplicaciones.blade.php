@@ -37,7 +37,8 @@ use Illuminate\Support\Facades\URL;
                 if ($_SESSION['user']->tipo == 1) {
                     echo '<label id="lblcedulauser" hidden>' . $_SESSION['user']->cedula . '</label>';
                     echo '<a href="' . URL::to('/miperfil/curriculum') . '" class="textobotonbarra" >Mi Curriculum</a>';
-                } if ($_SESSION['user']->tipo == 2) {
+                }
+                if ($_SESSION['user']->tipo == 2) {
                     //es un perfil de una empresa, nada tiene que estar haciendo aqui
                     header('Location: ' . URL::to('/sinpermisos'), true, 302);
                 }
@@ -58,15 +59,17 @@ use Illuminate\Support\Facades\URL;
         <div id="panelprincipal">
             <div class="lblcontenedor">
                 <label id="lblofertasbusqueda">Ofertas a las que he aplicado</label>
+                <input type="button" value="Generar Reporte" id="btnreporteaplicaciones" class="btnconestilo" onclick="generarreporte()">
             </div>
             <div id="contenedordetalles">
-            <?php
+                <?php
                 for ($i = 0; $i < sizeof($_SESSION['misaplicaciones']); $i++) {
                     echo '<div class="detallecontenedor">';
                     echo '<label>Descripcion: ' . $_SESSION['misaplicaciones'][$i]->descripcion . '</label><br>';
                     echo '<label>Empresa: ' . $_SESSION['misaplicaciones'][$i]->empresa[0] . '</label><br>';
                     echo '<label>Vacantes: ' . $_SESSION['misaplicaciones'][$i]->numero_vacantes . '</label><br>';
                     echo '<label>Fecha de publicacion: ' . $_SESSION['misaplicaciones'][$i]->fecha . '</label><br>';
+                    echo '<input type="button" value="Ver reporte de empresa" class="btnconestilo btnverreporteempresa" onclick="verempresa(' . $_SESSION['misaplicaciones'][$i]->cedula . ')">';
                     echo '<input type="button" value="Ver listado" class="btnconestilo" onclick="verlistado(' . $_SESSION['misaplicaciones'][$i]->id . ')">';
                     echo '</div>';
                 }
@@ -105,7 +108,7 @@ use Illuminate\Support\Facades\URL;
                     <label for="">Categorias:</label>
 
                 </div>
-               
+
 
             </div>
             <div id="contenedorcantaplicantes">
@@ -113,12 +116,7 @@ use Illuminate\Support\Facades\URL;
             </div>
             <div class='contenedorbotonesmodal'>
                 <input type="button" value="Cerrar" class="btnconestilo" id="btncancelarmodal" onclick="cerrarmodal()">
-                <?php
-                if (!(isset($_SESSION['user']) && $_SESSION['user']->tipo == 2)) {
-                    echo '<input type="button" value="Aplicar" class="btnconestilo" id="btnaplicaroferta" onclick="aplicaroferta()">';
-                    echo '<input type="button" value="Remover aplicacion" class="btnconestilo" id="btnremoveraplicacion" hidden onclick="removeraplicacion()">';
-                }
-                ?>
+                <input type="button" value="Remover aplicacion" class="btnconestilo" id="btnremoveraplicacion" onclick="removeraplicacion()">
             </div>
         </div>
     </div>

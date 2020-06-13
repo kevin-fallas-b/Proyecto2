@@ -114,8 +114,14 @@ class UserController extends Controller
         }
     }
 
-    public function misaplicaciones(){
+    public function misaplicaciones()
+    {
         User::misaplicaciones();
         return view('misaplicaciones');
+    }
+
+    public function reporteaplicaicones()
+    {
+      
     }
 }

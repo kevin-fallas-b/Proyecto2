@@ -35,7 +35,7 @@
     margin-right: 10px;
     margin-left: 10px;
     padding: 10px;
-    background: #509099;
+    background: #ffffff;
 }
 
 #panelprincipal .btnconestilo{
@@ -43,6 +43,15 @@
     right: 10px;
     bottom: 5px;
     width: 120px;
+}
+
+.btnverreporteempresa{
+    right: 140px !important;
+    width: 220px !important;
+}
+
+#btnreporteaplicaciones{
+    width: 155px !important;
 }
 
 /* MODAL */

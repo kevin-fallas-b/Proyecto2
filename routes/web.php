@@ -60,3 +60,5 @@ Route::post('/removerapp', 'PrincipalController@removerapp');
 
 Route::get('/aplicaciones','UserController@misaplicaciones');
 
+Route::post('/reporte/aplicaciones','UserController@reporteaplicaciones');
+
