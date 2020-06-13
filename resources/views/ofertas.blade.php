@@ -86,13 +86,13 @@
                 echo '<label>Duracion: </label><label class="duracionoferta">' . $_SESSION['ofertasuser'][$i]->duracion . '</label><br>';
                 echo '<label>Fecha: </label><label class="fechaoferta">' . $_SESSION['ofertasuser'][$i]->fecha . '</label><br>';
                 echo '</div>';
-                echo '<div class="contenedorrequisitos">';
+                echo '<div class="contenedorrequisitos" id="contenedorrequisitos'. $_SESSION['ofertasuser'][$i]->id .'">';
                 //aqui van requisitos
                 echo '<div class="lblcontenedordetalle">';
                 echo '<label>Requisitos</label>';
                 echo '</div>';
                 for ($k = 0; $k < sizeof($_SESSION['ofertasuser'][$i]->requisitos); $k++) {
-                    echo '<label>' . $_SESSION['ofertasuser'][$i]->requisitos[$k]->Descripcion . '</label><label><br>';
+                    echo '<label class="requisito">' . $_SESSION['ofertasuser'][$i]->requisitos[$k]->Descripcion . '</label><br>';
                 }
                 echo '</div>';
                 echo '<div class="contenedorcategorias">';
@@ -101,11 +101,11 @@
                 echo '<label>Categorias</label>';
                 echo '</div>';
                 for ($k = 0; $k < sizeof($_SESSION['ofertasuser'][$i]->categorias); $k++) {
-                    echo '<label>' . $_SESSION['ofertasuser'][$i]->categorias[$k]->nombre . '</label><br>';
+                    echo '<label name="'.$_SESSION['ofertasuser'][$i]->categorias[$k]->id.'" class="cate">' . $_SESSION['ofertasuser'][$i]->categorias[$k]->nombre . '</label><br>';
                 }
                 echo '</div>';
                 echo '<input type="button" name=""  class="btnconestilo aplicantes" value="Ver Aplicantes" onclick="veraplicantes(' . $_SESSION['ofertasuser'][$i]->id . ')">';
-                echo '<input type="button" name=""  class="btnconestilo editar" value="Editar" onclick="eliminaroferta(' . $_SESSION['ofertasuser'][$i]->id . ')">';
+                echo '<input type="button" name=""  class="btnconestilo editar" value="Editar" onclick="editaroferta(' . $_SESSION['ofertasuser'][$i]->id . ')">';
                 echo '<input type="button" name=""  class="btnconestilo eliminar" value="Eliminar" onclick="eliminaroferta(' . $_SESSION['ofertasuser'][$i]->id . ')">';
                 echo '</div>';
             }

@@ -183,14 +183,119 @@ class User extends Model
         $idoferta = DB::table('tbl_oferta')->insertGetId(['cedula' => $cedula, 'descripcion' => $descripcion, 'numero_vacantes' => $vacantes, 'fecha' => $fecha, 'ubicacion' => $ubicacion, 'horario' => $horario, 'salario' => $salario, 'duracion' => $contrato]);
         $requisitos = json_decode($requisitosJSON);
         for ($i = 0; $i < sizeof($requisitos); $i++) {
-            DB::table('tbl_requisito')->insert(['id_oferta' => $idoferta,'Descripcion'=>$requisitos[$i]]);
+            DB::table('tbl_requisito')->insert(['id_oferta' => $idoferta, 'Descripcion' => $requisitos[$i]]);
         }
         $categorias = json_decode($categoriasJSON);
         for ($i = 0; $i < sizeof($categorias); $i++) {
-            DB::table('tbl_oftertascategoria')->insert(['idOferta' => $idoferta,'idCategoria'=>$categorias[$i]]);
+            DB::table('tbl_oftertascategoria')->insert(['idOferta' => $idoferta, 'idCategoria' => $categorias[$i]]);
         }
 
 
+        session_start();
+        $ofertas = DB::table('tbl_oferta')->where('cedula', $cedula)->get();
+        //para cada oferta buscar entre los requisitos
+        for ($i = 0; $i < sizeof($ofertas); $i++) {
+            $id = $ofertas[$i]->id;
+            $ofertas[$i]->requisitos = DB::table('tbl_requisito')->where('id_oferta', $id)->get();
+            $ofertas[$i]->ofertascategoria = DB::table('tbl_oftertascategoria')->where('idOferta', $id)->get();
+            $ids = '';
+            for ($k = 0; $k < sizeof($ofertas[$i]->ofertascategoria); $k++) {
+                $ids = $ids . 'id=' . $ofertas[$i]->ofertascategoria[$k]->idCategoria;
+                if ($k == (sizeof($ofertas[$i]->ofertascategoria) - 1)) {
+                    break;
+                } else {
+                    $ids = $ids . ' || ';
+                }
+            }
+            if ($ids != '') {
+                $ofertas[$i]->categorias = DB::select(DB::raw('SELECT * FROM `tbl_categoria` WHERE ' . $ids));
+            } else {
+                $ofertas[$i]->categorias = new Collection();
+            }
+        }
+        $_SESSION['ofertasuser'] = $ofertas;
+        return 'exito';
+    }
+
+    public static function actualizaroferta($id, $cedula, $descripcion, $vacantes, $ubicacion, $horario, $contrato, $salario, $requisitosJSON, $categoriasJSON)
+    {
+        //hora de inicio 6:19, pienso que esto va a ser un dolor de huevos inmenso
+        //primero que todo actualizar el objeto oferta, no deberia ser dificil, fecha no la actualizamos porque es fecha en que se posteo el anuncio
+        DB::table('tbl_oferta')->where('id', $id)->update(['descripcion' => $descripcion, 'numero_vacantes' => $vacantes, 'ubicacion' => $ubicacion, 'horario' => $horario, 'salario' => $salario, 'duracion' => $contrato]);
+
+        //ya actualizamos el objeto oferta, ahora actualizar requisitos.
+        //como requisitos hay muchos para 1 oferta, debemos tener cuidado de no repetir, y ver cuales hay que eliminar, primero vemos cuales ya existen
+        $requisitosExistentes = DB::table('tbl_requisito')->where('id_oferta', $id)->get();
+
+        //ahora pasamos los que el usuario guardo en esta edicion de fucking awesome JSON a un array php
+        $requisitos = json_decode($requisitosJSON, true);
+        //ahora, removemos todos los requisitos existentes de ese array que acabamos de crear, los que queden en existente toca borrarlos, los que queden en requisitos toca guardarlos
+        $enAmbos = [];
+        $aEliminar = [];
+        for ($i = 0; $i < sizeof($requisitosExistentes); $i++) {
+            if (in_array($requisitosExistentes[$i]->Descripcion, $requisitos)) {
+                array_push($enAmbos, $requisitosExistentes[$i]);
+            } else {
+                array_push($aEliminar, $requisitosExistentes[$i]);
+            }
+        }
+
+        $aCrear = [];
+        for ($i = 0; $i < sizeof($requisitos); $i++) {
+            $contenido = false; //es una bandera
+            for ($k = 0; $k < sizeof($enAmbos); $k++) {
+                if ($requisitos[$i] == $enAmbos[$k]->Descripcion) {
+                    $contenido = true;
+                    break;
+                }
+            }
+            if (!$contenido) {
+                array_push($aCrear, $requisitos[$i]);
+            }
+        }
+        for ($i = 0; $i < sizeof($aEliminar); $i++) {
+            DB::table('tbl_requisito')->where('id',$aEliminar[$i]->id)->delete();
+        }
+
+        for ($i = 0; $i < sizeof($aCrear); $i++) {
+            DB::table('tbl_requisito')->insert(['id_oferta'=>$id,'Descripcion'=>$aCrear[$i]]);
+        }
+        //vamos con categorias
+        $categoriasExistentes = DB::table('tbl_oftertascategoria')->where('idOferta', $id)->get();
+        $categorias = json_decode($categoriasJSON, true);
+        $enAmbosCate = [];
+        $aEliminarCate = [];
+        for ($i = 0; $i < sizeof($categoriasExistentes); $i++) {
+            if (in_array($categoriasExistentes[$i]->idCategoria, $categorias)) {
+                array_push($enAmbosCate, $categoriasExistentes[$i]);
+            } else {
+                array_push($aEliminarCate, $categoriasExistentes[$i]);
+            }
+        }
+
+        $aCrearCate = [];
+        for ($i = 0; $i < sizeof($categorias); $i++) {
+            $contenido = false; //es una bandera
+            for ($k = 0; $k < sizeof($enAmbosCate); $k++) {
+                if ($categorias[$i] == $enAmbosCate[$k]->idCategoria) {
+                    $contenido = true;
+                    break;
+                }
+            }
+            if (!$contenido) {
+                array_push($aCrearCate, $categorias[$i]);
+            }
+        }
+        for ($i = 0; $i < sizeof($aEliminarCate); $i++) {
+            DB::table('tbl_oftertascategoria')->where('id',$aEliminarCate[$i]->id)->delete();
+        }
+
+        for ($i = 0; $i < sizeof($aCrearCate); $i++) {
+            DB::table('tbl_oftertascategoria')->insert(['idOferta'=>$id,'idCategoria'=>$aCrearCate[$i]]);
+        }
+
+
+        //por ultimo refrescamos informacion de session
         session_start();
         $ofertas = DB::table('tbl_oferta')->where('cedula', $cedula)->get();
         //para cada oferta buscar entre los requisitos

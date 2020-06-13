@@ -108,7 +108,6 @@ class UserController extends Controller
     public function guardaroferta()
     {
         if (isset($_POST['id'])) {
-            //editar 
             return User::actualizaroferta($_POST['id'], $_POST['cedula'], $_POST['descripcion'], $_POST['vacantes'], $_POST['ubicacion'], $_POST['horario'], $_POST['contrato'], $_POST['salario'], $_POST['requisitos'], $_POST['categorias']);
         } else {
             return User::crearoferta($_POST['cedula'], $_POST['descripcion'], $_POST['vacantes'], $_POST['ubicacion'], $_POST['horario'], $_POST['contrato'], $_POST['salario'], $_POST['requisitos'], $_POST['categorias']);

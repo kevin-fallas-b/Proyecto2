@@ -61,7 +61,7 @@ function iniciar() {
     requisitos = [];
     categoriasuser = document.getElementsByClassName('checkboxmodal');
     idscategoriasseleccionadas = [];
-    
+
 
     btneliminar.addEventListener('click', eliminar, false);
     btnagregarcategoria.addEventListener('click', abrircategorianueva, false)
@@ -87,6 +87,9 @@ function limpiarcamposmodal() {
     txtsalariooferta.value = '';
     txtrequisitosoferta.value = '';
     requisitos = [];
+    for (var i = 0; i < categoriasuser.length; i++) {
+        categoriasuser[i].checked = false;
+    }
     generartagsrequisitos();
 }
 
@@ -97,6 +100,7 @@ function abrirofertanueva() {
 function cerrar(ventana) {
     document.getElementById(ventana).style.display = "none";
     editandooferta = false;
+    limpiarcamposmodal();
 }
 
 function guardarcategoria() {
@@ -177,6 +181,7 @@ function guardaroferta() {
         form.append('horario', txthorariooferta.value);
         form.append('contrato', txtcontratooferta.value);
         form.append('salario', txtsalariooferta.value);
+        console.log(JSON.stringify(idscategoriasseleccionadas));
         form.append('requisitos', JSON.stringify(requisitos));
         form.append('categorias', JSON.stringify(idscategoriasseleccionadas));
         axios.post('ofertas', form)
@@ -211,17 +216,17 @@ function validarcamposoferta() {
         alertify.error('Existen errores en los campos, por favor verifiquelos e intente de nuevo.');
         return false;
     }
-    if(requisitos.length == 0){
+    if (requisitos.length == 0) {
         alertify.error('No puede guardar una oferta sin ningun requisito.');
         return false;
     }
     idscategoriasseleccionadas = [];
-    for(var i=0; i< categoriasuser.length;i++){
-        if(categoriasuser[i].checked){
+    for (var i = 0; i < categoriasuser.length; i++) {
+        if (categoriasuser[i].checked) {
             idscategoriasseleccionadas.push(categoriasuser[i].value);
         }
     }
-    if(idscategoriasseleccionadas.length==0){
+    if (idscategoriasseleccionadas.length == 0) {
         alertify.error('No se puede guardar una oferta sin ninguna categoria.');
         return false;
     }
@@ -257,4 +262,64 @@ function generartagsrequisitos() {
         contenedorequisitos.innerHTML += '<span class="tag">' + requisitos[i] + '<span class="closetag" onclick="eliminarrequisito(' + i + ')"></span></span>';
 
     }
+}
+
+function editaroferta(id) {
+    ideditando = id;
+    editandooferta = true;
+    var todoslasofertas = document.getElementsByClassName('hijoshorizontal');
+    var oferta;
+    var contenedoroferta;
+    var contenedorrequisitos;
+    var contenedorcategorias;
+    for (var i = 0; i < todoslasofertas.length; i++) {
+        if (todoslasofertas[i].id == id) {
+            oferta = todoslasofertas[i];
+            break;
+        }
+    }
+
+    contenedoroferta = oferta.getElementsByClassName('contenedoroferta')[0];
+    contenedorrequisitos = document.getElementById('contenedorrequisitos' + id);
+
+    for (var i = 0; i < contenedoroferta.childNodes.length; i++) {
+        if (contenedoroferta.childNodes[i].className == 'descripcionoferta') {
+            txtdescripcionoferta.value = contenedoroferta.childNodes[i].innerHTML;
+        }
+        if (contenedoroferta.childNodes[i].className == 'vacantesoferta') {
+            txtvacantesoferta.value = contenedoroferta.childNodes[i].innerHTML;
+        }
+        if (contenedoroferta.childNodes[i].className == 'ubicacionoferta') {
+            txtubicacionoferta.value = contenedoroferta.childNodes[i].innerHTML;
+        }
+        if (contenedoroferta.childNodes[i].className == 'salariooferta') {
+            txtsalariooferta.value = contenedoroferta.childNodes[i].innerHTML;
+        }
+        if (contenedoroferta.childNodes[i].className == 'horariooferta') {
+            txthorariooferta.value = contenedoroferta.childNodes[i].innerHTML;
+        }
+        if (contenedoroferta.childNodes[i].className == 'duracionoferta') {
+            txtcontratooferta.value = contenedoroferta.childNodes[i].innerHTML;
+        }
+    }
+    requisitos = [];
+    for (var i = 0; i < contenedorrequisitos.childNodes.length; i++) {
+        if (contenedorrequisitos.childNodes[i].className == 'requisito') {
+            requisitos.push(contenedorrequisitos.childNodes[i].innerHTML);
+        }
+    }
+
+    contenedorcategorias = oferta.getElementsByClassName('contenedorcategorias')[0];
+    for (var i = 0; i < contenedorcategorias.childNodes.length; i++) {
+        if (contenedorcategorias.childNodes[i].className == 'cate') {
+            for (var k = 0; k < categoriasuser.length; k++) {
+                if (categoriasuser[k].name == contenedorcategorias.childNodes[i].innerHTML) {
+                    categoriasuser[k].checked = true;
+                }
+            }
+        }
+    }
+
+    abrirofertanueva();
+    generartagsrequisitos();
 }
