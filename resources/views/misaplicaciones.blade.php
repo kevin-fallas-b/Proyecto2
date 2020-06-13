@@ -4,14 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sirhena</title>
+    <title>Mis Aplicaciones - Sirhena</title>
     <link rel="stylesheet" type="text/css" href="{{ url('/css/style.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ url('/css/principal.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url('/css/aplicaciones.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ url('/css/alertify.min.css') }}" />
 
     <script src="{{ url('/js/alertify.min.js')}}"></script>
     <script src="{{ url('/js/axios.min.js')}}"></script>
-    <script src="{{ url('/js/principal.js')}}"></script>
+    <script src="{{ url('/js/aplicaciones.js')}}"></script>
     <script src="{{ url('/js/general.js')}}"></script>
     <link rel="icon" href="{{ url('/img/favicon.png') }}" type="image/x-icon">
 
@@ -20,7 +20,6 @@
 
 use Illuminate\Support\Facades\URL;
 
-session_start();
 
 ?>
 
@@ -38,12 +37,12 @@ session_start();
                 if ($_SESSION['user']->tipo == 1) {
                     echo '<label id="lblcedulauser" hidden>' . $_SESSION['user']->cedula . '</label>';
                     echo '<a href="' . URL::to('/miperfil/curriculum') . '" class="textobotonbarra" >Mi Curriculum</a>';
-                    echo '<a href="' . URL::to('/aplicaciones') . '" class="textobotonbarra" >Mis Aplicaciones</a>';
-                } else {
-                    echo '<label id="lblcedulauser" hidden>-1</label>';
-                    echo '<a href="' . URL::to('/miperfil/ofertas') . '" class="textobotonbarra" >Mis Ofertas</a>';
+                } if ($_SESSION['user']->tipo == 2) {
+                    //es un perfil de una empresa, nada tiene que estar haciendo aqui
+                    header('Location: ' . URL::to('/sinpermisos'), true, 302);
                 }
                 echo '<a href="' . URL::to('/reportes') . '" class="textobotonbarra" >Reportes</a>';
+                echo '<a href="' . URL::to('/') . '" class="textobotonbarra" >Pagina Principal</a>';
                 echo '<a href="' . URL::to('/logout') . '" class="textobotonbarra">Cerrar Session</a>';
             } else {
                 echo '<label id="lblcedulauser" hidden>-1</label>';
@@ -55,34 +54,20 @@ session_start();
         </div>
     </div>
     <div id="main">
-        <!-- Parte de busqueda -->
-        <div id="panelbusqueda">
-            <div class="lblcontenedor">
-                <label for="">Busqueda</label>
-            </div>
-            <br><label>Descripcion:</label><br>
-            <input type="text" class="cajatexto" id="txtdescripcion" placeholder="Descripcion"><br>
-            <label for="">Categoria:</label><br>
-            <input type="text" class="cajatexto" id="txtcategoria" placeholder="Categoria"><br>
-            <label for="">Empresa:</label><br>
-            <input type="text" class="cajatexto" id="txtempresa" placeholder="Empresa"><br>
-            <input type="button" class="btnconestilo" value="Buscar" id="btnbuscar">
-        </div>
-
         <!--donde veo trabajos y demas-->
         <div id="panelprincipal">
             <div class="lblcontenedor">
-                <label id="lblofertasbusqueda">Ofertas mas recientes</label>
+                <label id="lblofertasbusqueda">Ofertas a las que he aplicado</label>
             </div>
             <div id="contenedordetalles">
-                <?php
-                for ($i = 0; $i < sizeof($_ENV['ofertasmasnuevas']); $i++) {
+            <?php
+                for ($i = 0; $i < sizeof($_SESSION['misaplicaciones']); $i++) {
                     echo '<div class="detallecontenedor">';
-                    echo '<label>Descripcion: ' . $_ENV['ofertasmasnuevas'][$i]->descripcion . '</label><br>';
-                    echo '<label>Empresa: ' . $_ENV['ofertasmasnuevas'][$i]->empresa[0] . '</label><br>';
-                    echo '<label>Vacantes: ' . $_ENV['ofertasmasnuevas'][$i]->numero_vacantes . '</label><br>';
-                    echo '<label>Fecha de publicacion: ' . $_ENV['ofertasmasnuevas'][$i]->fecha . '</label><br>';
-                    echo '<input type="button" value="Ver listado" class="btnconestilo" onclick="verlistado(' . $_ENV['ofertasmasnuevas'][$i]->id . ')">';
+                    echo '<label>Descripcion: ' . $_SESSION['misaplicaciones'][$i]->descripcion . '</label><br>';
+                    echo '<label>Empresa: ' . $_SESSION['misaplicaciones'][$i]->empresa[0] . '</label><br>';
+                    echo '<label>Vacantes: ' . $_SESSION['misaplicaciones'][$i]->numero_vacantes . '</label><br>';
+                    echo '<label>Fecha de publicacion: ' . $_SESSION['misaplicaciones'][$i]->fecha . '</label><br>';
+                    echo '<input type="button" value="Ver listado" class="btnconestilo" onclick="verlistado(' . $_SESSION['misaplicaciones'][$i]->id . ')">';
                     echo '</div>';
                 }
                 ?>

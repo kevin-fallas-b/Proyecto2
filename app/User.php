@@ -254,11 +254,11 @@ class User extends Model
             }
         }
         for ($i = 0; $i < sizeof($aEliminar); $i++) {
-            DB::table('tbl_requisito')->where('id',$aEliminar[$i]->id)->delete();
+            DB::table('tbl_requisito')->where('id', $aEliminar[$i]->id)->delete();
         }
 
         for ($i = 0; $i < sizeof($aCrear); $i++) {
-            DB::table('tbl_requisito')->insert(['id_oferta'=>$id,'Descripcion'=>$aCrear[$i]]);
+            DB::table('tbl_requisito')->insert(['id_oferta' => $id, 'Descripcion' => $aCrear[$i]]);
         }
         //vamos con categorias
         $categoriasExistentes = DB::table('tbl_oftertascategoria')->where('idOferta', $id)->get();
@@ -287,11 +287,11 @@ class User extends Model
             }
         }
         for ($i = 0; $i < sizeof($aEliminarCate); $i++) {
-            DB::table('tbl_oftertascategoria')->where('id',$aEliminarCate[$i]->id)->delete();
+            DB::table('tbl_oftertascategoria')->where('id', $aEliminarCate[$i]->id)->delete();
         }
 
         for ($i = 0; $i < sizeof($aCrearCate); $i++) {
-            DB::table('tbl_oftertascategoria')->insert(['idOferta'=>$id,'idCategoria'=>$aCrearCate[$i]]);
+            DB::table('tbl_oftertascategoria')->insert(['idOferta' => $id, 'idCategoria' => $aCrearCate[$i]]);
         }
 
 
@@ -322,5 +322,24 @@ class User extends Model
         return 'exito';
         //listo, no fue facil pero tampoco tan dolor de cabeza. hora de finalizacion 8:12pm
         //se que hay mucho campo para optimizar el codigo, pero no hay tiempo jaja
+    }
+
+    public static function misaplicaciones()
+    {
+        session_start();
+        $_SESSION['misaplicaciones']=[];
+        $aplicaciones = DB::table('tbl_aplicacion')->where('cedula', $_SESSION['user']->cedula)->get();
+        $ids = '';
+        for ($i = 0; $i < sizeof($aplicaciones); $i++) {
+            $ids = $ids . 'tbl_oferta.id=' . $aplicaciones[$i]->idOferta;
+            if ($i == (sizeof($aplicaciones) - 1)) {
+                break;
+            } else {
+                $ids = $ids . ' || ';
+            }
+        }
+        if ($ids != '') {
+            $_SESSION['misaplicaciones'] = DB::select(DB::raw('SELECT tbl_oferta.* , tbl_usuario.nombre as empresa FROM `tbl_oferta` JOIN `tbl_usuario` on tbl_oferta.cedula = tbl_usuario.cedula WHERE ' . $ids . ' order by tbl_oferta.id DESC'));
+        }
     }
 }

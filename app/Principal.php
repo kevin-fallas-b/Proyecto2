@@ -33,6 +33,7 @@ class Principal extends Model
             ->where('tbl_categoria.nombre', 'LIKE', '%' . $categoria . '%')
             ->where('tbl_usuario.nombre', 'LIKE', '%' . $empresa . '%')
             ->distinct()
+            ->orderByDesc('tbl_oferta.id')
             ->get();
     }
 
@@ -58,13 +59,15 @@ class Principal extends Model
         return $listado;
     }
 
-    public static function aplicar($idoferta,$cedula){
-        DB::table('tbl_aplicacion')->insert(['idOferta'=>$idoferta,'cedula'=>$cedula]);
+    public static function aplicar($idoferta, $cedula)
+    {
+        DB::table('tbl_aplicacion')->insert(['idOferta' => $idoferta, 'cedula' => $cedula]);
         return 'exito';
     }
 
-    public static function removerapp($idoferta,$cedula){
-        DB::table('tbl_aplicacion')->where('idOferta',$idoferta)->where('cedula',$cedula)->delete();
+    public static function removerapp($idoferta, $cedula)
+    {
+        DB::table('tbl_aplicacion')->where('idOferta', $idoferta)->where('cedula', $cedula)->delete();
         return 'exito';
     }
 }

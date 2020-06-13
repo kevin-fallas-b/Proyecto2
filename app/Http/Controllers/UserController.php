@@ -113,4 +113,9 @@ class UserController extends Controller
             return User::crearoferta($_POST['cedula'], $_POST['descripcion'], $_POST['vacantes'], $_POST['ubicacion'], $_POST['horario'], $_POST['contrato'], $_POST['salario'], $_POST['requisitos'], $_POST['categorias']);
         }
     }
+
+    public function misaplicaciones(){
+        User::misaplicaciones();
+        return view('misaplicaciones');
+    }
 }

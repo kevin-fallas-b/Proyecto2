@@ -13,6 +13,10 @@ function inicial() {
     contenedordetalles = document.getElementById('contenedordetalles');
     ventanamodal = document.getElementById('modallistado');
     cedulauser = document.getElementById('lblcedulauser').innerHTML;
+    document.getElementById('txtdescripcion').value='';
+    document.getElementById('txtcategoria').value='';
+    document.getElementById('txtempresa').value='';
+
 
     btnbuscar.addEventListener('click', buscarofertas, false);
 }
@@ -26,6 +30,7 @@ function buscarofertas() {
     axios.post('/', form)
         .then(function (response) {
             resultadobusqueda = response.data;
+            console.log(response.data)
             generarresultadosbusqueda();
         })
         .catch(function (error) {
@@ -35,6 +40,7 @@ function buscarofertas() {
 
 function generarresultadosbusqueda() {
     contenedordetalles.innerHTML = '';
+    document.getElementById('lblofertasbusqueda').innerHTML='Resultado de la busqueda'
     for (var i = 0; i < resultadobusqueda.length; i++) {
         contenedordetalles.innerHTML += '<div class="detallecontenedor">' +
             '<label>Descripcion: ' + resultadobusqueda[i]['descripcion'] + '</label><br>' +
@@ -63,31 +69,41 @@ function verlistado(id) {
             document.getElementById('lblubicacion').innerHTML = listado[0]['ubicacion'];
             document.getElementById('lblhorario').innerHTML = listado[0]['horario'];
             document.getElementById('lblcontrato').innerHTML = listado[0]['duracion'];
-            document.getElementById('lblsalario').innerHTML = listado[0]['salario'];
+            document.getElementById('lblsalario').innerHTML = new Intl.NumberFormat().format(listado[0]['salario'])+'.00';
             document.getElementById('lblfecha').innerHTML = listado[0]['fecha'];
 
             document.getElementById('contenedorcategorias').innerHTML = '';
+            document.getElementById('contenedorcategorias').innerHTML = '<div class="titulocategoriasmodal">' +
+                '<label id="">Categorias</label>' +
+                '</div>';
             for (var i = 0; i < listado['categorias'].length; i++) {
                 document.getElementById('contenedorcategorias').innerHTML += '<label>' +
-                    listado['categorias'][i]['nombre'] +
+                    '-'+listado['categorias'][i]['nombre'] +
                     '</label><br>'
             }
 
             document.getElementById('contenedorrequisitos').innerHTML = '';
+            document.getElementById('contenedorrequisitos').innerHTML = '<div class="titulocategoriasmodal">' +
+                '<label id="">Requisitos</label>' +
+                '</div>';
             for (var i = 0; i < listado['requisitos'].length; i++) {
                 document.getElementById('contenedorrequisitos').innerHTML += '<label>' +
-                    listado['requisitos'][i]['Descripcion'] +
+                    '-' + listado['requisitos'][i]['Descripcion'] +
                     '</label><br>'
+
+                
             }
+            //ver si ya aplique a esta aplicacion
             for (var i = 0; i < listado['aplicantes'].length; i++) {
                 if (listado['aplicantes'][i]['cedula'] == cedulauser) {
                     document.getElementById('btnaplicaroferta').hidden = true;
                     document.getElementById('btnremoveraplicacion').hidden = false;
+                    alertify.success('Ya enviaste una aplicacion a esta empresa');
                     break;
                 }
             }
             document.getElementById('lblcantidadaplicantes').innerHTML = listado['aplicantes'].length;
-            ventanamodal.style.display = "flex";
+            ventanamodal.style.display ='flex';
 
         })
         .catch(function (error) {
@@ -126,22 +142,22 @@ function aplicaroferta() {
     }
 }
 
-function removeraplicacion(){
+function removeraplicacion() {
     var form = new FormData();
-        form.append('idoferta', idlistado);
-        form.append('cedula', cedulauser);
-        axios.post('removerapp', form)
-            .then(function (response) {
-                if (response.data === 'exito') {
-                    alertify.success('Aplicacion removida correctamente.');
-                    window.setTimeout(function () {
-                        window.location.href = getbaseurl() + '/';
-                    }, 1200);
-                } else {
-                    alertify.error(response.data);
-                }
-            })
-            .catch(function (error) {
-                alertify.error('Ocurrio un error interno al intentar aplicar. Por favor intente mas tarde.');
-            })
+    form.append('idoferta', idlistado);
+    form.append('cedula', cedulauser);
+    axios.post('removerapp', form)
+        .then(function (response) {
+            if (response.data === 'exito') {
+                alertify.success('Aplicacion removida correctamente.');
+                window.setTimeout(function () {
+                    window.location.href = getbaseurl() + '/';
+                }, 1200);
+            } else {
+                alertify.error(response.data);
+            }
+        })
+        .catch(function (error) {
+            alertify.error('Ocurrio un error interno al intentar aplicar. Por favor intente mas tarde.');
+        })
 }

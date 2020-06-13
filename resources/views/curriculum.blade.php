@@ -36,6 +36,8 @@
                 }
                 echo '<label id="mensajebienvenida"> Bienvenido ' . $_SESSION['user']->nombre . '</label>';
                 echo '<a href="' . URL::to('/miperfil') . '" class="textobotonbarra" >Mi Perfil</a>';
+                echo '<a href="' . URL::to('/aplicaciones') . '" class="textobotonbarra" >Mis Aplicaciones</a>';
+                echo '<a href="' . URL::to('/reportes') . '" class="textobotonbarra" >Reportes</a>';
                 echo '<a href="' . URL::to('/') . '" class="textobotonbarra" >Pagina Principal</a>';
                 echo '<a href="' . URL::to('/logout') . '" class="textobotonbarra">Cerrar Session</a>';
                 echo '<label hidden id="cedulauser">'.$_SESSION['user']->cedula.'</label>';

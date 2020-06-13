@@ -33,9 +33,11 @@
                 echo '<label id="mensajebienvenida"> Bienvenido ' . $_SESSION['user']->nombre . '</label>';
                 if ($_SESSION['user']->tipo == 1) {
                     echo '<a href="' . URL::to('/miperfil/curriculum') . '" class="textobotonbarra" >Mi Curriculum</a>';
+                    echo '<a href="' . URL::to('/aplicaciones') . '" class="textobotonbarra" >Mis Aplicaciones</a>';
                 } else {
                     echo '<a href="' . URL::to('/miperfil/ofertas') . '" class="textobotonbarra" >Mis Ofertas</a>';
                 }
+                echo '<a href="' . URL::to('/reportes') . '" class="textobotonbarra" >Reportes</a>';
                 echo '<a href="' . URL::to('/') . '" class="textobotonbarra" >Pagina Principal</a>';
                 echo '<a href="' . URL::to('/logout') . '" class="textobotonbarra">Cerrar Session</a>';
             } else {
@@ -150,6 +152,7 @@
                             echo '</div> ';
                         }
                     } else {
+
                         //no tenemos 3 titulos, mostrar los que hayan y si es posible, meter una experiencia
                         for ($i = 0; $i < sizeof($_SESSION['titulosuser']); $i++) {
                             echo ' <div class="bloque titulo" id="bloque' . ($i + 1) . '"> ';
@@ -159,40 +162,42 @@
                             echo '<label for="">Obetenido: ' . $_SESSION['titulosuser'][$i]->mes . '/' . $_SESSION['titulosuser'][$i]->ano . '</label><br>';
                             echo '</div> ';
                         }
-                        for ($i = 0; $i < (3 - sizeof($_SESSION['titulosuser'])); $i++) {
-                            if ($_SESSION['experienciasuser'][$i] != null) {
-                                echo '<div class="bloque experiencia" id="">';
-                                echo  '<br><label for="" >Empresa: ' . $_SESSION['experienciasuser'][$i]->empresa . '</label><br><br>';
-                                echo '<label for="" >Puesto: ' . $_SESSION['experienciasuser'][$i]->puesto . '</label><br><br>';
-                                echo '<label for="" >Fecha de ingreso: ' . $_SESSION['experienciasuser'][$i]->fecha_ini . '</label><br>';
-                                echo '<label for="" >Fecha de salida: ' . $_SESSION['experienciasuser'][$i]->fecha_fin . '</label><br><br>';
-                                echo  '<label for="" >Responsabilidades: ' . $_SESSION['experienciasuser'][$i]->desc_responsa . '</label><br>';
-                                echo '</div>';
+                        if (sizeof($_SESSION['experienciasuser']) > 0) {
+
+                            for ($i = 0; $i < (3 - sizeof($_SESSION['titulosuser'])); $i++) {
+
+                                if ($_SESSION['experienciasuser'][$i]) {
+                                    echo '<div class="bloque experiencia" id="">';
+                                    echo  '<br><label for="" >Empresa: ' . $_SESSION['experienciasuser'][$i]->empresa . '</label><br><br>';
+                                    echo '<label for="" >Puesto: ' . $_SESSION['experienciasuser'][$i]->puesto . '</label><br><br>';
+                                    echo '<label for="" >Fecha de ingreso: ' . $_SESSION['experienciasuser'][$i]->fecha_ini . '</label><br>';
+                                    echo '<label for="" >Fecha de salida: ' . $_SESSION['experienciasuser'][$i]->fecha_fin . '</label><br><br>';
+                                    echo  '<label for="" >Responsabilidades: ' . $_SESSION['experienciasuser'][$i]->desc_responsa . '</label><br>';
+                                    echo '</div>';
+                                }
                             }
                         }
                     }
                 } else {
-                    
+
                     for ($i = 0; $i < sizeof($_SESSION['ofertasuser']); $i++) {
 
                         echo '<div class="bloque titulo" id="">';
                         //mostrar ofertas, pero maximo 3
-                        echo '<label>'.$_SESSION['ofertasuser'][$i]->descripcion."</label><br>";
+                        echo '<label>' . $_SESSION['ofertasuser'][$i]->descripcion . "</label><br>";
                         echo "<label style='font-weight:bold'>requisitos</label><br>";
-                        for($k=0;$k<sizeof($_SESSION['ofertasuser'][$i]->requisitos);$k++){
-                            echo $_SESSION['ofertasuser'][$i]->requisitos[$k]->Descripcion."<br>";
+                        for ($k = 0; $k < sizeof($_SESSION['ofertasuser'][$i]->requisitos); $k++) {
+                            echo $_SESSION['ofertasuser'][$i]->requisitos[$k]->Descripcion . "<br>";
                         }
                         echo "<label style='font-weight:bold'>Categorias</label><br>";
-                        for($k=0;$k<sizeof($_SESSION['ofertasuser'][$i]->categorias);$k++){
-                            echo '<label>'.$_SESSION['ofertasuser'][$i]->categorias[$k]->nombre."</label><br>";
+                        for ($k = 0; $k < sizeof($_SESSION['ofertasuser'][$i]->categorias); $k++) {
+                            echo '<label>' . $_SESSION['ofertasuser'][$i]->categorias[$k]->nombre . "</label><br>";
                         }
                         if ($i == 2) {
                             break;
                         }
                         echo '</div> ';
-
                     }
-                    
                 }
 
                 ?>

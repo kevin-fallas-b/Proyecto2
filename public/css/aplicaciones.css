@@ -1,21 +1,11 @@
-#panelbusqueda{
-    position: absolute;
-    left: 40px;
-    top: 90px;
-    height: 83%;
-    width: 200px;
-    background-color: white;
-    border-radius: 6px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    text-align: left;
-}
+
 
 #panelprincipal{
     position: absolute;
-    left: 300px;
+    left: 5%;
     top: 90px;
     height: 83%;
-    width: 77%;
+    width: 90%;
     background-color: white;
     border-radius: 6px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -36,15 +26,6 @@
     font-size: 18px;
 }
 
-#panelbusqueda .cajatexto{
-    width: 170px;
-}
-#panelbusqueda label{
-    padding-left: 10px;
-}
-#panelbusqueda .btnconestilo{
-    margin-left: 25%;
-}
 
 .detallecontenedor{
     position: relative;
@@ -63,8 +44,6 @@
     bottom: 5px;
     width: 120px;
 }
-
-
 
 /* MODAL */
 .bg-modal {

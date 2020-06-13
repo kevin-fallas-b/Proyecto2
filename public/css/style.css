@@ -91,9 +91,9 @@ a{
 
 
 #mensajebienvenida{
-    position: relative;
-    right: 3px;
-    top: 40px;
+    position: absolute;
+    left: 130px;
+    top: 20px;
 }
 
 #cerrosession{

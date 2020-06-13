@@ -58,3 +58,5 @@ Route::post('/listado', 'PrincipalController@verlistado');
 Route::post('/aplicar', 'PrincipalController@aplicar');
 Route::post('/removerapp', 'PrincipalController@removerapp');
 
+Route::get('/aplicaciones','UserController@misaplicaciones');
+
