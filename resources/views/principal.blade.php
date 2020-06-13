@@ -115,7 +115,8 @@ session_start();
                 <label for="">Numero de aplicantes: </label><label id="lblcantidadaplicantes"></label>
                 <?php
                 if (!(isset($_SESSION['user']) && $_SESSION['user']->tipo == 2)) {
-                    echo '<input type="button" value="Aplicar" onclick="aplicaroferta()">';
+                    echo '<input type="button" value="Aplicar" id="btnaplicaroferta" onclick="aplicaroferta()">';
+                    echo '<input type="button" value="Remover aplicacion" id="btnremoveraplicacion" hidden onclick="removeraplicacion()">';
                 }
                 ?>
 

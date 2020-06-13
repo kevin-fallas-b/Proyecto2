@@ -56,4 +56,5 @@ Route::post('/miperfil/ofertas', 'UserController@guardaroferta');
 
 Route::post('/listado', 'PrincipalController@verlistado');
 Route::post('/aplicar', 'PrincipalController@aplicar');
+Route::post('/removerapp', 'PrincipalController@removerapp');
 

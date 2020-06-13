@@ -24,4 +24,8 @@ class PrincipalController extends Controller
     public function aplicar(){
         return Principal::aplicar($_POST['idoferta'],$_POST['cedula']);
      }
+
+     public function removerapp(){
+         return Principal::removerapp($_POST['idoferta'],$_POST['cedula']);
+     }
 }

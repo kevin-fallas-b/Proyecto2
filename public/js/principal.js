@@ -79,7 +79,13 @@ function verlistado(id) {
                     listado['requisitos'][i]['Descripcion'] +
                     '</label><br>'
             }
-
+            for (var i = 0; i < listado['aplicantes'].length; i++) {
+                if (listado['aplicantes'][i]['cedula'] == cedulauser) {
+                    document.getElementById('btnaplicaroferta').hidden = true;
+                    document.getElementById('btnremoveraplicacion').hidden = false;
+                    break;
+                }
+            }
             document.getElementById('lblcantidadaplicantes').innerHTML = listado['aplicantes'].length;
             ventanamodal.style.display = "flex";
 
@@ -91,6 +97,8 @@ function verlistado(id) {
 
 function cerrarmodal() {
     ventanamodal.style.display = "none";
+    document.getElementById('btnaplicaroferta').hidden = false;
+    document.getElementById('btnremoveraplicacion').hidden = true;
 }
 
 function aplicaroferta() {
@@ -116,4 +124,24 @@ function aplicaroferta() {
                 alertify.error('Ocurrio un error interno al intentar aplicar. Por favor intente mas tarde.');
             })
     }
+}
+
+function removeraplicacion(){
+    var form = new FormData();
+        form.append('idoferta', idlistado);
+        form.append('cedula', cedulauser);
+        axios.post('removerapp', form)
+            .then(function (response) {
+                if (response.data === 'exito') {
+                    alertify.success('Aplicacion removida correctamente.');
+                    window.setTimeout(function () {
+                        window.location.href = getbaseurl() + '/';
+                    }, 1200);
+                } else {
+                    alertify.error(response.data);
+                }
+            })
+            .catch(function (error) {
+                alertify.error('Ocurrio un error interno al intentar aplicar. Por favor intente mas tarde.');
+            })
 }

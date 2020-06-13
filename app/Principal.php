@@ -62,4 +62,9 @@ class Principal extends Model
         DB::table('tbl_aplicacion')->insert(['idOferta'=>$idoferta,'cedula'=>$cedula]);
         return 'exito';
     }
+
+    public static function removerapp($idoferta,$cedula){
+        DB::table('tbl_aplicacion')->where('idOferta',$idoferta)->where('cedula',$cedula)->delete();
+        return 'exito';
+    }
 }
