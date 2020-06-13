@@ -7,8 +7,7 @@
     background-color: white;
     border-radius: 6px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    text-align: center;
-    
+    text-align: left;
 }
 
 #panelprincipal{
@@ -23,3 +22,44 @@
 
 }
 
+.lblcontenedor{
+    position: relative;
+    border-bottom: 2px solid black;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 17px;
+    text-align: center;
+}
+
+#panelprincipal .lblcontenedor{
+    font-size: 18px;
+}
+
+#panelbusqueda .cajatexto{
+    width: 170px;
+}
+#panelbusqueda label{
+    padding-left: 10px;
+}
+#panelbusqueda .btnconestilo{
+    margin-left: 25%;
+}
+
+.detallecontenedor{
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    padding: 10px;
+    background: #509099;
+}
+
+#panelprincipal .btnconestilo{
+    position: absolute;
+    right: 10px;
+    bottom: 5px;
+    width: 120px;
+}

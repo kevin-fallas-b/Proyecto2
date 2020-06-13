@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('principal');
-});
+Route::get('/', 'PrincipalController@index');
+
+Route::post('/', 'PrincipalController@buscar');
 
 Route::get('/login', 'AuthController@index');
 
