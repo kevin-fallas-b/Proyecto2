@@ -15,43 +15,51 @@ class Principal extends Model
     {
         $ofertasMasNuevas = DB::table('tbl_oferta')->orderByDesc('id')->limit(10)->get();
 
-
-        //buscar la informacion respectiva de cada oferta
         for ($i = 0; $i < sizeof($ofertasMasNuevas); $i++) {
-            $id = $ofertasMasNuevas[$i]->id;
-            $ofertasMasNuevas[$i]->requisitos = DB::table('tbl_requisito')->where('id_oferta', $id)->get();
-            $ofertasMasNuevas[$i]->ofertascategoria = DB::table('tbl_oftertascategoria')->where('idOferta', $id)->get();
-            $ids = '';
-            for ($k = 0; $k < sizeof($ofertasMasNuevas[$i]->ofertascategoria); $k++) {
-                $ids = $ids . 'id=' . $ofertasMasNuevas[$i]->ofertascategoria[$k]->idCategoria;
-                if ($k == (sizeof($ofertasMasNuevas[$i]->ofertascategoria) - 1)) {
-                    break;
-                } else {
-                    $ids = $ids . ' || ';
-                }
-            }
-            if ($ids != '') {
-                $ofertasMasNuevas[$i]->categorias = DB::select(DB::raw('SELECT * FROM `tbl_categoria` WHERE ' . $ids));
-            } else {
-                $ofertasMasNuevas[$i]->categorias = new Collection();
-            }
-
             //buscar duenno de cada oferta
-            $ofertasMasNuevas[$i]->empresa = DB::table('tbl_usuario')->where('cedula',$ofertasMasNuevas[$i]->cedula)->pluck('nombre');
+            $ofertasMasNuevas[$i]->empresa = DB::table('tbl_usuario')->where('cedula', $ofertasMasNuevas[$i]->cedula)->pluck('nombre');
         }
-        $_ENV['ofertasmasnuevas']=$ofertasMasNuevas;
+        $_ENV['ofertasmasnuevas'] = $ofertasMasNuevas;
     }
 
-    public static function buscar($descripcion, $categoria, $empresa){
+    public static function buscar($descripcion, $categoria, $empresa)
+    {
         return DB::table('tbl_oferta')
-                ->select(['tbl_oferta.*','tbl_usuario.nombre as empresa'])
-                ->join('tbl_oftertascategoria','tbl_oferta.id','=','tbl_oftertascategoria.idOferta')
-                ->join('tbl_categoria','tbl_oftertascategoria.idCategoria','=','tbl_categoria.id')
-                ->join('tbl_usuario','tbl_oferta.cedula','=','tbl_usuario.cedula')
-                ->where('tbl_oferta.descripcion','LIKE','%'.$descripcion.'%')
-                ->where('tbl_categoria.nombre','LIKE','%'.$categoria.'%')
-                ->where('tbl_usuario.nombre','LIKE','%'.$empresa.'%')
-                ->distinct()
-                ->get();
+            ->select(['tbl_oferta.*', 'tbl_usuario.nombre as empresa'])
+            ->join('tbl_oftertascategoria', 'tbl_oferta.id', '=', 'tbl_oftertascategoria.idOferta')
+            ->join('tbl_categoria', 'tbl_oftertascategoria.idCategoria', '=', 'tbl_categoria.id')
+            ->join('tbl_usuario', 'tbl_oferta.cedula', '=', 'tbl_usuario.cedula')
+            ->where('tbl_oferta.descripcion', 'LIKE', '%' . $descripcion . '%')
+            ->where('tbl_categoria.nombre', 'LIKE', '%' . $categoria . '%')
+            ->where('tbl_usuario.nombre', 'LIKE', '%' . $empresa . '%')
+            ->distinct()
+            ->get();
+    }
+
+    public static function verlistado($id)
+    {
+        $listado = DB::table('tbl_oferta')->where('id', $id)->get()->toArray();
+        $listado['requisitos'] = DB::table('tbl_requisito')->where('id_oferta', $id)->get();
+        $listado['ofertascategoria'] = DB::table('tbl_oftertascategoria')->where('idOferta', $id)->get();
+        $ids = '';
+        for ($k = 0; $k < sizeof($listado['ofertascategoria']); $k++) {
+            $ids = $ids . 'id=' . $listado['ofertascategoria'][$k]->idCategoria;
+            if ($k == (sizeof($listado['ofertascategoria']) - 1)) {
+                break;
+            } else {
+                $ids = $ids . ' || ';
+            }
+        }
+        if ($ids != '') {
+            $listado['categorias'] = DB::select(DB::raw('SELECT * FROM `tbl_categoria` WHERE ' . $ids));
+        }
+        $listado['aplicantes'] = DB::table('tbl_aplicacion')->where('idOferta', $id)->get();
+        $listado['empresa'] = DB::table('tbl_usuario')->where('cedula', $listado[0]->cedula)->get();
+        return $listado;
+    }
+
+    public static function aplicar($idoferta,$cedula){
+        DB::table('tbl_aplicacion')->insert(['idOferta'=>$idoferta,'cedula'=>$cedula]);
+        return 'exito';
     }
 }

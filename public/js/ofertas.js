@@ -101,6 +101,8 @@ function cerrar(ventana) {
     document.getElementById(ventana).style.display = "none";
     editandooferta = false;
     limpiarcamposmodal();
+    document.getElementById('lblregistrareditarexperiencia').innerHTML = 'Registrar Oferta';
+
 }
 
 function guardarcategoria() {
@@ -318,7 +320,7 @@ function editaroferta(id) {
             }
         }
     }
-
+    document.getElementById('lblregistrareditarexperiencia').innerHTML = 'Editar Oferta';
     abrirofertanueva();
     generartagsrequisitos();
 }

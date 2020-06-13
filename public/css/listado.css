@@ -1,0 +1,21 @@
+#panelprincipal{
+    position: absolute;
+    left: 5%;
+    top: 90px;
+    height: 83%;
+    width: 90%;
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+.lblcontenedor{
+    position: relative;
+    border-bottom: 2px solid black;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 18px;
+    text-align: center;
+}

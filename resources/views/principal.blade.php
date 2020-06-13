@@ -36,12 +36,15 @@ session_start();
                 echo '<label id="mensajebienvenida"> Bienvenido ' . $_SESSION['user']->nombre . '</label>';
                 echo '<a href="' . URL::to('/miperfil') . '" class="textobotonbarra" >Mi Perfil</a>';
                 if ($_SESSION['user']->tipo == 1) {
+                    echo '<label id="lblcedulauser" hidden>' . $_SESSION['user']->cedula . '</label>';
                     echo '<a href="' . URL::to('/miperfil/curriculum') . '" class="textobotonbarra" >Mi Curriculum</a>';
                 } else {
+                    echo '<label id="lblcedulauser" hidden>-1</label>';
                     echo '<a href="' . URL::to('/miperfil/ofertas') . '" class="textobotonbarra" >Mis Ofertas</a>';
                 }
                 echo '<a href="' . URL::to('/logout') . '" class="textobotonbarra">Cerrar Session</a>';
             } else {
+                echo '<label id="lblcedulauser" hidden>-1</label>';
                 echo '<a href="' . URL::to('/login') . '" class="textobotonbarra" >Log In</a>';
                 echo '<a href="' . URL::to('/registro') . '" class="textobotonbarra" >Registrarme</a>';
             }
@@ -84,5 +87,45 @@ session_start();
             </div>
         </div>
     </div>
+
+
+    <div class="bg-modal" id="modallistado">
+        <div class="modal-contents">
+            <input type="button" name="" id="" class="close" value="+" onclick="cerrarmodal()">
+            <div class="contenedortitulomodal">
+                <label id='lblregistrareditarexperiencia'>Listado</label>
+            </div>
+            <div class='contenedoropcionesmodal' id="contenedornombrecategoria">
+                <label>Descripcion: </label><label id="lbldescripcion"> </label> <br>
+                <label>Empresa: </label><label id="lblempresa"> </label> <br>
+                <label>Vacantes: </label><label id="lblvacantes"> </label> <br>
+                <label>Ubicacion: </label><label id="lblubicacion"> </label> <br>
+                <label>Horario: </label><label id="lblhorario"> </label> <br>
+                <label>Duracion contrato: </label><label id="lblcontrato"> </label> <br>
+                <label>Salario: ‎₡</label><label id="lblsalario"> </label> <br>
+                <label>Fecha de publicacion: ‎</label><label id="lblfecha"> </label> <br>
+                <label for="">Requisitos:</label>
+                <div id="contenedorrequisitos">
+
+                </div>
+                <label for="">Categorias:</label>
+                <div id="contenedorcategorias">
+
+                </div>
+                <label for="">Numero de aplicantes: </label><label id="lblcantidadaplicantes"></label>
+                <?php
+                if (!(isset($_SESSION['user']) && $_SESSION['user']->tipo == 2)) {
+                    echo '<input type="button" value="Aplicar" onclick="aplicaroferta()">';
+                }
+                ?>
+
+            </div>
+
+            <div class='contenedorbotonesmodal'>
+                <input type="button" value="Cancelar" class="btnconestilo" id="btncancelarmodal" onclick="cerrarmodal()">
+            </div>
+        </div>
+    </div>
+</body>
 
 </html>

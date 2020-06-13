@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PrincipalController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,4 +54,6 @@ Route::post('/miperfil/eliminar', 'UserController@eliminar');
 Route::post('/miperfil/ofertas/categoria', 'UserController@guardarcategoria');
 Route::post('/miperfil/ofertas', 'UserController@guardaroferta');
 
+Route::post('/listado', 'PrincipalController@verlistado');
+Route::post('/aplicar', 'PrincipalController@aplicar');
 
