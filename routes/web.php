@@ -62,3 +62,7 @@ Route::get('/aplicaciones','UserController@misaplicaciones');
 
 Route::post('/reporte/aplicaciones','UserController@reporteaplicaciones');
 
+Route::post('/reporte/empresa','UserController@reporteempresa');
+
+Route::post('/reporte/curriculum','UserController@reportecurriculum');
+

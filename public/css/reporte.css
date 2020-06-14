@@ -1,0 +1,72 @@
+.imagensirhena{
+    position: absolute;
+	height: 64px;
+    width: 128px;
+    cursor: pointer;
+}
+
+#contenedortitulos{
+    position: relative;
+    height: 50px;
+    width: 100%;
+    border-bottom: 2px solid black;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#titulo1{
+    font-size: 18px;
+}
+
+#titulo2{
+    font-size: 14px;
+}
+
+#candidato{
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+#contenedorcandidato{
+    margin-top: 10px;
+    padding-top: 10px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid black;
+}
+
+.detallecontenedor{
+    position: relative;    
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    padding: 10px;
+    border-bottom: 2px solid black;
+    text-align: center;
+}
+
+.lblcontenedordetalle{
+    position: relative;
+    
+    font-weight: bold;
+    text-align: center;
+}
+
+.page-break {
+    page-break-after: always;
+}
+
+.contador{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.imagenempresa{
+    position: absolute;
+    left: 10px;
+    top: 20px;
+    width: 128px;
+    height: 128px;
+    border-radius: 10px;
+}

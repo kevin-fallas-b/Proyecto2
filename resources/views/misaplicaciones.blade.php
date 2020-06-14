@@ -56,20 +56,30 @@ use Illuminate\Support\Facades\URL;
     </div>
     <div id="main">
         <!--donde veo trabajos y demas-->
+        <form id="reporte" action="/reporte/aplicaciones" method="POST" target="_blank" hidden>
+            {{csrf_field()}}
+            <input type="text" id="cedula" name="cedula" value="<?php echo $_SESSION['user']->cedula ?>">
+        </form>
         <div id="panelprincipal">
             <div class="lblcontenedor">
                 <label id="lblofertasbusqueda">Ofertas a las que he aplicado</label>
-                <input type="button" value="Generar Reporte" id="btnreporteaplicaciones" class="btnconestilo" onclick="generarreporte()">
+                <input type="submit" form="reporte" value="Generar Reporte" id="btnreporteaplicaciones" class="btnconestilo">
             </div>
             <div id="contenedordetalles">
                 <?php
                 for ($i = 0; $i < sizeof($_SESSION['misaplicaciones']); $i++) {
                     echo '<div class="detallecontenedor">';
                     echo '<label>Descripcion: ' . $_SESSION['misaplicaciones'][$i]->descripcion . '</label><br>';
-                    echo '<label>Empresa: ' . $_SESSION['misaplicaciones'][$i]->empresa[0] . '</label><br>';
+                    echo '<label>Empresa: ' . $_SESSION['misaplicaciones'][$i]->empresa . '</label><br>';
                     echo '<label>Vacantes: ' . $_SESSION['misaplicaciones'][$i]->numero_vacantes . '</label><br>';
                     echo '<label>Fecha de publicacion: ' . $_SESSION['misaplicaciones'][$i]->fecha . '</label><br>';
-                    echo '<input type="button" value="Ver reporte de empresa" class="btnconestilo btnverreporteempresa" onclick="verempresa(' . $_SESSION['misaplicaciones'][$i]->cedula . ')">';
+                    echo '<form id="' . $i . '"action="/reporte/empresa" method="POST" target="_blank" hidden>';
+                ?>
+                    {{csrf_field()}}
+                <?php
+                    echo '<input type="text" id="empresa" name="empresa" hidden value="' . $_SESSION['misaplicaciones'][$i]->empresacedula . '">';
+                    echo '</form>';
+                    echo '<input type="submit" form="' . $i . '" value="Ver reporte de empresa" class="btnconestilo btnverreporteempresa">';
                     echo '<input type="button" value="Ver listado" class="btnconestilo" onclick="verlistado(' . $_SESSION['misaplicaciones'][$i]->id . ')">';
                     echo '</div>';
                 }

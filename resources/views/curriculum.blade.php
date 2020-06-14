@@ -40,7 +40,7 @@
                 echo '<a href="' . URL::to('/reportes') . '" class="textobotonbarra" >Reportes</a>';
                 echo '<a href="' . URL::to('/') . '" class="textobotonbarra" >Pagina Principal</a>';
                 echo '<a href="' . URL::to('/logout') . '" class="textobotonbarra">Cerrar Session</a>';
-                echo '<label hidden id="cedulauser">'.$_SESSION['user']->cedula.'</label>';
+                echo '<label hidden id="cedulauser">' . $_SESSION['user']->cedula . '</label>';
             } else {
                 echo '<a href="' . URL::to('/login') . '" class="textobotonbarra" >Log In</a>';
                 echo '<a href="' . URL::to('/registro') . '" class="textobotonbarra" >Registrarme</a>';
@@ -52,6 +52,11 @@
         </div>
     </div>
     <div id="main">
+        <form id="generarreporte" action="/reporte/curriculum" method="POST" target="_blank" hidden>
+            {{csrf_field()}}
+            <input type="text" id="cedula" name="cedula" value="<?php echo $_SESSION['user']->cedula ?>">
+        </form>
+        <input type="submit" form="generarreporte" value="Generar Reporte" class="btnconestilo" id="btngenerarreporte">
         <div id="contenedortitulos" class="contenedor">
             <div class="lblcontenedor">
                 <label>Titulos</label>
@@ -61,13 +66,13 @@
 
             <?php
             for ($i = 0; $i < sizeof($_SESSION['titulosuser']); $i++) {
-                echo '<div class="detallecontenedor titulo" id="'.$_SESSION['titulosuser'][$i]->id.'">';
+                echo '<div class="detallecontenedor titulo" id="' . $_SESSION['titulosuser'][$i]->id . '">';
                 echo '<label style="font-weight:bold">Titulo: </label><label class="lbltitulo">' . $_SESSION['titulosuser'][$i]->titulo . '</label><br>';
                 echo '<label style="font-weight:bold">Especialidad: </label><label class="lblespecialidad">' . $_SESSION['titulosuser'][$i]->especialidad . '</label><br>';
                 echo '<label style="font-weight:bold">Institucion: </label><label class="lblinstitucion">' . $_SESSION['titulosuser'][$i]->institucion . '</label><br>';
                 echo '<label style="font-weight:bold">Obtencion: </label><label class="lblobtencion">' . $_SESSION['titulosuser'][$i]->mes . '/' . $_SESSION['titulosuser'][$i]->ano . '</label>';
-                echo '<br><input type="button" name=""  class="btnconestilo" value="Editar" onclick="editartitulo('.$_SESSION['titulosuser'][$i]->id.')">';
-                echo '<input type="button" name=""  class="btnconestilo eliminar" value="Eliminar" onclick="eliminartitulo('.$_SESSION['titulosuser'][$i]->id.')">';
+                echo '<br><input type="button" name=""  class="btnconestilo" value="Editar" onclick="editartitulo(' . $_SESSION['titulosuser'][$i]->id . ')">';
+                echo '<input type="button" name=""  class="btnconestilo eliminar" value="Eliminar" onclick="eliminartitulo(' . $_SESSION['titulosuser'][$i]->id . ')">';
                 echo '</div>';
             }
 
@@ -83,14 +88,14 @@
             <input type="button" name="" class="btnconestilo agregar" value="Agregar" id="btnagregarexperiencia">
             <?php
             for ($i = 0; $i < sizeof($_SESSION['experienciasuser']); $i++) {
-                echo '<div class="detallecontenedor experiencia" id="'.$_SESSION['experienciasuser'][$i]->id.'">';
+                echo '<div class="detallecontenedor experiencia" id="' . $_SESSION['experienciasuser'][$i]->id . '">';
                 echo '<label style="font-weight:bold">Empresa: </label><label class="lblempresa">' . $_SESSION['experienciasuser'][$i]->empresa . '</label><br>';
                 echo '<label style="font-weight:bold">Puesto: </label><label class="lblpuesto">' . $_SESSION['experienciasuser'][$i]->puesto . '</label><br>';
                 echo '<label style="font-weight:bold">Fecha de inicio: </label><label class="lblfechainicio">' . $_SESSION['experienciasuser'][$i]->fecha_ini . '</label><br>';
                 echo '<label style="font-weight:bold">Fecha de salida: </label><label class="lblfechafin">' . $_SESSION['experienciasuser'][$i]->fecha_fin . '</label><br>';
                 echo '<label style="font-weight:bold">Responsabilidades: </label><label class="lblresponsabilidades">' . $_SESSION['experienciasuser'][$i]->desc_responsa . '</label>';
-                echo '<br><input type="button" name=""  class="btnconestilo" value="Editar" onclick="editarexperiencia('.$_SESSION['experienciasuser'][$i]->id.')">';
-                echo '<input type="button" name=""  class="btnconestilo eliminar" value="Eliminar" onclick="eliminarexperiencia('.$_SESSION['experienciasuser'][$i]->id.')">';
+                echo '<br><input type="button" name=""  class="btnconestilo" value="Editar" onclick="editarexperiencia(' . $_SESSION['experienciasuser'][$i]->id . ')">';
+                echo '<input type="button" name=""  class="btnconestilo eliminar" value="Eliminar" onclick="eliminarexperiencia(' . $_SESSION['experienciasuser'][$i]->id . ')">';
                 echo '</div>';
             }
 
@@ -103,10 +108,10 @@
             <input type="button" name="" class="btnconestilo agregar" value="Agregar" id="btnagregarobservacion">
             <?php
             for ($i = 0; $i < sizeof($_SESSION['meritosuser']); $i++) {
-                echo '<div class="detallecontenedor merito" id="'.$_SESSION['meritosuser'][$i]->id.'">';
+                echo '<div class="detallecontenedor merito" id="' . $_SESSION['meritosuser'][$i]->id . '">';
                 echo '<label class="descmerito">' . $_SESSION['meritosuser'][$i]->descripcion . '</label><br>';
-                echo '<br><input type="button" name=""  class="btnconestilo" value="Editar" onclick="editarobservacion('.$_SESSION['meritosuser'][$i]->id.')">';
-                echo '<input type="button" name=""  class="btnconestilo eliminar" value="Eliminar" onclick="eliminarobservacion('.$_SESSION['meritosuser'][$i]->id.')">';
+                echo '<br><input type="button" name=""  class="btnconestilo" value="Editar" onclick="editarobservacion(' . $_SESSION['meritosuser'][$i]->id . ')">';
+                echo '<input type="button" name=""  class="btnconestilo eliminar" value="Eliminar" onclick="eliminarobservacion(' . $_SESSION['meritosuser'][$i]->id . ')">';
                 echo '</div>';
             }
 
@@ -282,7 +287,7 @@
             </div>
             <div class='contenedoropcionesmodal'>
                 <br><br><br><label id="estaseguro"></label><br>
-                
+
             </div>
 
             <div class='contenedorbotonesmodal'>
