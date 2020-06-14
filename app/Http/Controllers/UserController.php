@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\url;
-use Barryvdh\DomPDF\Facade as PDF;
+
 
 
 class UserController extends Controller
@@ -121,28 +121,4 @@ class UserController extends Controller
         return view('misaplicaciones');
     }
 
-    public function reporteaplicaciones()
-    {
-        User::reporteaplicaciones($_POST['cedula']);
-        $pdf = PDF::loadView('Reportes/reporteAplicaciones');
-        return $pdf->stream('MisAplicaciones.pdf');
-    }
-
-    public function reporteempresa(){
-        User::reporteempresa($_POST['empresa']);
-        $pdf = PDF::loadView('Reportes/reporteEmpresa');
-        return $pdf->stream('Empresa.pdf');
-    }
-
-    public function reportecurriculum(){
-        User::reportecurriculum($_POST['cedula']);
-        $pdf = PDF::loadView('Reportes/reporteCurriculum');
-        return $pdf->stream('ReporteCurriculum_'.$_POST['cedula'].'.pdf');
-    }
-
-    public function reporteporcategoria(){
-        User::reporteporcategoria();
-        $pdf = PDF::loadView('Reportes/reportePorCategoria');
-        return $pdf->stream('ReportePorCategoria.pdf');
-    }
 }

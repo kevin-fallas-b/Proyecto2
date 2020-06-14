@@ -60,11 +60,13 @@ Route::post('/removerapp', 'PrincipalController@removerapp');
 
 Route::get('/aplicaciones','UserController@misaplicaciones');
 
-Route::post('/reporte/aplicaciones','UserController@reporteaplicaciones');
+Route::post('/reporte/aplicaciones','ReportController@reporteaplicaciones');
 
-Route::post('/reporte/empresa','UserController@reporteempresa');
+Route::post('/reporte/empresa','ReportController@reporteempresa');
 
-Route::post('/reporte/curriculum','UserController@reportecurriculum');
+Route::post('/reporte/curriculum','ReportController@reportecurriculum');
 
-Route::post('/reporte/categorias','UserController@reporteporcategoria');
+Route::post('/reporte/categorias','ReportController@reporteporcategoria');
+
+Route::get('/reportes','ReportController@index');
 
