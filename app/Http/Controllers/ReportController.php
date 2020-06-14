@@ -34,6 +34,10 @@ class ReportController extends Controller
     }
 
     public function index(){
-        echo 'holi';
+        return view('reportes');
+    }
+
+    public function buscarempresas(){
+        return Report::buscarempresas($_POST['empresa']);
     }
 }

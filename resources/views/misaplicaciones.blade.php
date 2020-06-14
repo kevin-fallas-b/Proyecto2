@@ -49,6 +49,8 @@ use Illuminate\Support\Facades\URL;
                 echo '<label id="lblcedulauser" hidden>-1</label>';
                 echo '<a href="' . URL::to('/login') . '" class="textobotonbarra" >Log In</a>';
                 echo '<a href="' . URL::to('/registro') . '" class="textobotonbarra" >Registrarme</a>';
+                header('Location: ' . URL::to('/nologeado'), true, 302);
+                die();
             }
             ?>
 

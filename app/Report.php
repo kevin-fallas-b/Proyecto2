@@ -107,4 +107,8 @@ class Report extends Model
         }
         $_ENV['categoriasreporte'] = $categorias;
     }
+
+    public static function buscarempresas($empresa){
+        return DB::table('tbl_usuario')->where('tipo',2)->where('nombre','LIKE','%'.$empresa.'%')->get();
+    }
 }

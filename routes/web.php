@@ -70,3 +70,5 @@ Route::post('/reporte/categorias','ReportController@reporteporcategoria');
 
 Route::get('/reportes','ReportController@index');
 
+Route::post('/buscarempresas','ReportController@buscarempresas');
+

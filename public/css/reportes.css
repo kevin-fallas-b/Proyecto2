@@ -1,0 +1,62 @@
+
+
+#panelprincipal{
+    position: absolute;
+    left: 0%;
+    top: 65px;
+    height: 90%;
+    width: 100%;
+    background-color: transparent;
+
+}
+
+.contenedor{
+    position: relative;
+    height: 100px;
+    left: 5%;
+    width: 90%;
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.hijoshorizontal{
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.lblcontenedor{
+    position: relative;
+    border-bottom: 2px solid black;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 17px;
+    text-align: center;
+}
+
+#panelprincipal .lblcontenedor{
+    font-size: 18px;
+}
+
+
+.detallecontenedor{
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    padding: 10px;
+    background: #ffffff;
+}
+#contenedorreportesbasicos{
+    height: 20%;
+}
+
+#contenedorporempresa{
+    height: 70%;
+}
