@@ -442,4 +442,8 @@ class User extends Model
         }
         $_ENV['categoriasreporte'] = $categorias;
     }
+
+    public static function veraplicantes($idOferta){
+        return DB::table('tbl_aplicacion')->join('tbl_usuario','tbl_aplicacion.cedula','=','tbl_usuario.cedula')->where('idOferta',$idOferta)->get();
+    }
 }

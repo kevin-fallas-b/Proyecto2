@@ -72,3 +72,5 @@ Route::get('/reportes','ReportController@index');
 
 Route::post('/buscarempresas','ReportController@buscarempresas');
 
+Route::post('/veraplicantes','UserController@veraplicantes');
+

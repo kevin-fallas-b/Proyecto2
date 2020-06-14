@@ -194,6 +194,23 @@
             </div>
         </div>
     </div>
+
+    <!-- MODAL PARA VER APLICANTES-->
+    <div class="bg-modal" id="modalveraplicantes">
+        <div class="modal-contents" id="ofertanuevagrande">
+            <input type="button" name="" id="" class="close" value="+" onclick="cerrar('modalveraplicantes')">
+            <div class="contenedortitulomodal">
+                <label id='lblregistrareditarexperiencia'>Aplicantes</label>
+            </div>
+            <div class='contenedoropcionesmodal' id="contenedoraplicantes">
+                
+            </div>
+
+            <div class='contenedorbotonesmodal' id="botonesveraplicantes">
+                <input type="button" value="Cerrar" class="btnconestilo" id="btncancelarmodal"  onclick="cerrar('modalveraplicantes')">
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

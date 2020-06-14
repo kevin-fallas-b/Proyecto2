@@ -33,10 +33,15 @@ var requisitos;
 var categoriasuser;
 var idscategoriasseleccionadas;
 
+var contenedoraplicantes;
+
 function iniciar() {
     alertify.set('notifier', 'position', 'top-right');
     editandooferta = false;
     cedulauser = document.getElementById('cedulauser').innerHTML;
+    contenedoraplicantes = document.getElementById('contenedoraplicantes')
+
+
 
     modaleliminar = document.getElementById('modaleliminar');
     lblestaseguro = document.getElementById('estaseguro');
@@ -323,4 +328,34 @@ function editaroferta(id) {
     document.getElementById('lblregistrareditarexperiencia').innerHTML = 'Editar Oferta';
     abrirofertanueva();
     generartagsrequisitos();
+}
+
+function veraplicantes(id) {
+    var aplicantes;
+    var form = new FormData();
+    form.append('id', id);
+    axios.post('/veraplicantes', form)
+        .then(function (response) {
+            contenedoraplicantes.innerHTML = '';
+            aplicantes = response.data;
+            for (var i = 0; i < aplicantes.length; i++) {
+                contenedoraplicantes.innerHTML += '<div class="detallecontenedor">' +
+                    '<label>Empresa: ' + aplicantes[i]['nombre'] + '</label><br>' +
+                    '<label>Cedula Juridica: ' + aplicantes[i]['cedula'] + '</label><br>' +
+                    '<form action="/reporte/curriculum" id="aplicaciones' + i + '" name="aplicaciones' + i + '" method="POST" target="_blank" hidden>' +
+                    '<input type="text" id="cedula" name="cedula" value="' + aplicantes[i]['cedula'] + '">' +
+                    '</form>' +
+                    '<input type="submit" value="Generar" class="btnconestilo" form="aplicaciones' + i + '">' +
+                    '</div>';
+            }
+            if (aplicantes.length == 0) {
+                alertify.success('Aun no existen aplicantes para esta oferta.')
+            } else {
+                document.getElementById('modalveraplicantes').style.display = "flex";
+
+            }
+        })
+        .catch(function (error) {
+            alertify.error('Ocurrio un error interno. Por favor intente mas tarde.');
+        })
 }

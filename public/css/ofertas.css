@@ -229,3 +229,8 @@ input::date{
 .tag .closetag:hover::after {
     color: red;
 }
+
+
+#botonesveraplicantes{
+    left: 43%;
+}

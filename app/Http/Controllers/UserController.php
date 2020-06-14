@@ -121,4 +121,9 @@ class UserController extends Controller
         return view('misaplicaciones');
     }
 
+    public function veraplicantes()
+    {
+        return User::veraplicantes($_POST['id']);
+    }
+
 }

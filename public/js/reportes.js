@@ -25,11 +25,11 @@ function buscar() {
                 contenedorempresas.innerHTML += '<div class="detallecontenedor">' +
                     '<label>Empresa: ' + empresas[i]['nombre'] + '</label><br>' +
                     '<label>Cedula Juridica: ' + empresas[i]['cedula'] + '</label><br>' +
-                    '<form action="/reporte/empresa" id="aplicaciones'+i+'" name="aplicaciones'+i+'" method="POST" target="_blank" hidden>' +
+                    '<form action="/reporte/empresa" id="aplicaciones' + i + '" name="aplicaciones' + i + '" method="POST" target="_blank" hidden>' +
                     '{{csrf_field()}}' +
                     '<input type="text" id="empresa" name="empresa" value="' + empresas[i]['cedula'] + '">' +
                     '</form>' +
-                    '<input type="submit" value="Generar" class="btnconestilo" form="aplicaciones'+i+'">'+
+                    '<input type="submit" value="Generar" class="btnconestilo" form="aplicaciones' + i + '">' +
                     '</div>';
             }
         })

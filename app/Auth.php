@@ -25,8 +25,8 @@ class Auth extends Model
                 $_SESSION['experienciasuser'] = $experiencias;
                 $_SESSION['meritosuser'] = $meritos;
             } else {
-                $categorias = DB::table('tbl_categoria')->where('cedula', $user->cedula)->get();
-                $ofertas = DB::table('tbl_oferta')->where('cedula', $user->cedula)->get();
+                $categorias = DB::table('tbl_categoria')->where('cedula', $user->cedula)->orderByDesc('id')->get();
+                $ofertas = DB::table('tbl_oferta')->where('cedula', $user->cedula)->orderByDesc('id')->get();
                 //para cada oferta buscar entre los requisitos
                 //esta parte me saco las canas
                 for ($i = 0; $i < sizeof($ofertas); $i++) {
