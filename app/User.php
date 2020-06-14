@@ -393,19 +393,53 @@ class User extends Model
                 $ofertas[$i]->categorias = DB::select(DB::raw('SELECT * FROM `tbl_categoria` WHERE ' . $ids));
             }
         }
-        $_ENV['empresareporte']=$empresa;
-        $_ENV['ofertasreporte']=$ofertas;
+        $_ENV['empresareporte'] = $empresa;
+        $_ENV['ofertasreporte'] = $ofertas;
     }
 
-    public static function reportecurriculum($cedula){
-        $user = DB::table('tbl_usuario')->where('cedula',$cedula)->get();
-        $titulos = DB::table('tbl_titulo')->where('cedula',$cedula)->get();
-        $experiencias = DB::table('tbl_experiencia')->where('cedula',$cedula)->get();
-        $meritos = DB::table('tbl_meritos')->where('cedula',$cedula)->get();
+    public static function reportecurriculum($cedula)
+    {
+        $user = DB::table('tbl_usuario')->where('cedula', $cedula)->get();
+        $titulos = DB::table('tbl_titulo')->where('cedula', $cedula)->get();
+        $experiencias = DB::table('tbl_experiencia')->where('cedula', $cedula)->get();
+        $meritos = DB::table('tbl_meritos')->where('cedula', $cedula)->get();
 
         $_ENV['userreporte'] = $user;
         $_ENV['titulosreporte'] = $titulos;
         $_ENV['experienciasreporte'] = $experiencias;
         $_ENV['meritosreporte'] = $meritos;
+    }
+
+    public static function reporteporcategoria()
+    {
+        $categorias = DB::table('tbl_categoria')->get()->toArray();
+        
+        for ($i = 0; $i < sizeof($categorias); $i++) {
+            $ofertas = [];
+            
+            $ofertasids = DB::table('tbl_oftertascategoria')->where('idCategoria', $categorias[$i]->id)->get();
+            for ($k = 0; $k < sizeof($ofertasids); $k++) {
+                array_push($ofertas, DB::table('tbl_oferta')->where('id', $ofertasids[$k]->idOferta)->get());
+            }
+            
+            for ($k = 0; $k < sizeof($ofertas); $k++) {
+                $ofertas[$k]['requisitos'] = DB::table('tbl_requisito')->where('id_oferta', $ofertas[$k][0]->id)->get();
+                $ofertas[$k]['ofertascategoria'] = DB::table('tbl_oftertascategoria')->where('idOferta', $ofertas[$k][0]->id)->get();
+                $ids = '';
+                for ($x = 0; $x < sizeof($ofertas[$k]['ofertascategoria']); $x++) {
+                    $ids = $ids . 'id=' . $ofertas[$k]['ofertascategoria'][$x]->idCategoria;
+                    if ($x == (sizeof($ofertas[$k]['ofertascategoria']) - 1)) {
+                        break;
+                    } else {
+                        $ids = $ids . ' || ';
+                    }
+                }
+                if ($ids != '') {
+                    $ofertas[$k]['categorias'] = DB::select(DB::raw('SELECT * FROM `tbl_categoria` WHERE ' . $ids));
+                }
+            }
+            $categorias[$i]->ofertas = $ofertas;
+        }
+        $_ENV['categoriasreporte'] = $categorias;
     }
 }

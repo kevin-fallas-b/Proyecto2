@@ -139,4 +139,10 @@ class UserController extends Controller
         $pdf = PDF::loadView('Reportes/reporteCurriculum');
         return $pdf->stream('ReporteCurriculum_'.$_POST['cedula'].'.pdf');
     }
+
+    public function reporteporcategoria(){
+        User::reporteporcategoria();
+        $pdf = PDF::loadView('Reportes/reportePorCategoria');
+        return $pdf->stream('ReportePorCategoria.pdf');
+    }
 }

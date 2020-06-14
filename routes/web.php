@@ -66,3 +66,5 @@ Route::post('/reporte/empresa','UserController@reporteempresa');
 
 Route::post('/reporte/curriculum','UserController@reportecurriculum');
 
+Route::post('/reporte/categorias','UserController@reporteporcategoria');
+
