@@ -397,7 +397,15 @@ class User extends Model
         $_ENV['ofertasreporte']=$ofertas;
     }
 
-    public static function reportecurriculum(){
-        
+    public static function reportecurriculum($cedula){
+        $user = DB::table('tbl_usuario')->where('cedula',$cedula)->get();
+        $titulos = DB::table('tbl_titulo')->where('cedula',$cedula)->get();
+        $experiencias = DB::table('tbl_experiencia')->where('cedula',$cedula)->get();
+        $meritos = DB::table('tbl_meritos')->where('cedula',$cedula)->get();
+
+        $_ENV['userreporte'] = $user;
+        $_ENV['titulosreporte'] = $titulos;
+        $_ENV['experienciasreporte'] = $experiencias;
+        $_ENV['meritosreporte'] = $meritos;
     }
 }

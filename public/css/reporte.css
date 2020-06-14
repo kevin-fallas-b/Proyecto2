@@ -70,3 +70,12 @@
     height: 128px;
     border-radius: 10px;
 }
+
+.fotocandidato{
+    position: absolute;
+    right: 50px;
+    top: 100px;
+    width: 128px;
+    height: 128px;
+    border-radius: 10px;
+}
